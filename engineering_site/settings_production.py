@@ -15,7 +15,10 @@ import os
 DEBUG = False
 
 # Обязательно укажите ваш домен и IP сервера
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS_STR = os.environ.get('ALLOWED_HOSTS', '')
+ALLOWED_HOSTS = [host.strip() for host in ALLOWED_HOSTS_STR.split(',') if host.strip()]
+if not ALLOWED_HOSTS:
+    raise ValueError("ALLOWED_HOSTS must be set in environment variables for production")
 
 # Генерация нового SECRET_KEY для продакшена
 # python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
@@ -24,17 +27,16 @@ if not SECRET_KEY:
     raise ValueError("SECRET_KEY must be set in environment variables for production")
 
 # База данных PostgreSQL (рекомендуется для продакшена)
-# Раскомментируйте и настройте при использовании PostgreSQL
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME', 'engineering_site_db'),
-#         'USER': os.environ.get('DB_USER', 'django_user'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-#         'HOST': os.environ.get('DB_HOST', 'localhost'),
-#         'PORT': os.environ.get('DB_PORT', '5432'),
-#     }
-# }
+import dj_database_url
+
+# Используем DATABASE_URL из .env файла
+DATABASE_URL = os.environ.get('DATABASE_URL')
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL must be set in environment variables for production")
+
+DATABASES = {
+    'default': dj_database_url.parse(DATABASE_URL)
+}
 
 # Настройки безопасности для HTTPS
 SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'True') == 'True'
