@@ -171,5 +171,78 @@ document.addEventListener('DOMContentLoaded', function() {
     styleSheet.type = 'text/css';
     styleSheet.innerText = additionalCSS;
     document.head.appendChild(styleSheet);
+
+    // Navigation Pills functionality
+    const pills = document.querySelectorAll('.pill-btn');
+    const progressFill = document.querySelector('.progress-fill');
+    let userClicked = false;
+    
+    // Initialize progress bar to 25% (first button)
+    if (progressFill) {
+        progressFill.style.width = '25%';
+    }
+    
+    function updateProgress(activeIndex) {
+        const progress = ((activeIndex + 1) / pills.length) * 100;
+        if (progressFill) {
+            progressFill.style.width = `${progress}%`;
+        }
+    }
+    
+    pills.forEach((pill, index) => {
+        pill.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default link behavior
+            userClicked = true;
+            
+            // Remove active class from all pills
+            pills.forEach(p => p.classList.remove('active'));
+            
+            // Add active class to clicked pill
+            this.classList.add('active');
+            
+            // Update progress bar
+            updateProgress(index);
+            
+            // Smooth scroll to target section
+            const target = this.getAttribute('href');
+            const targetElement = document.querySelector(target);
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Auto-update navigation pills based on scroll position
+    const sections = document.querySelectorAll('section[id]');
+    
+    function updateActiveSection() {
+        if (userClicked) {
+            return;
+        }
+        
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (pageYOffset >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        pills.forEach((pill, index) => {
+            pill.classList.remove('active');
+            if (pill.getAttribute('href') === '#' + current) {
+                pill.classList.add('active');
+                updateProgress(index);
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', updateActiveSection);
 });
 </script>

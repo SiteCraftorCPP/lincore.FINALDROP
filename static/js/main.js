@@ -26,6 +26,14 @@ document.addEventListener('DOMContentLoaded', function () {
     initForms();
     initSmoothScroll();
     initPhoneFormatting();
+
+    // Initialize progress bar for heating preparation page
+    const progressFill = document.querySelector('.progress-fill');
+    if (progressFill) {
+        // Set initial progress to 25% (first button)
+        progressFill.style.width = '25%';
+        console.log('Progress bar initialized to 25%');
+    }
     initParallax();
     initModernFeatures();
     initAnimatedBorders();
@@ -271,6 +279,12 @@ function initModals() {
     // Звонок
     const callModal = document.getElementById('callModal');
     const callModalClose = document.getElementById('callModalClose');
+    const callbackBtn = document.getElementById('callbackBtn');
+
+    // Обработка кнопки "Заказать звонок" в шапке
+    if (callbackBtn && callModal) {
+        callbackBtn.addEventListener('click', () => openModal(callModal));
+    }
 
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('btn-call') || e.target.classList.contains('btn-call-specialist')) {
@@ -485,6 +499,32 @@ function showNotification(message, type = 'info') {
     }, 5000);
 }
 
+// Update progress bar for heating preparation page
+function updateHeatingPreparationProgress(targetId) {
+    // Check if we're on the heating preparation page
+    const progressFill = document.querySelector('.progress-fill');
+    const pills = document.querySelectorAll('.pill-btn');
+
+    if (progressFill && pills.length > 0) {
+        // Find the index of the clicked pill
+        let activeIndex = -1;
+        pills.forEach((pill, index) => {
+            if (pill.getAttribute('href') === '#' + targetId) {
+                activeIndex = index;
+                // Update active state
+                pills.forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+            }
+        });
+
+        if (activeIndex >= 0) {
+            const progress = ((activeIndex + 1) / pills.length) * 100;
+            progressFill.style.width = `${progress}%`;
+            console.log('Progress updated to:', progress + '%');
+        }
+    }
+}
+
 // Плавный скролл для якорных ссылок
 function initSmoothScroll() {
     // Обрабатываем все ссылки с якорями
@@ -515,6 +555,9 @@ function initSmoothScroll() {
                         top: targetPosition,
                         behavior: 'smooth'
                     });
+
+                    // Update progress bar for heating preparation page
+                    updateHeatingPreparationProgress(targetId);
                 }
             }
         });

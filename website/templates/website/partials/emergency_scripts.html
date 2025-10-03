@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navigation Pills functionality
     const pills = document.querySelectorAll('.pill-btn');
     const progressFill = document.querySelector('.progress-fill');
+    let userClicked = false;
     
     function updateProgress(activeIndex) {
         const progress = ((activeIndex + 1) / pills.length) * 100;
@@ -79,6 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     pills.forEach((pill, index) => {
         pill.addEventListener('click', function() {
+            userClicked = true;
+            
             // Remove active class from all pills
             pills.forEach(p => p.classList.remove('active'));
             
@@ -109,6 +112,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section[id]');
     
     function updateActiveSection() {
+        if (userClicked) {
+            return;
+        }
+        
         let current = '';
         
         sections.forEach(section => {

@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from .models import (
     ContactInfo, ServiceApplication, TenderInvitation,
-    Photo, GalleryPhoto, PhotoGroup, GalleryGroup, ComplexGalleryGroup, HeatingGalleryGroup, VerificationGalleryGroup, EmergencyPhotoGroup, AuditGalleryGroup, PreparationGalleryGroup, VentilationPhotoGroup, HeatingPhotoGroup
+    Photo, GalleryPhoto, PhotoGroup, GalleryGroup, ComplexGalleryGroup, HeatingGalleryGroup, VerificationGalleryGroup, EmergencyPhotoGroup, AuditGalleryGroup, PreparationGalleryGroup, VentilationPhotoGroup, HeatingPhotoGroup, CommercialProposal
 )
 
 # Создаем группы в админ панели - регистрация будет в конце файла
@@ -83,6 +83,49 @@ class TenderInvitationAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+
+
+@admin.register(CommercialProposal)
+class CommercialProposalAdmin(admin.ModelAdmin):
+    list_display = ['title', 'image_preview', 'is_active', 'created_at', 'updated_at']
+    list_filter = ['is_active', 'created_at', 'updated_at']
+    search_fields = ['title', 'description', 'alt_text']
+    readonly_fields = ['image_preview', 'created_at', 'updated_at']
+    list_editable = ['is_active']
+    date_hierarchy = 'created_at'
+    
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="max-width: 200px; max-height: 200px;" />',
+                obj.image.url
+            )
+        return "Нет изображения"
+    image_preview.short_description = 'Предварительный просмотр'
+    
+    fieldsets = (
+        ('Основная информация', {
+            'fields': ('title', 'description', 'alt_text')
+        }),
+        ('Изображение', {
+            'fields': ('image', 'image_preview')
+        }),
+        ('Настройки', {
+            'fields': ('is_active',)
+        }),
+        ('Системная информация', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    def has_add_permission(self, request):
+        # Разрешить создание только если объекта еще нет
+        return not CommercialProposal.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        # Не разрешать удаление
+        return False
 
 
 # Админ для галереи главной страницы (фотографии объектов - можно добавлять дополнительные)

@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
-from .models import ContactInfo, ServiceApplication, TenderInvitation
+from .models import ContactInfo, ServiceApplication, TenderInvitation, CommercialProposal
 
 
 def get_contact_info():
@@ -376,9 +376,17 @@ def installation(request):
 
 def audit(request):
     """Аудит инженерных систем"""
+    # Получаем активное коммерческое предложение
+    commercial_proposal = None
+    try:
+        commercial_proposal = CommercialProposal.objects.filter(is_active=True).first()
+    except Exception as e:
+        print(f"Error loading commercial proposal: {e}")
+    
     context = {
         'contact_info': get_contact_info(),
         'photos': get_photos_context(),
+        'commercial_proposal': commercial_proposal,
     }
     return render(request, 'website/audit.html', context)
 

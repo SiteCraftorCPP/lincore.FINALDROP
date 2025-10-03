@@ -66,7 +66,7 @@
     <section class="nav-pills-section">
     <div class="container">
             <div class="nav-pills" data-aos="fade-up">
-                <button class="pill-btn active" data-target="services-section">
+                <button class="pill-btn" data-target="services-section">
                     <span class="pill-icon">🔍</span>
                     <span>Услуги</span>
                 </button>
@@ -392,12 +392,27 @@
 
                         <!-- Коммерческое предложение -->
                         <div class="document-card kp-card" data-aos="zoom-in" data-aos-delay="600">
+                            <div class="doc-header">
+                                <div class="doc-icon">
+                                    <span class="animate-kp">📄</span>
+                                </div>
+                                <div class="doc-number">06</div>
+                            </div>
                             <div class="kp-image-container">
-                                <img src="/media/str7/kp.jpg" alt="Коммерческое предложение" class="kp-image">
+                                {% if commercial_proposal %}
+                                    <img src="{{ commercial_proposal.image.url }}" alt="{{ commercial_proposal.alt_text }}" class="kp-image">
+                                {% else %}
+                                    <img src="/media/str7/kp.jpg" alt="Коммерческое предложение" class="kp-image">
+                                {% endif %}
                                 <div class="kp-overlay">
                                     <div class="kp-content">
-                                        <h4>Коммерческое предложение</h4>
-                                        <p>Подробная информация о стоимости услуг</p>
+                                        {% if commercial_proposal %}
+                                            <h4>{{ commercial_proposal.title }}</h4>
+                                            <p>{{ commercial_proposal.description }}</p>
+                                        {% else %}
+                                            <h4>Коммерческое предложение</h4>
+                                            <p>Подробная информация о стоимости услуг</p>
+                                        {% endif %}
                                         <div class="doc-status">
                                             <span class="status-badge kp-badge">КП</span>
                                         </div>

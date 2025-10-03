@@ -183,6 +183,25 @@ class DownloadableDocument(models.Model):
         return self.title
 
 
+class CommercialProposal(models.Model):
+    """Коммерческое предложение для страницы аудита"""
+    title = models.CharField("Название", max_length=200, default="Коммерческое предложение")
+    image = models.ImageField("Изображение", upload_to='commercial_proposals/')
+    alt_text = models.CharField("Альтернативный текст", max_length=200, blank=True, default="Коммерческое предложение")
+    description = models.TextField("Описание", max_length=500, default="Подробная информация о стоимости услуг")
+    is_active = models.BooleanField("Активное", default=True)
+    created_at = models.DateTimeField("Дата создания", auto_now_add=True)
+    updated_at = models.DateTimeField("Дата обновления", auto_now=True)
+    
+    class Meta:
+        verbose_name = "Коммерческое предложение"
+        verbose_name_plural = "Коммерческие предложения"
+        ordering = ['-created_at']
+    
+    def __str__(self):
+        return self.title
+
+
 
 
 # Proxy модели для группировки в админ панели

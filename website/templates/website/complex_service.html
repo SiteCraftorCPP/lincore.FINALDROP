@@ -36,7 +36,7 @@
                         <div class="stat-label">часа в сутки</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" data-count="99">0</div>
+                        <div class="stat-number" data-count="100">0</div>
                         <div class="stat-label">% надежности</div>
                     </div>
         </div>
@@ -67,7 +67,7 @@
     <section class="nav-pills-section">
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
-                <button class="pill-btn active" data-target="water-systems">
+                <button class="pill-btn" data-target="water-systems">
                     <span class="pill-icon">🔧</span>
                     <span>Водоснабжение</span>
                 </button>
@@ -1239,7 +1239,7 @@
     transition: opacity 0.8s ease;
     position: relative;
     white-space: nowrap;
-    border-right: 2px solid rgba(255, 255, 255, 0.8);
+    border-right: none;
     clip-path: inset(0 100% 0 0);
 }
 
@@ -1275,16 +1275,9 @@
 
 /* Анимация печатания текста - отключена */
 
-/* Эффект мигающего курсора */
+/* Эффект мигающего курсора - ОТКЛЮЧЕН */
 .guarantee-text-content::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 2px;
-    background: rgba(255, 255, 255, 0.8);
-    animation: blink 1s infinite;
+    display: none;
 }
 
 @keyframes blink {
@@ -1618,7 +1611,7 @@
     transition: opacity 0.8s ease;
     position: relative;
     white-space: nowrap;
-    border-right: 3px solid var(--color-white);
+    border-right: none;
     clip-path: inset(0 100% 0 0);
 }
 
@@ -1665,14 +1658,7 @@
 }
 
 .cta-text-content::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--color-white);
-    animation: blink 1s infinite;
+    display: none;
 }
 
 @keyframes ctaSlideIn {
@@ -2873,9 +2859,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const pillBtns = document.querySelectorAll('.pill-btn');
     const systemBlocks = document.querySelectorAll('.system-block');
     const progressFill = document.querySelector('.progress-fill');
+    let userClicked = false; // Флаг для отслеживания клика пользователя
 
     pillBtns.forEach((btn, index) => {
         btn.addEventListener('click', () => {
+            userClicked = true; // Отмечаем, что пользователь кликнул
             // Remove active class from all buttons
             pillBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -2898,6 +2886,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Auto-update navigation based on scroll
     const updateNavigation = () => {
+        // Если пользователь уже кликал на кнопки, не обновляем прогресс автоматически
+        if (userClicked) {
+            return;
+        }
+        
         let current = '';
         systemBlocks.forEach(block => {
             const rect = block.getBoundingClientRect();
