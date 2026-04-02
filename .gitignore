@@ -148,16 +148,4 @@ Thumbs.db
 *.zip
 *.txt
 !requirements.txt
-!DEPLOY_CHECKLIST.txt
 !env_example.txt
-!env_production_example.txt
-
-# Keep important deployment files
-!deploy.sh
-!deploy_engineering_site.sh
-!setup_server.sh
-!setup_ssl.sh
-!migrate_to_postgresql.sh
-!engineering_site.service
-!nginx_config.conf
-!gunicorn_config.py

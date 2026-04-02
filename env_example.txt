@@ -1,14 +1,6 @@
-# Django Settings
-SECRET_KEY=your-secret-key-here-generate-new-one-for-production
+# Скопируйте в .env и подставьте свои значения (опционально).
+# Без .env проект использует значения по умолчанию из settings.py.
+
+SECRET_KEY=your-secret-key-here
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
-
-# Database (for production - use PostgreSQL)
-# DATABASE_URL=postgresql://user:password@localhost:5432/dbname
-
-# Security (for production only)
-# SECURE_SSL_REDIRECT=True
-# SESSION_COOKIE_SECURE=True
-# CSRF_COOKIE_SECURE=True
-
-
