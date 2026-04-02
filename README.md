@@ -75,9 +75,8 @@ python manage.py runserver
 ### Деплой на VPS
 
 Подробные инструкции по деплою находятся в файлах:
-- `DEPLOY_GUIDE_FULL.md` - полное руководство по деплою
-- `QUICK_DEPLOY.md` - быстрый деплой
-- `deployment_guide.md` - альтернативное руководство
+- `DEPLOY_GUIDE_FULL.md` — полное руководство по деплою
+- `QUICK_DEPLOY.md` — краткая шпаргалка по деплою
 
 ## 🎯 Основные функции
 
@@ -142,10 +141,7 @@ DATABASE_URL=postgresql://user:password@localhost:5432/dbname
 
 ## 📞 Поддержка
 
-Для вопросов по настройке и деплою обращайтесь к документации в файлах:
-- `DEPLOY_GUIDE_FULL.md`
-- `QUICK_DEPLOY.md`
-- `deployment_guide.md`
+Для вопросов по настройке и деплою см. `DEPLOY_GUIDE_FULL.md` и `QUICK_DEPLOY.md`.
 
 ## 📄 Лицензия
 

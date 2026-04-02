@@ -145,18 +145,10 @@ static_root/
 Thumbs.db
 
 # Project specific
+*.zip
 *.txt
 !requirements.txt
-!README.md
-!DEPLOY_GUIDE_FULL.md
-!QUICK_DEPLOY.md
-!deployment_guide.md
-!github_upload_instructions.md
-!НАЧАТЬ_ОТСЮДА.txt
-!СПИСОК_НОВЫХ_ФАЙЛОВ.txt
-!ИЗМЕНЕНИЯ_ДЛЯ_ДЕПЛОЯ.md
 !DEPLOY_CHECKLIST.txt
-!✅_ВСЕ_ГОТОВО.txt
 !env_example.txt
 !env_production_example.txt
 
