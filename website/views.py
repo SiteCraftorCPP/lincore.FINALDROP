@@ -1,4 +1,5 @@
 from pathlib import Path
+from types import SimpleNamespace
 
 from django.conf import settings
 from django.shortcuts import render
@@ -20,12 +21,17 @@ def get_contact_info():
     return ContactInfo()
 
 
+def _media_photo_placeholder(url, alt_text=''):
+    """Объект как у ImageField: шаблоны используют {{ x.image.url }} и x.alt_text."""
+    return SimpleNamespace(image=SimpleNamespace(url=url), alt_text=alt_text)
+
+
 def get_photos_context():
     """Получить все фотографии для контекста"""
     from django.conf import settings
     from .models import Photo, GalleryPhoto
     import os
-    
+
     photos = {}
     
     # Сначала получаем фотографии из базы данных (приоритет)
@@ -120,10 +126,10 @@ def get_photos_context():
             # Проверяем, есть ли уже фотография команды в БД
             team_key = f'main_team_{i}'
             if team_key not in photos and os.path.exists(photo_path):
-                photos[f'main_str1_{i}'] = {
-                    'url': f'/media/str1/{photo_file}',
-                    'alt_text': f'Фото {i}'
-                }
+                photos[team_key] = _media_photo_placeholder(
+                    f'/media/str1/{photo_file}',
+                    f'Специалист {i}',
+                )
         
         # Новые фотографии для галереи в конце сайта - только если нет в БД
         for i in range(14, 18):  # photo14.jpg - photo17.jpg
@@ -132,10 +138,10 @@ def get_photos_context():
             gallery_index = i - 13  # 1, 2, 3, 4
             gallery_key = f'main_gallery_{gallery_index}'
             if gallery_key not in photos and os.path.exists(photo_path):
-                photos[gallery_key] = {
-                    'url': f'/media/str1/{photo_file}',
-                    'alt_text': f'Галерея фото {gallery_index}'
-                }
+                photos[gallery_key] = _media_photo_placeholder(
+                    f'/media/str1/{photo_file}',
+                    f'Галерея фото {gallery_index}',
+                )
     
     # Фотографии для страниц услуг (str2)
     str2_path = os.path.join(media_root, 'str2')
@@ -144,44 +150,44 @@ def get_photos_context():
             photo_file = f'photo{i}.jpg'
             photo_path = os.path.join(str2_path, photo_file)
             if os.path.exists(photo_path):
-                photos[f'service_str2_{i}'] = {
-                    'url': f'/media/str2/{photo_file}',
-                    'alt_text': f'Фото {i}'
-                }
+                photos[f'service_str2_{i}'] = _media_photo_placeholder(
+                    f'/media/str2/{photo_file}',
+                    f'Фото {i}',
+                )
                 # Добавляем ключи для страницы комплексного обслуживания - только если нет в БД
                 complex_index = i - 4  # 1, 2, 3, 4
                 complex_key = f'complex_str2_{complex_index}'
                 if complex_key not in photos:
-                    photos[complex_key] = {
-                        'url': f'/media/str2/{photo_file}',
-                        'alt_text': f'Фото {i}'
-                    }
-                
+                    photos[complex_key] = _media_photo_placeholder(
+                        f'/media/str2/{photo_file}',
+                        f'Фото {i}',
+                    )
+
                 # Добавляем ключи для команды комплексного обслуживания - только если нет в БД
                 if i == 5:  # photo5.jpg
                     if 'complex_team_1' not in photos:
-                        photos['complex_team_1'] = {
-                            'url': f'/media/str2/{photo_file}',
-                            'alt_text': 'Специалист 1 - Комплексное обслуживание'
-                        }
+                        photos['complex_team_1'] = _media_photo_placeholder(
+                            f'/media/str2/{photo_file}',
+                            'Специалист 1 - Комплексное обслуживание',
+                        )
                 elif i == 6:  # photo6.jpg
                     if 'complex_team_2' not in photos:
-                        photos['complex_team_2'] = {
-                            'url': f'/media/str2/{photo_file}',
-                            'alt_text': 'Специалист 2 - Комплексное обслуживание'
-                        }
+                        photos['complex_team_2'] = _media_photo_placeholder(
+                            f'/media/str2/{photo_file}',
+                            'Специалист 2 - Комплексное обслуживание',
+                        )
                 elif i == 7:  # photo7.jpg
                     if 'complex_electro_1' not in photos:
-                        photos['complex_electro_1'] = {
-                            'url': f'/media/str2/{photo_file}',
-                            'alt_text': 'Электрохозяйство 1 - Комплексное обслуживание'
-                        }
+                        photos['complex_electro_1'] = _media_photo_placeholder(
+                            f'/media/str2/{photo_file}',
+                            'Электрохозяйство 1 - Комплексное обслуживание',
+                        )
                 elif i == 8:  # photo8.jpg
                     if 'complex_electro_2' not in photos:
-                        photos['complex_electro_2'] = {
-                            'url': f'/media/str2/{photo_file}',
-                            'alt_text': 'Электрохозяйство 2 - Комплексное обслуживание'
-                        }
+                        photos['complex_electro_2'] = _media_photo_placeholder(
+                            f'/media/str2/{photo_file}',
+                            'Электрохозяйство 2 - Комплексное обслуживание',
+                        )
     
     # Фотографии str3
     str3_path = os.path.join(media_root, 'str3')
@@ -190,29 +196,29 @@ def get_photos_context():
         photo_file = 'photo9.jpg'
         photo_path = os.path.join(str3_path, photo_file)
         if os.path.exists(photo_path):
-            photos['service_str3_9'] = {
-                'url': f'/media/str3/{photo_file}',
-                'alt_text': 'Фото 9'
-            }
+            photos['service_str3_9'] = _media_photo_placeholder(
+                f'/media/str3/{photo_file}',
+                'Фото 9',
+            )
             # Добавляем ключ для страницы ИТП
-            photos['heating_str3_1'] = {
-                'url': f'/media/str3/{photo_file}',
-                'alt_text': 'ИТП отопления'
-            }
+            photos['heating_str3_1'] = _media_photo_placeholder(
+                f'/media/str3/{photo_file}',
+                'ИТП отопления',
+            )
             # Добавляем ключ для команды ИТП
-            photos['heating_team_1'] = {
-                'url': f'/media/str3/{photo_file}',
-                'alt_text': 'Команда ИТП 1'
-            }
+            photos['heating_team_1'] = _media_photo_placeholder(
+                f'/media/str3/{photo_file}',
+                'Команда ИТП 1',
+            )
         
         # photoFF.jpg
         photo_file = 'photoFF.jpg'
         photo_path = os.path.join(str3_path, photo_file)
         if os.path.exists(photo_path):
-            photos['heating_team_2'] = {
-                'url': f'/media/str3/{photo_file}',
-                'alt_text': 'Команда ИТП 2'
-            }
+            photos['heating_team_2'] = _media_photo_placeholder(
+                f'/media/str3/{photo_file}',
+                'Команда ИТП 2',
+            )
         
         # Новые фотографии галереи - только если нет в БД
         # Убираем жестко заданный список файлов, чтобы не ограничивать количество фотографий
@@ -222,10 +228,10 @@ def get_photos_context():
             heating_key = f'heating_gallery_{i}'
             # Проверяем, что ключ не занят фотографией из БД
             if heating_key not in photos and os.path.exists(photo_path):
-                photos[heating_key] = {
-                    'url': f'/media/str3/{photo_file}.jpg',
-                    'alt_text': f'Работа специалистов ИТП {i}'
-                }
+                photos[heating_key] = _media_photo_placeholder(
+                    f'/media/str3/{photo_file}.jpg',
+                    f'Работа специалистов ИТП {i}',
+                )
     
     # Фотографии str4 - только если нет в БД
     str4_path = os.path.join(media_root, 'str4')
@@ -237,10 +243,10 @@ def get_photos_context():
             verification_key = f'verification_gallery_{i}'
             # Проверяем, что ключ не занят фотографией из БД
             if verification_key not in photos and os.path.exists(photo_path):
-                photos[verification_key] = {
-                    'url': f'/media/str4/{photo_file}.jpg',
-                    'alt_text': f'Работа специалистов поверки {i}'
-                }
+                photos[verification_key] = _media_photo_placeholder(
+                    f'/media/str4/{photo_file}.jpg',
+                    f'Работа специалистов поверки {i}',
+                )
     
     # Фотографии str5
     str5_path = os.path.join(media_root, 'str5')
@@ -249,16 +255,16 @@ def get_photos_context():
             photo_file = f'photo{i}.jpg'
             photo_path = os.path.join(str5_path, photo_file)
             if os.path.exists(photo_path):
-                photos[f'service_str5_{i}'] = {
-                    'url': f'/media/str5/{photo_file}',
-                    'alt_text': f'Фото {i}'
-                }
+                photos[f'service_str5_{i}'] = _media_photo_placeholder(
+                    f'/media/str5/{photo_file}',
+                    f'Фото {i}',
+                )
                 # Добавляем ключи для галереи аварийной службы
                 gallery_index = i - 9  # 1, 2, 3, 4
-                photos[f'emergency_gallery_{gallery_index}'] = {
-                    'url': f'/media/str5/{photo_file}',
-                    'alt_text': f'Аварийная служба фото {gallery_index}'
-                }
+                photos[f'emergency_gallery_{gallery_index}'] = _media_photo_placeholder(
+                    f'/media/str5/{photo_file}',
+                    f'Аварийная служба фото {gallery_index}',
+                )
     
     # Фотографии str8
     str8_path = os.path.join(media_root, 'str8')
@@ -267,19 +273,19 @@ def get_photos_context():
         photo_file = 'photougtt.jpg'
         photo_path = os.path.join(str8_path, photo_file)
         if os.path.exists(photo_path):
-            photos['preparation_team_1'] = {
-                'url': f'/media/str8/{photo_file}',
-                'alt_text': 'Специалист подготовки 1'
-            }
+            photos['preparation_team_1'] = _media_photo_placeholder(
+                f'/media/str8/{photo_file}',
+                'Специалист подготовки 1',
+            )
         
         # photoyktt.jpg
         photo_file = 'photoyktt.jpg'
         photo_path = os.path.join(str8_path, photo_file)
         if os.path.exists(photo_path):
-            photos['preparation_team_2'] = {
-                'url': f'/media/str8/{photo_file}',
-                'alt_text': 'Специалист подготовки 2'
-            }
+            photos['preparation_team_2'] = _media_photo_placeholder(
+                f'/media/str8/{photo_file}',
+                'Специалист подготовки 2',
+            )
     
     # Фотографии str9
     str9_path = os.path.join(media_root, 'str9')
@@ -288,19 +294,19 @@ def get_photos_context():
         photo_file = 'vent1.jpg'
         photo_path = os.path.join(str9_path, photo_file)
         if 'ventilation_team_1' not in photos and os.path.exists(photo_path):
-            photos['ventilation_team_1'] = {
-                'url': f'/media/str9/{photo_file}',
-                'alt_text': 'Специалист вентиляции 1'
-            }
+            photos['ventilation_team_1'] = _media_photo_placeholder(
+                f'/media/str9/{photo_file}',
+                'Специалист вентиляции 1',
+            )
         
         # vent2.jpg - только если нет в БД
         photo_file = 'vent2.jpg'
         photo_path = os.path.join(str9_path, photo_file)
         if 'ventilation_team_2' not in photos and os.path.exists(photo_path):
-            photos['ventilation_team_2'] = {
-                'url': f'/media/str9/{photo_file}',
-                'alt_text': 'Специалист вентиляции 2'
-            }
+            photos['ventilation_team_2'] = _media_photo_placeholder(
+                f'/media/str9/{photo_file}',
+                'Специалист вентиляции 2',
+            )
     
     # Фотографии для галереи аудита (str7)
     str7_path = os.path.join(media_root, 'str7')
@@ -309,19 +315,19 @@ def get_photos_context():
         photo_file = 'photoug.jpg'
         photo_path = os.path.join(str7_path, photo_file)
         if 'audit_gallery_1' not in photos and os.path.exists(photo_path):
-            photos['audit_gallery_1'] = {
-                'url': f'/media/str7/{photo_file}',
-                'alt_text': 'Аудит инженерных систем - Работа 1'
-            }
+            photos['audit_gallery_1'] = _media_photo_placeholder(
+                f'/media/str7/{photo_file}',
+                'Аудит инженерных систем - Работа 1',
+            )
         
         # photoyk.jpg - только если нет в БД
         photo_file = 'photoyk.jpg'
         photo_path = os.path.join(str7_path, photo_file)
         if 'audit_gallery_2' not in photos and os.path.exists(photo_path):
-            photos['audit_gallery_2'] = {
-                'url': f'/media/str7/{photo_file}',
-                'alt_text': 'Аудит инженерных систем - Работа 2'
-            }
+            photos['audit_gallery_2'] = _media_photo_placeholder(
+                f'/media/str7/{photo_file}',
+                'Аудит инженерных систем - Работа 2',
+            )
     
     return photos
 
