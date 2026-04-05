@@ -4,12 +4,11 @@
 /* Modern Hero Section */
 .modern-hero-section {
     position: relative;
-    min-height: auto;
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #dc3545 0%, #c82333 25%, #a71e2a 75%, #721c24 100%);
     overflow: hidden;
-    padding: 40px 0 210px !important;
+    padding: 0 0 100px;
 }
 
 .hero-gradient {
@@ -71,7 +70,7 @@
     color: white;
     font-size: 16px;
     font-weight: 600;
-    margin-top: 40px !important;
+    margin-top: 12px !important;
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -358,6 +357,15 @@
     box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
 }
 
+.pill-btn:focus {
+    outline: none;
+}
+
+.pill-btn:focus-visible {
+    outline: 2px solid #dc3545;
+    outline-offset: 3px;
+}
+
 .pill-icon {
     font-size: 16px;
 }
@@ -382,10 +390,6 @@
 .section-header {
     text-align: center;
     margin-bottom: 60px;
-}
-
-.section-icon {
-    margin-bottom: 20px;
 }
 
 .icon-wrapper {
@@ -545,12 +549,6 @@
 .feature-point:hover {
     background: #fef2f2;
     transform: translateX(5px);
-}
-
-.feature-emoji {
-    font-size: 20px;
-    flex-shrink: 0;
-    margin-top: 2px;
 }
 
 .feature-point span:last-child {
@@ -1069,10 +1067,6 @@
     margin: 0 auto;
 }
 
-.cta-icon {
-    margin-bottom: 30px;
-}
-
 .heating-icon {
     font-size: 64px;
     animation: heatingPulse2 2s ease-in-out infinite;
@@ -1143,122 +1137,7 @@
     font-size: 20px;
 }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 0;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: modalSlideIn 0.3s ease-out;
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.modal-header {
-    background: linear-gradient(135deg, #dc3545 0%, #a71e2a 100%);
-    color: white;
-    padding: 20px 30px;
-    border-radius: 12px 12px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-    color: white;
-}
-
-.close {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-}
-
-.close:hover {
-    opacity: 0.7;
-}
-
-.modal-form {
-    padding: 30px;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #374151;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-    box-sizing: border-box;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #dc3545;
-    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
-}
-
-.submit-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #dc3545 0%, #a71e2a 100%);
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
-}
-
-.submit-btn:active {
-    transform: translateY(0);
-}
+/* Модальные окна (#quoteModal и др.): static/css/styles.css */
 
 /* Animation Keyframes */
 @keyframes animated-heating {
@@ -1363,17 +1242,6 @@
     50% { transform: scale(1.15); }
 }
 
-@keyframes animated-heating-pulse {
-    0%, 100% {
-        transform: scale(1) rotate(0deg);
-        filter: brightness(1);
-    }
-    50% {
-        transform: scale(1.1) rotate(5deg);
-        filter: brightness(1.3);
-    }
-}
-
 @keyframes animated-document {
     0%, 100% { transform: scale(1) translateY(0); }
     50% { transform: scale(1.1) translateY(-2px); }
@@ -1405,7 +1273,6 @@
 .animated-temperature { animation: animated-temperature 2s ease-in-out infinite; }
 .animated-scheme { animation: animated-scheme 2s ease-in-out infinite; }
 .animated-moek { animation: animated-moek 2s ease-in-out infinite; }
-.animated-heating-pulse { animation: animated-heating-pulse 2s ease-in-out infinite; }
 .animated-document { animation: animated-document 2s ease-in-out infinite; }
 .animated-download { animation: animated-download 2s ease-in-out infinite; }
 
@@ -1444,21 +1311,72 @@
         gap: 20px;
     }
     
-    .timeline-container::before {
-        left: 30px;
+    /* Таймлайн «Технологическая последовательность»: на мобилке — колонка, без сжатия текста в одну строку с иконкой */
+    .workflow-timeline-section {
+        padding: 56px 0 72px;
     }
-    
-    .timeline-item {
-        flex-direction: row !important;
-        padding-left: 80px;
+
+    .workflow-timeline-section .section-header {
+        padding: 0 12px;
+        margin-bottom: 8px;
     }
-    
-    .timeline-number {
-        left: 30px;
-    }
-    
-    .timeline-content {
+
+    .workflow-timeline-section .section-subtitle {
         max-width: none;
+        padding: 0 8px;
+        line-height: 1.55;
+    }
+
+    .timeline-container {
+        padding: 28px 0 36px;
+    }
+
+    .timeline-container::before {
+        left: 22px;
+    }
+
+    .timeline-item {
+        flex-direction: column !important;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 44px;
+        padding-left: 54px;
+        padding-right: 12px;
+        box-sizing: border-box;
+    }
+
+    .timeline-number {
+        left: 22px;
+        transform: translateX(-50%);
+        width: 44px;
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .timeline-icon {
+        margin: 0;
+        width: 52px;
+        height: 52px;
+        font-size: 24px;
+    }
+
+    .timeline-content {
+        width: 100%;
+        max-width: 100%;
+        padding: 22px 18px;
+        box-sizing: border-box;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.15rem;
+        line-height: 1.35;
+        margin-bottom: 12px;
+    }
+
+    .timeline-content li {
+        padding: 10px 0 10px 22px;
+        font-size: 0.95rem;
+        line-height: 1.55;
     }
     
     .objects-grid {
@@ -1495,17 +1413,13 @@
 }
 
 @media (max-width: 480px) {
-    .modern-hero-section {
-        padding: 15px 0 100px;
-    }
-    
     .hero-content-wrapper {
         padding: 10px;
     }
     
     .hero-badge {
-        margin-top: 30px !important;
-        margin-bottom: 30px;
+        margin-top: 8px !important;
+        margin-bottom: 24px;
         padding: 12px 20px;
         font-size: 14px;
     }
@@ -1540,15 +1454,46 @@
         padding: 30px 20px;
     }
     
-    .timeline-item {
-        padding-left: 60px;
+    .workflow-timeline-section {
+        padding: 48px 0 64px;
     }
-    
+
+    .timeline-item {
+        padding-left: 48px;
+        padding-right: 8px;
+        margin-bottom: 40px;
+        gap: 12px;
+    }
+
+    .timeline-container::before {
+        left: 18px;
+    }
+
     .timeline-number {
-        left: 20px;
+        left: 18px;
         width: 40px;
         height: 40px;
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    .timeline-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+    }
+
+    .timeline-content {
+        padding: 18px 16px;
+    }
+
+    .timeline-content h3 {
+        font-size: 1.05rem;
+    }
+
+    .timeline-content li {
+        font-size: 0.9375rem;
+        line-height: 1.5;
+        padding: 8px 0 8px 20px;
     }
     
     .objects-grid {
@@ -1567,28 +1512,6 @@
     .cta-title {
         font-size: 1.8rem;
     }
-    
-    .modal-content {
-        margin: 10% auto;
-        width: 95%;
-    }
-    
-    .modal-header {
-        padding: 15px 20px;
-    }
-    
-    .modal-header h3 {
-        font-size: 20px;
-    }
-    
-    .modal-form {
-        padding: 20px;
-    }
-}
-
-/* Force update for hero section padding */
-.modern-hero-section {
-    padding: 40px 0 50px !important;
 }
 
 /* Стили для галереи работ */
@@ -1752,6 +1675,19 @@
 .gallery-nav-btn span {
     font-size: 1.2rem;
     font-weight: bold;
+}
+
+/* В styles.css для всех section задано padding-top: 0 !important — без этого верхний отступ галереи сбрасывается */
+html body .modern-service-page section.works-gallery-modern {
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+}
+
+@media (max-width: 768px) {
+    html body .modern-service-page section.works-gallery-modern {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
 }
 </style>
 

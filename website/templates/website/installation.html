@@ -54,7 +54,7 @@
         </div>
         
         <!-- Scroll indicator -->
-        <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="600">
+        <div class="scroll-indicator">
             <div class="scroll-mouse">
                 <div class="scroll-wheel"></div>
             </div>
@@ -208,79 +208,72 @@
                 <p class="section-subtitle">Поэтапный подход к каждому проекту</p>
             </div>
             
-            <div class="process-timeline" data-aos="fade-up" data-aos-delay="200">
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
-                    <div class="timeline-icon">
-                        <span class="icon animate-visit">🏠</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h4>Выезд специалиста на объект</h4>
-                        <ul>
+            <div class="process-steps" data-aos="fade-up" data-aos-delay="200">
+                <article class="process-steps__row timeline-item">
+                    <div class="process-steps__index" aria-hidden="true">1</div>
+                    <div class="process-steps__body">
+                        <h3 class="process-steps__title">Выезд специалиста на объект</h3>
+                        <ul class="process-steps__list">
                             <li>Бесплатный выезд инженера-проектировщика</li>
                             <li>Осмотр объекта, замеры, изучение технических условий</li>
                             <li>Консультация по подбору оборудования и оптимальных решений</li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
-                    <div class="timeline-icon">
-                        <span class="icon animate-blueprint">📋</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h4>Диагностика и проектирование</h4>
-                        <ul>
+                </article>
+                <article class="process-steps__row timeline-item">
+                    <div class="process-steps__index" aria-hidden="true">2</div>
+                    <div class="process-steps__body">
+                        <h3 class="process-steps__title">Диагностика и проектирование</h3>
+                        <ul class="process-steps__list">
                             <li>Технический анализ существующих коммуникаций</li>
                             <li>Разработка проектной документации (при необходимости)</li>
                             <li>Подбор оборудования и материалов</li>
                             <li>Составление схем монтажа</li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
-                    <div class="timeline-icon">
-                        <span class="icon animate-calculator">💰</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h4>Смета и согласование</h4>
-                        <ul>
+                </article>
+                <article class="process-steps__row timeline-item">
+                    <div class="process-steps__index" aria-hidden="true">3</div>
+                    <div class="process-steps__body">
+                        <h3 class="process-steps__title">Смета и согласование</h3>
+                        <ul class="process-steps__list">
                             <li>Детальный расчет стоимости работ и материалов</li>
                             <li>Формирование прозрачной сметы без скрытых платежей</li>
                             <li>Согласование сроков и этапов выполнения работ</li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
-                    <div class="timeline-icon">
-                        <span class="icon animate-work">🔨</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h4>Производство работ</h4>
-                        <ul>
+                </article>
+                <article class="process-steps__row timeline-item">
+                    <div class="process-steps__index" aria-hidden="true">4</div>
+                    <div class="process-steps__body">
+                        <h3 class="process-steps__title">Производство работ</h3>
+                        <ul class="process-steps__list">
                             <li>Доставка материалов и оборудования на объект</li>
                             <li>Выполнение монтажных работ в согласованные сроки</li>
                             <li>Поэтапный контроль качества выполняемых работ</li>
                             <li>Соблюдение норм безопасности и СНИПов</li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="timeline-item" data-aos="fade-right" data-aos-delay="500">
-                    <div class="timeline-icon">
-                        <span class="icon animate-check">✅</span>
-                    </div>
-                    <div class="timeline-content">
-                        <h4>Пусконаладка и сдача работ</h4>
-                        <ul>
+                </article>
+                <article class="process-steps__row timeline-item">
+                    <div class="process-steps__index" aria-hidden="true">5</div>
+                    <div class="process-steps__body">
+                        <h3 class="process-steps__title">Пусконаладка и сдача работ</h3>
+                        <ul class="process-steps__list">
                             <li>Испытание и наладка смонтированного оборудования</li>
                             <li>Обучение персонала работе с системами</li>
                             <li>Подписание актов выполненных работ</li>
                             <li>Передача исполнительной документации</li>
                         </ul>
                     </div>
-                </div>
+                </article>
+            </div>
+
+            <div class="process-section-cta" data-aos="fade-up" data-aos-delay="300">
+                <button type="button" class="btn-modern btn-primary" onclick="openApplicationModal()">
+                    <span class="btn-text">Оставить заявку</span>
+                    <span class="btn-icon">🛠</span>
+                </button>
             </div>
         </div>
     </section>
@@ -417,28 +410,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section-modern">
-        <div class="cta-gradient"></div>
-        <div class="container">
-            <div class="cta-content" data-aos="fade-up">
-                <div class="cta-icon">
-                    <span class="installation-icon">🛠</span>
-                </div>
-                <h3 class="cta-title">Готовы начать проект? Получите бесплатную консультацию и расчет стоимости!</h3>
-                <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
-                    <button class="btn-cta-primary" onclick="openApplicationModal()">
-                        <span class="btn-text">Оставить заявку</span>
-                        <span class="btn-icon">🛠</span>
-                    </button>
-                    <button class="btn-cta-secondary" onclick="openCallbackModal()">
-                        <span class="btn-text">Заказать звонок специалиста</span>
-                        <span class="btn-icon">📞</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 
 <!-- Application Modal -->
@@ -468,22 +439,46 @@
 <div id="callbackModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>Заказать звонок специалиста</h3>
+            <div class="callback-modal-header-text">
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <h3>Заказать обратный звонок</h3>
+            </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
         </div>
-        <div class="modal-body">
-            <form class="modal-form" id="callbackForm">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" name="phone" placeholder="Телефон" required>
-                </div>
-                <input type="hidden" name="service_type" value="installation_service">
-                <button type="submit" class="btn-submit">Заказать звонок</button>
-            </form>
-        </div>
+        <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
+            {% csrf_token %}
+            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
+            <div class="form-group">
+                <label for="callbackName">ФИО *</label>
+                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="callbackPhone">Телефон *</label>
+                <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
+            </div>
+            <input type="hidden" name="service_type" value="installation_service">
+            <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
+            <button type="submit" class="submit-btn">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer_contact_lead %}
+<div class="cta-content" data-aos="fade-up">
+    <div class="cta-icon">
+        <span class="installation-icon">🛠</span>
+    </div>
+    <h3 class="cta-title">Готовы начать проект? Получите бесплатную консультацию и расчет стоимости!</h3>
+    <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
+        <button class="btn-cta-primary" onclick="openApplicationModal()">
+            <span class="btn-text">Оставить заявку</span>
+            <span class="btn-icon">🛠</span>
+        </button>
+        <button class="btn-cta-secondary" onclick="openCallbackModal()">
+            <span class="btn-text">Заказать звонок специалиста</span>
+            <span class="btn-icon">📞</span>
+        </button>
     </div>
 </div>
 {% endblock %}

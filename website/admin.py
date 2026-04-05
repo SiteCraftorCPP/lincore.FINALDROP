@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from .models import (
-    ContactInfo, ServiceApplication, TenderInvitation,
+    ContactInfo, ServiceApplication, CallbackRequest, TenderInvitation,
     Photo, GalleryPhoto, PhotoGroup, GalleryGroup, ComplexGalleryGroup, HeatingGalleryGroup, VerificationGalleryGroup, EmergencyPhotoGroup, AuditGalleryGroup, PreparationGalleryGroup, VentilationPhotoGroup, HeatingPhotoGroup, CommercialProposal
 )
 
@@ -14,8 +14,8 @@ from .models import (
 class ContactInfoAdmin(admin.ModelAdmin):
     list_display = ['__str__', 'phone_main']
     fieldsets = (
-        ('Основная информация', {
-            'fields': ('address',)
+        ('Юридическая информация (футер)', {
+            'fields': ('legal_name', 'inn', 'address', 'email_main'),
         }),
         ('Единый номер телефона', {
             'fields': ('phone_main',),
@@ -60,6 +60,36 @@ class ServiceApplicationAdmin(admin.ModelAdmin):
             'fields': ('service_type', 'request_type', 'message', 'preferred_time', 'created_at', 'processed')
         }),
     )
+
+
+@admin.register(CallbackRequest)
+class CallbackRequestAdmin(admin.ModelAdmin):
+    list_display = ['full_name', 'phone', 'service_type_display', 'created_at', 'processed']
+    list_filter = ['service_type', 'processed', 'created_at']
+    search_fields = ['full_name', 'phone']
+    readonly_fields = ['created_at', 'request_type']
+    list_editable = ['processed']
+    date_hierarchy = 'created_at'
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).filter(request_type='callback')
+
+    def service_type_display(self, obj):
+        return obj.get_service_type_display()
+
+    service_type_display.short_description = 'Страница-источник'
+
+    fieldsets = (
+        ('Данные заявителя', {
+            'fields': ('full_name', 'phone', 'organization')
+        }),
+        ('Заявка', {
+            'fields': ('service_type', 'request_type', 'message', 'preferred_time', 'created_at', 'processed')
+        }),
+    )
+
+    def has_add_permission(self, request):
+        return False
 
 
 @admin.register(TenderInvitation)

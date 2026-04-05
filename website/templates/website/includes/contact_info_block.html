@@ -1,0 +1,41 @@
+{# Реквизиты, чипы телефон/e-mail и карта — без обёртки <footer> #}
+<div class="site-footer-contacts__legal" aria-label="Реквизиты организации">
+    <p class="site-footer-contacts__legal-line site-footer-contacts__legal-line--name">{{ contact_info.legal_name|default:"ООО «Линкор»" }}</p>
+    <p class="site-footer-contacts__legal-line">ИНН {{ contact_info.inn|default:"7708424070" }}</p>
+    <p class="site-footer-contacts__legal-line">{{ contact_info.address|default:"г. Москва, шоссе Энтузиастов, 31с38, оф. 430" }}</p>
+    <p class="site-footer-contacts__legal-line">
+        <a href="mailto:{{ contact_info.email_main|default:'service@lin-cor.ru' }}" class="site-footer-contacts__legal-mail">{{ contact_info.email_main|default:"service@lin-cor.ru" }}</a>
+    </p>
+</div>
+
+<div class="site-footer-contacts__chips">
+    <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="site-footer-contacts__chip site-footer-contacts__chip--phone">
+        <span class="site-footer-contacts__chip-icon" aria-hidden="true">📞</span>
+        <span class="site-footer-contacts__chip-label">Телефон</span>
+        <span class="site-footer-contacts__chip-value">{{ contact_info.phone_main|default:"+7 (952) 064-09-55" }}</span>
+    </a>
+    <a href="mailto:{{ contact_info.email_main|default:'service@lin-cor.ru' }}" class="site-footer-contacts__chip site-footer-contacts__chip--email">
+        <span class="site-footer-contacts__chip-icon" aria-hidden="true">✉️</span>
+        <span class="site-footer-contacts__chip-label">E-mail</span>
+        <span class="site-footer-contacts__chip-value">{{ contact_info.email_main|default:"service@lin-cor.ru" }}</span>
+    </a>
+</div>
+
+<div class="site-footer-contacts__map-block">
+    <div class="site-footer-contacts__map-header">
+        <p class="site-footer-contacts__address">
+            <span class="site-footer-contacts__address-icon" aria-hidden="true">📍</span>
+            <span>{{ contact_info.address|default:"г. Москва, шоссе Энтузиастов, 31с38, оф. 430" }}</span>
+        </p>
+    </div>
+    <div class="site-footer-contacts__map-frame">
+        <iframe
+            title="Карта: шоссе Энтузиастов, 31с38"
+            src="https://yandex.ru/map-widget/v1/?ll=37.7524234%2C55.7593914&amp;z=17&amp;pt=37.7524234%2C55.7593914%2Cpm2rdm"
+            width="100%"
+            height="450"
+            frameborder="0"
+            loading="lazy">
+        </iframe>
+    </div>
+</div>

@@ -6,6 +6,7 @@ app_name = 'website'
 urlpatterns = [
     # Главная страница
     path('', views.index, name='index'),
+    path('documents/personal-data/', views.personal_data_policy, name='personal_data_policy'),
     
     # Страницы услуг
     path('services/complex/', views.complex_service, name='complex_service'),

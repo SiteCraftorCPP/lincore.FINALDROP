@@ -7,12 +7,11 @@
 /* Hero Section */
 .modern-hero-section {
     position: relative;
-    min-height: auto;
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #1e1a6b 0%, #3d5ba5 50%, #0f766e 100%);
     overflow: hidden;
-    padding: 40px 0 140px !important;
+    padding: 0 0 100px;
 }
 
 .hero-gradient {
@@ -74,7 +73,7 @@
     color: white;
     font-size: 16px;
     font-weight: 600;
-    margin-top: 40px !important;
+    margin-top: 12px !important;
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -246,7 +245,6 @@
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.5);
 }
-}
 
 .btn-modern.btn-secondary:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -312,8 +310,15 @@
     padding: 40px 0 0 0;
     border-bottom: none;
     position: sticky;
-    top: 100px;
+    top: var(--header-offset, 100px);
     z-index: 10;
+}
+
+/* Якоря секций: учёт фиксированной шапки и липкой полосы с пилюлями */
+#about-company,
+#technical-service,
+#advantages-section {
+    scroll-margin-top: calc(var(--header-offset, 100px) + 6.75rem);
 }
 
 .nav-pills {
@@ -444,18 +449,22 @@
     position: relative;
 }
 
+/* Только эмодзи: без gradient + background-clip:text — иначе браузер рисует их сплошным синим пятном */
 .section-icon {
     font-size: 50px;
-    background: linear-gradient(135deg, #1e1a6b, #3d5ba5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     line-height: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 60px;
     height: 60px;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: unset;
+    filter: none;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif;
 }
 
 .section-title {
@@ -566,17 +575,22 @@
     position: relative;
 }
 
-.modern-services-container::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 200px;
-    height: 4px;
-    background: linear-gradient(90deg, #1e1a6b, #3d5ba5, #0f766e);
-    border-radius: 2px;
-    box-shadow: 0 0 20px rgba(15, 118, 110, 0.3);
+.services-grid-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 52px;
+    padding-top: 8px;
+}
+
+/* На светлом фоне секции: белая кнопка с белой рамкой не видна */
+.services-grid-cta .btn-modern.btn-primary {
+    border: 2px solid #1e1a6b;
+    box-shadow: 0 4px 18px rgba(30, 26, 107, 0.12);
+}
+
+.services-grid-cta .btn-modern.btn-primary:hover {
+    border-color: #0f766e;
+    box-shadow: 0 15px 35px rgba(15, 118, 110, 0.35);
 }
 
 .service-category {
@@ -1018,9 +1032,40 @@
 .combination-icon {
     font-size: 4rem;
     margin-bottom: 25px;
-    color: #1e1a6b;
-    filter: drop-shadow(0 4px 8px rgba(30, 26, 107, 0.3));
+    color: unset;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
+    filter: none;
     animation: iconFloat 3s ease-in-out infinite;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+/* Обычный цветной смайлик без синей тени/затемнения, над текстом */
+.combination-item--plain-emoji {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.combination-icon--plain {
+    filter: none !important;
+    animation: none;
+    color: unset !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: unset !important;
+    margin-bottom: 18px;
+    font-size: 3.75rem;
+    line-height: 1;
+    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+.combination-item--plain-emoji h4 {
+    width: 100%;
+    max-width: 100%;
 }
 
 .combination-item h4 {
@@ -1391,131 +1436,7 @@
     box-shadow: 0 12px 35px rgba(255, 255, 255, 0.1);
 }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 10000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.modal-content {
-    background: linear-gradient(135deg, #1e1a6b 0%, #2d1b69 100%);
-    margin: 5% auto;
-    padding: 0;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: slideIn 0.3s ease;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 30px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.modal-header h3 {
-    color: var(--color-white);
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0;
-}
-
-.close {
-    color: var(--color-white);
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close:hover {
-    color: #ff6b6b;
-}
-
-.modal-form {
-    padding: 30px;
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    color: var(--color-white);
-    font-weight: 600;
-    margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 15px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-white);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.15);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.submit-btn {
-    width: 100%;
-    background: linear-gradient(45deg, #1e1a6b, #3d5ba5);
-    color: white;
-    border: none;
-    padding: 18px;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(30, 26, 107, 0.3);
-    background: linear-gradient(45deg, #2d2490, #4a6bb8);
-}
+/* Модальные окна: #applicationModal / #callbackModal — static/css/styles.css */
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -1533,12 +1454,6 @@
         align-items: center;
     }
     
-    .nav-pills {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    
     .btn-modern {
         width: 100%;
         max-width: 300px;
@@ -1553,6 +1468,15 @@
     .modern-services-container {
         grid-template-columns: 1fr;
         gap: 30px;
+    }
+
+    .services-grid-cta {
+        margin-top: 36px;
+    }
+
+    .services-grid-cta .btn-modern {
+        width: 100%;
+        max-width: 320px;
     }
     
     .service-category {
@@ -1674,17 +1598,13 @@
 }
 
 @media (max-width: 480px) {
-    .modern-hero-section {
-        padding: 15px 0;
-    }
-    
     .hero-content-wrapper {
         padding: 10px;
     }
     
     .hero-badge {
-        margin-top: 30px !important;
-        margin-bottom: 30px;
+        margin-top: 8px !important;
+        margin-bottom: 24px;
         padding: 12px 20px;
         font-size: 14px;
     }
@@ -1711,6 +1631,10 @@
     .combination-icon {
         font-size: 3.5rem;
     }
+
+    .combination-icon--plain {
+        font-size: 3.25rem;
+    }
     
     .combination-item h4 {
         font-size: 1.3rem;
@@ -1718,34 +1642,6 @@
     
     .feature-card {
         padding: 25px;
-    }
-    
-    .modal-content {
-        margin: 10% auto;
-        width: 95%;
-        max-width: 400px;
-    }
-    
-    .modal-header {
-        padding: 25px 25px 15px;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.3rem;
-    }
-    
-    .modal-form {
-        padding: 25px;
-    }
-    
-    .form-group input {
-        padding: 12px 15px;
-        font-size: 0.95rem;
-    }
-    
-    .submit-btn {
-        padding: 15px 25px;
-        font-size: 0.95rem;
     }
 }
 

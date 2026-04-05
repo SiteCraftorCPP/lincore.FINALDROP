@@ -1,0 +1,11 @@
+{% extends 'website/base.html' %}
+
+{% block title %}Политика в отношении обработки персональных данных{% endblock %}
+
+{% block content %}
+<section class="legal-page" aria-label="Политика обработки персональных данных">
+    <div class="container legal-page__inner">
+        <pre class="legal-page__pre">{{ policy_text }}</pre>
+    </div>
+</section>
+{% endblock %}

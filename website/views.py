@@ -1,3 +1,6 @@
+from pathlib import Path
+
+from django.conf import settings
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -7,11 +10,14 @@ from .models import ContactInfo, ServiceApplication, TenderInvitation, Commercia
 
 
 def get_contact_info():
-    """Получить контактную информацию"""
+    """Получить контактную информацию (всегда объект с полями по умолчанию)."""
     try:
-        return ContactInfo.objects.first()
-    except ContactInfo.DoesNotExist:
-        return ContactInfo()
+        info = ContactInfo.objects.first()
+        if info is not None:
+            return info
+    except Exception:
+        pass
+    return ContactInfo()
 
 
 def get_photos_context():
@@ -320,6 +326,18 @@ def get_photos_context():
     return photos
 
 
+def personal_data_policy(request):
+    """Текст политики обработки ПДн (как в исходном файле, без правок)."""
+    path = Path(settings.BASE_DIR) / 'static' / 'legal' / 'personal_data_policy.txt'
+    try:
+        policy_text = path.read_text(encoding='utf-8')
+    except OSError:
+        policy_text = ''
+    return render(request, 'website/personal_data_policy.html', {
+        'policy_text': policy_text,
+    })
+
+
 def index(request):
     """Главная страница"""
     context = {
@@ -415,12 +433,21 @@ def service_application(request):
     """AJAX обработчик для заявок на услуги"""
     try:
         data = json.loads(request.body)
-        
+
+        valid_services = {c[0] for c in ServiceApplication.SERVICE_CHOICES}
+        valid_requests = {c[0] for c in ServiceApplication.REQUEST_TYPE_CHOICES}
+        service_type = data.get('service_type') or 'main_page'
+        if service_type not in valid_services:
+            service_type = 'main_page'
+        request_type = data.get('request_type') or 'application'
+        if request_type not in valid_requests:
+            request_type = 'application'
+
         application = ServiceApplication.objects.create(
             full_name=data.get('full_name', ''),
             phone=data.get('phone', ''),
-            service_type=data.get('service_type', ''),
-            request_type=data.get('request_type', 'application'),
+            service_type=service_type,
+            request_type=request_type,
             organization=data.get('organization', ''),
             message=data.get('message', ''),
             preferred_time=data.get('preferred_time', '')

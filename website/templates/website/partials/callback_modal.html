@@ -2,152 +2,26 @@
 <div id="callbackModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>Заказать обратный звонок</h3>
+            <div class="callback-modal-header-text">
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <h3>Заказать обратный звонок</h3>
+            </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
         </div>
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
+            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
             <div class="form-group">
                 <label for="callbackName">ФИО *</label>
-                <input type="text" id="callbackName" name="name" required>
+                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
             </div>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
-                <input type="tel" id="callbackPhone" name="phone" required>
+                <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
             </div>
             <input type="hidden" name="service_type" value="">
+            <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
             <button type="submit" class="submit-btn">Заказать звонок</button>
         </form>
     </div>
 </div>
-
-<style>
-/* Modal Styles for Callback */
-#callbackModal.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
-
-#callbackModal .modal-content {
-    background-color: white;
-    margin: 5% auto;
-    padding: 0;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: modalSlideIn 0.3s ease-out;
-}
-
-#callbackModal .modal-header {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    padding: 20px 30px;
-    border-radius: 12px 12px 0 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-#callbackModal .modal-header h3 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-    color: white;
-}
-
-#callbackModal .close {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-}
-
-#callbackModal .close:hover {
-    opacity: 0.7;
-}
-
-#callbackModal .modal-form {
-    padding: 30px;
-}
-
-#callbackModal .form-group {
-    margin-bottom: 20px;
-}
-
-#callbackModal .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #374151;
-}
-
-#callbackModal .form-group input,
-#callbackModal .form-group select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-    box-sizing: border-box;
-    font-family: inherit;
-}
-
-#callbackModal .form-group input:focus,
-#callbackModal .form-group select:focus {
-    outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-}
-
-#callbackModal .submit-btn {
-    width: 100%;
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-#callbackModal .submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
-}
-
-#callbackModal .submit-btn:active {
-    transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 480px) {
-    #callbackModal .modal-content {
-        margin: 10% auto;
-        width: 95%;
-    }
-    
-    #callbackModal .modal-header {
-        padding: 15px 20px;
-    }
-    
-    #callbackModal .modal-header h3 {
-        font-size: 20px;
-    }
-    
-    #callbackModal .modal-form {
-        padding: 20px;
-    }
-}
-</style>

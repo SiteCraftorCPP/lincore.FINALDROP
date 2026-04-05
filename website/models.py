@@ -4,8 +4,20 @@ from django.utils import timezone
 
 class ContactInfo(models.Model):
     """Контактная информация компании"""
-    address = models.TextField("Адрес", max_length=500, default="г. Москва М. Шоссе Энтузиастов 31 строение 38")
+    legal_name = models.CharField("Юридическое наименование", max_length=200, default='ООО «Линкор»')
+    inn = models.CharField("ИНН", max_length=20, default="7708424070")
+    address = models.TextField(
+        "Адрес (юридический / для карты и футера)",
+        max_length=500,
+        default="г. Москва, шоссе Энтузиастов, 31с38, оф. 430",
+    )
     phone_main = models.CharField("Общий номер телефона (единый для всех страниц)", max_length=20, default="8-800-XXX-XX-XX")
+    email_main = models.EmailField(
+        "E-mail (для блока контактов и сайта)",
+        max_length=254,
+        blank=True,
+        default="service@lin-cor.ru",
+    )
     tender_invitation = models.TextField("Текст приглашения в тендер", max_length=1000, default="Приглашаем к участию в тендерах", blank=True)
     
     # Дополнительные телефоны (оставляем для совместимости)
@@ -61,6 +73,15 @@ class ServiceApplication(models.Model):
     
     def __str__(self):
         return f"{self.full_name} - {self.get_service_type_display()}"
+
+
+class CallbackRequest(ServiceApplication):
+    """Прокси-модель: в админке отдельный раздел только для обратных звонков."""
+
+    class Meta:
+        proxy = True
+        verbose_name = "Обратный звонок"
+        verbose_name_plural = "Обратные звонки"
 
 
 class TenderInvitation(models.Model):

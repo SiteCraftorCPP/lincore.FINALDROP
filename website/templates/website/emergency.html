@@ -53,7 +53,7 @@
         </div>
         
         <!-- Scroll indicator -->
-        <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="600">
+        <div class="scroll-indicator">
             <div class="scroll-mouse">
                 <div class="scroll-wheel"></div>
             </div>
@@ -330,31 +330,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta-section-modern">
-        <div class="cta-gradient"></div>
-        <div class="container">
-            <div class="cta-content" data-aos="fade-up">
-                <div class="cta-icon">
-                    <span class="emergency-icon">🚨</span>
-                </div>
-                <h3 class="cta-title">Срочно нужна аварийная помощь?</h3>
-                <p class="cta-description">
-                    Не ждите — звоните прямо сейчас! Наша аварийная бригада готова выехать на ваш объект в любое время суток.
-                </p>
-                <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
-                    <button class="btn-cta-primary" onclick="openApplicationModal()">
-                        <span class="btn-text">Вызвать аварийную службу</span>
-                        <span class="btn-icon">🚨</span>
-                    </button>
-                    <a href="tel:{{ contact_info.phone_main }}" class="btn-cta-secondary">
-                        <span class="btn-text">Позвонить сейчас</span>
-                        <span class="btn-icon">📞</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 
 <!-- Application Modal -->
@@ -384,22 +359,49 @@
 <div id="callbackModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>Заказать звонок</h3>
+            <div class="callback-modal-header-text">
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <h3>Заказать обратный звонок</h3>
+            </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
         </div>
-        <div class="modal-body">
-            <form class="modal-form" id="callbackForm">
-                {% csrf_token %}
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                </div>
-                <div class="form-group">
-                    <input type="tel" name="phone" placeholder="Телефон" required>
-                </div>
-                <input type="hidden" name="service_type" value="emergency_service">
-                <button type="submit" class="btn-submit">Заказать звонок</button>
-            </form>
-        </div>
+        <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
+            {% csrf_token %}
+            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
+            <div class="form-group">
+                <label for="callbackName">ФИО *</label>
+                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
+            </div>
+            <div class="form-group">
+                <label for="callbackPhone">Телефон *</label>
+                <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
+            </div>
+            <input type="hidden" name="service_type" value="emergency_service">
+            <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
+            <button type="submit" class="submit-btn">Заказать звонок</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer_contact_lead %}
+<div class="cta-content" data-aos="fade-up">
+    <div class="cta-icon">
+        <span class="emergency-icon">🚨</span>
+    </div>
+    <h3 class="cta-title">Срочно нужна аварийная помощь?</h3>
+    <p class="cta-description">
+        Не ждите — звоните прямо сейчас! Наша аварийная бригада готова выехать на ваш объект в любое время суток.
+    </p>
+    <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
+        <button class="btn-cta-primary" onclick="openApplicationModal()">
+            <span class="btn-text">Вызвать аварийную службу</span>
+            <span class="btn-icon">🚨</span>
+        </button>
+        <a href="tel:{{ contact_info.phone_main }}" class="btn-cta-secondary">
+            <span class="btn-text">Позвонить сейчас</span>
+            <span class="btn-icon">📞</span>
+        </a>
     </div>
 </div>
 {% endblock %}

@@ -55,7 +55,7 @@
         </div>
         
         <!-- Scroll indicator -->
-        <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="600">
+        <div class="scroll-indicator">
             <div class="scroll-mouse">
                 <div class="scroll-wheel"></div>
             </div>
@@ -95,9 +95,9 @@
         <div class="container">
             
             <!-- Water Systems -->
-            <div class="system-block" id="water-systems" data-aos="fade-up">
-                <div class="system-content">
-                    <div class="system-info">
+            <details class="system-block system-content system-accordion" id="water-systems" data-aos="fade-up">
+                <summary class="system-accordion-summary">
+                    <span class="system-accordion-summary-main">
                         <div class="system-header">
                             <div class="system-icon animate-wrench">🔧</div>
                             <div class="system-title-wrapper">
@@ -105,33 +105,34 @@
                                 <p class="system-subtitle">Полный цикл обслуживания ХВС и ГВС</p>
                             </div>
                         </div>
-                        
-                        <div class="system-content-text">
-                            <div class="service-category">
-                                <h4 class="category-title">Плановое обслуживание:</h4>
-                                <ul class="service-list">
-                            <li>Постоянный мониторинг и диагностика параметров работы</li>
-                            <li>Регламентные работы: прочистка фильтров, проверка арматуры и креплений</li>
-                            <li>Комплексное ТО: гидравлические испытания, промывка систем, антикоррозийная защита</li>
-                        </ul>
-                            </div>
-                        
-                            <div class="service-category">
-                                <h4 class="category-title">Аварийный ремонт:</h4>
-                                <ul class="service-list">
-                            <li>Ликвидация протечек и прорывов</li>
-                            <li>Устранение засоров и подмесов</li>
-                            <li>Замена сантехники: смесители, полотенцесушители, унитазы, раковины</li>
-                            <li>Ремонт запорной арматуры: вентили, задвижки, редукторы давления</li>
-                        </ul>
-                            </div>
-                            
-                            <div class="guarantee-text animated-guarantee">
-                                <span class="guarantee-text-content">Гарантируем стабильную и безаварийную работу систем водоснабжения</span>
-                            </div>
+                    </span>
+                    <span class="system-accordion-chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="system-accordion-panel">
+                    <div class="system-content-text">
+                        <div class="service-category">
+                            <h4 class="category-title">Плановое обслуживание:</h4>
+                            <ul class="service-list">
+                                <li>Постоянный мониторинг и диагностика параметров работы</li>
+                                <li>Регламентные работы: прочистка фильтров, проверка арматуры и креплений</li>
+                                <li>Комплексное ТО: гидравлические испытания, промывка систем, антикоррозийная защита</li>
+                            </ul>
+                        </div>
+                        <div class="service-category">
+                            <h4 class="category-title">Аварийный ремонт:</h4>
+                            <ul class="service-list">
+                                <li>Ликвидация протечек и прорывов</li>
+                                <li>Устранение засоров и подмесов</li>
+                                <li>Замена сантехники: смесители, полотенцесушители, унитазы, раковины</li>
+                                <li>Ремонт запорной арматуры: вентили, задвижки, редукторы давления</li>
+                            </ul>
+                        </div>
+                        <div class="guarantee-text animated-guarantee">
+                            <span class="guarantee-text-content">Гарантируем стабильную и безаварийную работу систем водоснабжения</span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </details>
         </div>
 
         <!-- Команда специалистов -->
@@ -183,10 +184,11 @@
             </div>
         </div>
 
+        <div class="container">
             <!-- Sewage Systems -->
-            <div class="system-block reverse" id="sewage-systems" data-aos="fade-up">
-                <div class="system-content">
-                    <div class="system-info">
+            <details class="system-block system-content reverse system-accordion" id="sewage-systems" data-aos="fade-up">
+                <summary class="system-accordion-summary">
+                    <span class="system-accordion-summary-main">
                         <div class="system-header">
                             <div class="system-icon animate-bounce">🚽</div>
                             <div class="system-title-wrapper">
@@ -194,40 +196,40 @@
                                 <p class="system-subtitle">Поддержание систем в идеальном состоянии</p>
                             </div>
                         </div>
-                        
-                        <div class="system-content-text">
-                            <div class="service-category">
-                                <h4 class="category-title">Регулярное обслуживание:</h4>
-                                <ul class="service-list">
-                                    <li>Осмотры трубопроводов и соединений</li>
-                                    <li>Профилактическая прочистка канализационных сетей</li>
-                                    <li>Обслуживание дренажных систем и водоприемных воронок</li>
-                                    <li>Проверка канализационной вытяжки и обратных клапанов</li>
-                                </ul>
-                            </div>
-                        
-                            <div class="service-category">
-                                <h4 class="category-title">Срочный ремонт:</h4>
-                                <ul class="service-list">
-                                    <li>Ликвидация засоров в трубах и сантехприборах</li>
-                                    <li>Устранение течей в стояках и смывных бачках</li>
-                                    <li>Прочистка ливневой канализации</li>
-                                    <li>Ремонт систем водоотведения</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="guarantee-text animated-guarantee">
-                                <span class="guarantee-text-content">Обеспечиваем оперативное решение любых аварийных ситуаций</span>
-                            </div>
+                    </span>
+                    <span class="system-accordion-chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="system-accordion-panel">
+                    <div class="system-content-text">
+                        <div class="service-category">
+                            <h4 class="category-title">Регулярное обслуживание:</h4>
+                            <ul class="service-list">
+                                <li>Осмотры трубопроводов и соединений</li>
+                                <li>Профилактическая прочистка канализационных сетей</li>
+                                <li>Обслуживание дренажных систем и водоприемных воронок</li>
+                                <li>Проверка канализационной вытяжки и обратных клапанов</li>
+                            </ul>
+                        </div>
+                        <div class="service-category">
+                            <h4 class="category-title">Срочный ремонт:</h4>
+                            <ul class="service-list">
+                                <li>Ликвидация засоров в трубах и сантехприборах</li>
+                                <li>Устранение течей в стояках и смывных бачках</li>
+                                <li>Прочистка ливневой канализации</li>
+                                <li>Ремонт систем водоотведения</li>
+                            </ul>
+                        </div>
+                        <div class="guarantee-text animated-guarantee">
+                            <span class="guarantee-text-content">Обеспечиваем оперативное решение любых аварийных ситуаций</span>
                         </div>
                     </div>
-            </div>
-        </div>
+                </div>
+            </details>
 
             <!-- Ventilation Systems -->
-            <div class="system-block" id="ventilation-systems" data-aos="fade-up">
-                <div class="system-content">
-                    <div class="system-info">
+            <details class="system-block system-content system-accordion" id="ventilation-systems" data-aos="fade-up">
+                <summary class="system-accordion-summary">
+                    <span class="system-accordion-summary-main">
                         <div class="system-header">
                             <div class="system-icon animate-sway">🌬</div>
                             <div class="system-title-wrapper">
@@ -235,40 +237,40 @@
                                 <p class="system-subtitle">Поддержание идеального микроклимата</p>
                             </div>
                         </div>
-                        
-                        <div class="system-content-text">
-                            <div class="service-category">
-                                <h4 class="category-title">Техническое обслуживание:</h4>
-                                <ul class="service-list">
-                                    <li>Диагностика рабочих параметров и производительности</li>
-                                    <li>Очистка и дезинфекция воздуховодов, решеток, диффузоров</li>
-                                    <li>Обслуживание фильтров, теплообменников, дренажных систем</li>
-                                    <li>Сезонная настройка режимов работы оборудования</li>
-                                </ul>
-                            </div>
-                        
-                            <div class="service-category">
-                                <h4 class="category-title">Ремонтные работы:</h4>
-                                <ul class="service-list">
-                                    <li>Устранение неисправностей и засоров</li>
-                                    <li>Ремонт вентиляторов, компрессоров, электродвигателей</li>
-                                    <li>Заправка хладагентом и маслом</li>
-                                    <li>Ремонт автоматики и систем управления</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="guarantee-text animated-guarantee">
-                                <span class="guarantee-text-content">Гарантируем поддержание оптимального микроклимата в помещениях</span>
-                            </div>
+                    </span>
+                    <span class="system-accordion-chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="system-accordion-panel">
+                    <div class="system-content-text">
+                        <div class="service-category">
+                            <h4 class="category-title">Техническое обслуживание:</h4>
+                            <ul class="service-list">
+                                <li>Диагностика рабочих параметров и производительности</li>
+                                <li>Очистка и дезинфекция воздуховодов, решеток, диффузоров</li>
+                                <li>Обслуживание фильтров, теплообменников, дренажных систем</li>
+                                <li>Сезонная настройка режимов работы оборудования</li>
+                            </ul>
+                        </div>
+                        <div class="service-category">
+                            <h4 class="category-title">Ремонтные работы:</h4>
+                            <ul class="service-list">
+                                <li>Устранение неисправностей и засоров</li>
+                                <li>Ремонт вентиляторов, компрессоров, электродвигателей</li>
+                                <li>Заправка хладагентом и маслом</li>
+                                <li>Ремонт автоматики и систем управления</li>
+                            </ul>
+                        </div>
+                        <div class="guarantee-text animated-guarantee">
+                            <span class="guarantee-text-content">Гарантируем поддержание оптимального микроклимата в помещениях</span>
                         </div>
                     </div>
-            </div>
-        </div>
+                </div>
+            </details>
 
             <!-- Electrical Systems -->
-            <div class="system-block reverse" id="electrical-systems" data-aos="fade-up">
-                <div class="system-content">
-                    <div class="system-info">
+            <details class="system-block system-content reverse system-accordion" id="electrical-systems" data-aos="fade-up">
+                <summary class="system-accordion-summary">
+                    <span class="system-accordion-summary-main">
                         <div class="system-header">
                             <div class="system-icon animate-flash">⚡</div>
                             <div class="system-title-wrapper">
@@ -276,43 +278,43 @@
                                 <p class="system-subtitle">Безопасность и надежность электрохозяйства</p>
                             </div>
                         </div>
-                        
-                        <div class="system-content-text">
-                            <div class="service-category">
-                                <h4 class="category-title">Плановое обслуживание:</h4>
-                                <ul class="service-list">
-                                    <li>Диагностика устройств защитного отключения</li>
-                                    <li>Контроль автоматических выключателей и предохранителей</li>
-                                    <li>Проверка приборов учета электроэнергии</li>
-                                    <li>Обслуживание силовых и осветительных установок</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="service-category">
-                                <h4 class="category-title">Ремонтные работы:</h4>
-                                <ul class="service-list">
-                                    <li>Устранение неисправностей электросетей</li>
-                                    <li>Ремонт и замена электрооборудования</li>
-                                    <li>Обслуживание систем диспетчеризации и автоматики</li>
-                                    <li>Испытания средств защиты</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="service-category">
-                                <h4 class="category-title">Документооборот:</h4>
-                                <ul class="service-list">
-                                    <li>Ведение технической документации</li>
-                                    <li>Оформление документов по технике безопасности</li>
-                                    <li>Составление актов выполненных работ</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="guarantee-text animated-guarantee">
-                                <span class="guarantee-text-content">Обеспечиваем надежное и безопасное функционирование электрохозяйства</span>
-                            </div>
+                    </span>
+                    <span class="system-accordion-chevron" aria-hidden="true"></span>
+                </summary>
+                <div class="system-accordion-panel">
+                    <div class="system-content-text">
+                        <div class="service-category">
+                            <h4 class="category-title">Плановое обслуживание:</h4>
+                            <ul class="service-list">
+                                <li>Диагностика устройств защитного отключения</li>
+                                <li>Контроль автоматических выключателей и предохранителей</li>
+                                <li>Проверка приборов учета электроэнергии</li>
+                                <li>Обслуживание силовых и осветительных установок</li>
+                            </ul>
+                        </div>
+                        <div class="service-category">
+                            <h4 class="category-title">Ремонтные работы:</h4>
+                            <ul class="service-list">
+                                <li>Устранение неисправностей электросетей</li>
+                                <li>Ремонт и замена электрооборудования</li>
+                                <li>Обслуживание систем диспетчеризации и автоматики</li>
+                                <li>Испытания средств защиты</li>
+                            </ul>
+                        </div>
+                        <div class="service-category">
+                            <h4 class="category-title">Документооборот:</h4>
+                            <ul class="service-list">
+                                <li>Ведение технической документации</li>
+                                <li>Оформление документов по технике безопасности</li>
+                                <li>Составление актов выполненных работ</li>
+                            </ul>
+                        </div>
+                        <div class="guarantee-text animated-guarantee">
+                            <span class="guarantee-text-content">Обеспечиваем надежное и безопасное функционирование электрохозяйства</span>
                         </div>
                     </div>
-            </div>
+                </div>
+            </details>
         </div>
     </section>
 
@@ -492,38 +494,9 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="advantages-cta" data-aos="fade-up" data-aos-delay="400">
-                <div class="animated-cta">
-                    <span class="cta-text-content">Оставьте заявку и получите бесплатную консультацию нашего специалиста!</span>
-                </div>
-            </div>
-        </div>
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="cta-section-modern">
-        <div class="container">
-            <div class="cta-content" data-aos="fade-up">
-                <div class="cta-header" style="margin-top: 60px;">
-                    <h3>Нужно надежное обслуживание инженерных систем?</h3>
-                    <p>Обеспечим бесперебойную работу ваших инженерных систем 24/7</p>
-                </div>
-                
-                <div class="cta-actions">
-                    <button class="btn-cta btn-cta-primary" onclick="openApplicationModal()">
-                        <span class="btn-text">Оставить заявку</span>
-                        <span class="btn-icon">📝</span>
-                    </button>
-                    <button class="btn-cta btn-cta-secondary" onclick="openCallbackModal()">
-                        <span class="btn-text">Заказать звонок специалиста</span>
-                        <span class="btn-icon">📞</span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
 </div>
 
 <!-- Модальное окно для заявки -->
@@ -553,25 +526,44 @@
 <div id="callbackModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>Заказать звонок специалиста</h3>
+            <div class="callback-modal-header-text">
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <h3>Заказать обратный звонок</h3>
+            </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
         </div>
-        <form id="callbackForm" class="modal-form">
+        <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
+            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
             <div class="form-group">
                 <label for="callbackName">ФИО *</label>
-                <input type="text" id="callbackName" name="name" required>
+                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
             </div>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
-                <input type="tel" id="callbackPhone" name="phone" required>
+                <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
             </div>
             <input type="hidden" name="service_type" value="complex_service">
+            <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
             <button type="submit" class="submit-btn">Заказать звонок</button>
         </form>
     </div>
 </div>
 
+{% endblock %}
+
+{% block footer_contact_lead %}
+<div class="cta-content" data-aos="fade-up">
+    <div class="cta-header" style="margin-top: 0;">
+        <h3>Нужно надежное обслуживание инженерных систем?</h3>
+        <p>Обеспечим бесперебойную работу ваших инженерных систем 24/7</p>
+    </div>
+    <div class="cta-bottom-offer">
+        <button type="button" class="cta-offer-link" onclick="openApplicationModal()">
+            Оставьте заявку и получите бесплатную консультацию нашего специалиста!
+        </button>
+    </div>
+</div>
 {% endblock %}
 
 {% block extra_css %}
@@ -584,12 +576,11 @@
 /* Hero Section */
 .modern-hero-section {
     position: relative;
-    min-height: auto;
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #1e1a6b 0%, #3d5ba5 50%, #1e1a6b 100%);
     overflow: hidden;
-    padding: 40px 0 170px !important;
+    padding: 0 0 100px;
 }
 
 .hero-gradient {
@@ -680,8 +671,8 @@
     border-radius: 50px;
     font-size: 16px;
     font-weight: 600;
-    margin-top: 40px !important;
-    margin-bottom: 40px;
+    margin-top: 12px !important;
+    margin-bottom: 32px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all var(--transition-normal);
     animation: badgePulse 3s ease-in-out infinite;
@@ -1020,7 +1011,83 @@
     background: linear-gradient(90deg, #1e1a6b, #dc267f);
 }
 
+/* Аккордеон: разделы раскрываются по клику */
+details.system-accordion.system-content {
+    padding: 0;
+}
 
+details.system-accordion > summary.system-accordion-summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 40px 50px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+details.system-accordion > summary.system-accordion-summary::-webkit-details-marker {
+    display: none;
+}
+
+details.system-accordion > summary.system-accordion-summary:focus-visible {
+    outline: 2px solid #3d5ba5;
+    outline-offset: 3px;
+    border-radius: 8px;
+}
+
+details.system-accordion[open] > summary.system-accordion-summary {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(30, 26, 107, 0.08);
+}
+
+details.system-accordion:not([open]) > summary.system-accordion-summary {
+    padding-bottom: 40px;
+}
+
+.system-accordion-summary-main {
+    flex: 1;
+    min-width: 0;
+}
+
+details.system-accordion .system-accordion-summary .system-header {
+    margin-bottom: 0;
+}
+
+.system-accordion-chevron {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(30, 26, 107, 0.08);
+    position: relative;
+    transition: background 0.2s ease;
+}
+
+.system-accordion-chevron::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    margin: -7px 0 0 -7px;
+    border-right: 2px solid #1e1a6b;
+    border-bottom: 2px solid #1e1a6b;
+    transform: rotate(45deg);
+    transition: transform 0.25s ease;
+}
+
+details.system-accordion[open] .system-accordion-chevron::after {
+    transform: rotate(-135deg);
+    margin-top: -3px;
+}
+
+.system-accordion-panel {
+    padding: 8px 50px 40px;
+}
 
 .system-header {
     display: flex;
@@ -1579,105 +1646,6 @@
     font-size: 1rem;
 }
 
-.advantages-cta {
-    text-align: center;
-    margin-top: 60px;
-    padding: 40px 20px;
-    background: #1e1a6b;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.animated-cta {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.animated-cta.animate {
-    opacity: 1;
-    transform: translateY(0);
-    animation: ctaSlideIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.cta-text-content {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-white);
-    margin: 0;
-    line-height: 1.5;
-    display: inline-block;
-    opacity: 0;
-    transition: opacity 0.8s ease;
-    position: relative;
-    white-space: nowrap;
-    border-right: none;
-    clip-path: inset(0 100% 0 0);
-}
-
-.animated-cta.animate .cta-text-content {
-    opacity: 1;
-    animation: typewriterClip 2s steps(40, end) 0.5s both;
-}
-
-/* Альтернативная анимация для длинного текста */
-@media (max-width: 768px) {
-    .animated-cta.animate .cta-text-content {
-        animation: typewriterFade 1s ease-in-out 0.3s both;
-    }
-}
-
-@keyframes typewriterFade {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Анимация печатания для CTA текста */
-@keyframes typewriterWidth {
-    0% {
-        width: 0;
-    }
-    100% {
-        width: 100%;
-    }
-}
-
-@keyframes typewriterClip {
-    0% {
-        clip-path: inset(0 100% 0 0);
-    }
-    100% {
-        clip-path: inset(0 0% 0 0);
-    }
-}
-
-.cta-text-content::after {
-    display: none;
-}
-
-@keyframes ctaSlideIn {
-    0% {
-        opacity: 0;
-        transform: translateY(30px) scale(0.95);
-    }
-    50% {
-        opacity: 0.8;
-        transform: translateY(-5px) scale(1.02);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-/* Анимация typewriter отключена */
-
 @keyframes blink {
     0%, 50% {
         border-color: var(--color-white);
@@ -1687,163 +1655,7 @@
     }
 }
 
-/* Модальные окна */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background: linear-gradient(135deg, #1e1a6b 0%, #2d1b69 100%);
-    margin: 5% auto;
-    padding: 0;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: modalSlideIn 0.3s ease-out;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 30px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.modal-header h3 {
-    color: var(--color-white);
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0;
-}
-
-.close {
-    color: var(--color-white);
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close:hover {
-    color: #ff6b6b;
-}
-
-.modal-form {
-    padding: 30px;
-}
-
-.form-group {
-    margin-bottom: 25px;
-}
-
-.form-group label {
-    display: block;
-    color: var(--color-white);
-    font-weight: 600;
-    margin-bottom: 8px;
-    font-size: 0.95rem;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 15px 20px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--color-white);
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
-}
-
-.form-group input:focus {
-    outline: none;
-    border-color: #6366f1;
-    background: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.form-group input::placeholder {
-    color: rgba(255, 255, 255, 0.6);
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 18px 30px;
-    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
-}
-
-.submit-btn:active {
-    transform: translateY(0);
-}
-
-/* Адаптивность для модальных окон */
-@media (max-width: 768px) {
-    .modal-content {
-        margin: 10% auto;
-        width: 95%;
-        max-width: 400px;
-    }
-    
-    .modal-header {
-        padding: 25px 25px 15px;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.3rem;
-    }
-    
-    .modal-form {
-        padding: 25px;
-    }
-    
-    .form-group input {
-        padding: 12px 15px;
-        font-size: 0.95rem;
-    }
-    
-    .submit-btn {
-        padding: 15px 25px;
-        font-size: 1rem;
-    }
-}
+/* Модальные окна: #applicationModal / #callbackModal в static/css/styles.css */
 
 .advantage-card-modern {
     background: rgba(255, 255, 255, 0.1);
@@ -1953,6 +1765,56 @@
     opacity: 0.9;
     margin: 0;
     line-height: 1.5;
+}
+
+.cta-bottom-offer {
+    margin: 36px auto 52px;
+    max-width: 760px;
+    text-align: center;
+}
+
+.cta-offer-link {
+    display: inline;
+    background: none;
+    border: none;
+    padding: 12px 10px;
+    margin: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: clamp(1.1rem, 2.8vw, 1.45rem);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.45;
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.45);
+    text-underline-offset: 0.18em;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0;
+    animation: ctaOfferAppear 0.75s ease 0.15s forwards;
+}
+
+.cta-offer-link:hover,
+.cta-offer-link:focus-visible {
+    color: #fff;
+    text-decoration-color: rgba(255, 255, 255, 0.95);
+}
+
+.cta-offer-link:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.85);
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+@keyframes ctaOfferAppear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .cta-actions {
@@ -2074,14 +1936,9 @@
 }
 
 @media (max-width: 768px) {
-    .modern-hero-section {
-        min-height: auto;
-        padding: 15px 0;
-    }
-    
     .modern-hero-section .hero-badge {
-        margin-top: 30px !important;
-        margin-bottom: 30px;
+        margin-top: 12px !important;
+        margin-bottom: 24px;
         padding: 12px 20px;
         font-size: 14px;
     }
@@ -2100,14 +1957,33 @@
         align-items: center;
     }
     
-    .nav-pills {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-    }
-    
     .system-content {
         padding: 40px 25px;
+    }
+
+    details.system-accordion.system-content {
+        padding: 0;
+    }
+
+    details.system-accordion > summary.system-accordion-summary {
+        padding: 28px 22px;
+    }
+
+    details.system-accordion[open] > summary.system-accordion-summary {
+        padding-bottom: 16px;
+    }
+
+    details.system-accordion:not([open]) > summary.system-accordion-summary {
+        padding-bottom: 28px;
+    }
+
+    .system-accordion-panel {
+        padding: 4px 22px 28px;
+    }
+
+    .system-accordion-chevron {
+        width: 40px;
+        height: 40px;
     }
     
     
@@ -2169,28 +2045,13 @@
         font-size: 1.2rem;
     }
     
-    .advantages-cta {
-        margin-top: 40px;
-        padding: 30px 15px;
+    .cta-bottom-offer {
+        margin: 28px auto 40px;
+        padding: 0 8px;
     }
-    
-    .cta-text-content {
-        font-size: 1.2rem;
-        white-space: normal;
-        text-align: center;
-        opacity: 1 !important;
-        clip-path: none !important;
-        border-right: none !important;
-    }
-    
-    .animated-cta {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-    
-    .animated-cta.animate .cta-text-content {
-        animation: none !important;
-        opacity: 1 !important;
+
+    .cta-offer-link {
+        font-size: 1.15rem;
     }
     
     /* Исправления для блоков с анимацией печатания */
@@ -2271,6 +2132,18 @@
     .system-content {
         padding: 30px 15px;
     }
+
+    details.system-accordion > summary.system-accordion-summary {
+        padding: 22px 15px;
+    }
+
+    details.system-accordion:not([open]) > summary.system-accordion-summary {
+        padding-bottom: 22px;
+    }
+
+    .system-accordion-panel {
+        padding: 4px 15px 22px;
+    }
     
     .service-category {
         padding: 15px;
@@ -2283,24 +2156,8 @@
         font-size: 16px;
     }
     
-    /* Исправления для CTA блока на очень маленьких экранах */
-    .cta-text-content {
-        font-size: 1.1rem;
-        white-space: normal;
-        text-align: center;
-        opacity: 1 !important;
-        clip-path: none !important;
-        border-right: none !important;
-    }
-    
-    .animated-cta {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-    
-    .animated-cta.animate .cta-text-content {
-        animation: none !important;
-        opacity: 1 !important;
+    .cta-offer-link {
+        font-size: 1.05rem;
     }
     
 }
@@ -2876,6 +2733,9 @@ document.addEventListener('DOMContentLoaded', function() {
             const target = btn.getAttribute('data-target');
             const targetElement = document.getElementById(target);
             if (targetElement) {
+                if (targetElement.tagName === 'DETAILS') {
+                    targetElement.open = true;
+                }
                 targetElement.scrollIntoView({
                     behavior: 'smooth',
                     block: 'center'
@@ -3018,22 +2878,6 @@ document.addEventListener('DOMContentLoaded', function() {
     guaranteeTexts.forEach(text => {
         guaranteeObserver.observe(text);
     });
-    
-    // Анимация CTA текста
-    const ctaElement = document.querySelector('.animated-cta');
-    if (ctaElement) {
-        const ctaObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    setTimeout(() => {
-                        entry.target.classList.add('animate');
-                    }, 800);
-                }
-            });
-        }, { threshold: 0.3 });
-        
-        ctaObserver.observe(ctaElement);
-    }
     
     // Функции для модальных окон
     window.openApplicationModal = function() {

@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initPreloader();
     initScrollAnimations();
     initHeader();
+    initServicesDropdown();
     initMobileMenu();
     initModals();
     initForms();
@@ -48,6 +49,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.add('loaded');
         initPageLoadAnimations();
     }, 150);
+
+    adjustBodyPadding();
+    window.addEventListener('load', adjustBodyPadding);
 
     // Современная оптимизация производительности
     initIntersectionObserver();
@@ -148,40 +152,90 @@ function initScrollAnimations() {
     }
 }
 
-// Управление шапкой при скролле
+function updateHeaderOffset() {
+    const header = document.getElementById('header');
+    if (header) {
+        document.documentElement.style.setProperty('--header-offset', `${header.offsetHeight}px`);
+    }
+}
+
+// Фиксированная шапка: body только под бар шапки; слот под панель «Услуги» — в padding героя (--services-panel-slot)
 function initHeader() {
     const header = document.getElementById('header');
-    let lastScrollY = window.scrollY;
-    let headerHidden = false;
+    if (!header) return;
 
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
+    adjustBodyPadding();
+}
 
-        // Добавляем класс при скролле
-        if (currentScrollY > 50) {
-            header.classList.add('scrolled');
+function closeServicesDropdown() {
+    const panel = document.getElementById('servicesDropdownPanel');
+    const toggle = document.getElementById('servicesDropdownToggle');
+    if (panel) {
+        panel.classList.remove('is-open');
+        panel.setAttribute('aria-hidden', 'true');
+    }
+    if (toggle) {
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+}
+
+function initServicesDropdown() {
+    const toggle = document.getElementById('servicesDropdownToggle');
+    const panel = document.getElementById('servicesDropdownPanel');
+    const dropdown = document.getElementById('servicesDropdown');
+    if (!toggle || !panel || !dropdown) return;
+
+    function openMenu() {
+        toggle.setAttribute('aria-expanded', 'true');
+        panel.classList.add('is-open');
+        panel.setAttribute('aria-hidden', 'false');
+    }
+
+    toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (panel.classList.contains('is-open')) {
+            closeServicesDropdown();
         } else {
-            header.classList.remove('scrolled');
+            openMenu();
         }
-
-        // Скрываем шапку при скролле вниз
-        if (currentScrollY > lastScrollY && currentScrollY > 10) {
-            header.style.transform = 'translateY(-100%)';
-            headerHidden = true;
-        }
-        // Показываем шапку только при скролле вверх
-        else if (currentScrollY < lastScrollY && currentScrollY > 10) {
-            header.style.transform = 'translateY(0)';
-            headerHidden = false;
-        }
-        // Показываем шапку в самом верху страницы
-        else if (currentScrollY <= 10) {
-            header.style.transform = 'translateY(0)';
-            headerHidden = false;
-        }
-
-        lastScrollY = currentScrollY;
     });
+
+    panel.querySelectorAll('a[href]').forEach((a) => {
+        a.addEventListener('click', () => closeServicesDropdown());
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!panel.classList.contains('is-open')) return;
+        if (dropdown.contains(e.target) || panel.contains(e.target)) return;
+        closeServicesDropdown();
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeServicesDropdown();
+    });
+
+    window.addEventListener(
+        'resize',
+        debounce(() => {
+            if (window.innerWidth <= 768) closeServicesDropdown();
+            adjustBodyPadding();
+        }, 200)
+    );
+}
+
+/** Закрыть выезжающее меню и снять блокировку скролла (для модалок и ссылок из меню). */
+function closeMobileMenuFromOutside() {
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    if (!mobileMenu || !mobileMenu.classList.contains('active')) return;
+    mobileMenu.classList.remove('active');
+    document.body.style.overflow = '';
+    if (mobileMenuToggle) {
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+        mobileMenuToggle.setAttribute('aria-hidden', 'false');
+        mobileMenuToggle.setAttribute('aria-label', 'Открыть меню');
+    }
 }
 
 // Мобильное меню
@@ -203,6 +257,15 @@ function initMobileMenu() {
         }
     });
 
+    const mobileMenuClose = document.getElementById('mobileMenuClose');
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            closeMobileMenu();
+        });
+    }
+
     // Закрытие меню при клике на фон
     mobileMenu.addEventListener('click', function (e) {
         if (e.target === mobileMenu) {
@@ -218,6 +281,12 @@ function initMobileMenu() {
         });
     });
 
+    mobileMenu.querySelectorAll('.mobile-menu-quick__item[href]').forEach(link => {
+        link.addEventListener('click', function () {
+            closeMobileMenu();
+        });
+    });
+
     // Закрытие меню при нажатии Escape
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
@@ -226,19 +295,15 @@ function initMobileMenu() {
     });
 
     function openMobileMenu() {
+        closeServicesDropdown();
         mobileMenu.classList.add('active');
         document.body.style.overflow = 'hidden';
-
-        // Анимация кнопки гамбургера
-        mobileMenuToggle.classList.add('active');
+        mobileMenuToggle.setAttribute('aria-expanded', 'true');
+        mobileMenuToggle.setAttribute('aria-hidden', 'true');
     }
 
     function closeMobileMenu() {
-        mobileMenu.classList.remove('active');
-        document.body.style.overflow = '';
-
-        // Возвращаем кнопку гамбургера в исходное состояние
-        mobileMenuToggle.classList.remove('active');
+        closeMobileMenuFromOutside();
     }
 }
 
@@ -246,13 +311,17 @@ function initMobileMenu() {
 // Модальные окна
 function initModals() {
     // Приглашение в тендер
-    const tenderBtn = document.getElementById('tenderBtn');
     const tenderModal = document.getElementById('tenderModal');
     const tenderModalClose = document.getElementById('tenderModalClose');
 
-    if (tenderBtn && tenderModal) {
-        tenderBtn.addEventListener('click', () => openModal(tenderModal));
-    }
+    document.querySelectorAll('.js-tender-open').forEach(btn => {
+        if (!tenderModal) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            closeMobileMenuFromOutside();
+            openModal(tenderModal);
+        });
+    });
     if (tenderModalClose) {
         tenderModalClose.addEventListener('click', () => closeModal(tenderModal));
     }
@@ -279,12 +348,15 @@ function initModals() {
     // Звонок
     const callModal = document.getElementById('callModal');
     const callModalClose = document.getElementById('callModalClose');
-    const callbackBtn = document.getElementById('callbackBtn');
 
-    // Обработка кнопки "Заказать звонок" в шапке
-    if (callbackBtn && callModal) {
-        callbackBtn.addEventListener('click', () => openModal(callModal));
-    }
+    document.querySelectorAll('.js-callback-open').forEach(btn => {
+        if (!callModal) return;
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            closeMobileMenuFromOutside();
+            openModal(callModal);
+        });
+    });
 
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('btn-call') || e.target.classList.contains('btn-call-specialist')) {
@@ -362,9 +434,9 @@ function initForms() {
     const fileInputs = document.querySelectorAll('input[type="file"]');
     fileInputs.forEach(input => {
         input.addEventListener('change', function () {
-            const label = this.parentElement.querySelector('.file-upload-label span');
-            if (label && this.files.length > 0) {
-                label.textContent = this.files[0].name;
+            const caption = this.parentElement.querySelector('.file-upload__caption');
+            if (caption && this.files.length > 0) {
+                caption.textContent = this.files[0].name;
             }
         });
     });
@@ -771,7 +843,8 @@ function initModernFeatures() {
             const data = {
                 full_name: formData.get('full_name'),
                 phone: formData.get('phone'),
-                service_type: 'Заказ звонка'
+                service_type: 'main_page',
+                request_type: 'callback'
             };
 
             fetch('/ajax/service-application/', {
@@ -843,23 +916,6 @@ function initServiceButtons() {
             }
         }
     });
-}
-
-// Функция для прокрутки к услугам
-function scrollToServices() {
-    console.log('scrollToServices called!');
-    const servicesSection = document.getElementById('services');
-    console.log('Services section:', servicesSection);
-    if (servicesSection) {
-        const headerHeight = document.getElementById('header').offsetHeight;
-        const targetPosition = servicesSection.offsetTop - headerHeight - 20;
-        console.log('Scrolling to position:', targetPosition);
-
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-    }
 }
 
 // Анимация счетчиков
@@ -941,18 +997,45 @@ function checkBrowserSupport() {
 // Инициализация проверки браузера
 checkBrowserSupport();
 
-// Функция для динамического вычисления отступа под шапку
+// Постоянный зазор между низом панели «Услуги» и началом контента (панель fixed, место резервируем всегда)
+const SERVICES_PANEL_CONTENT_GAP_PX = 8;
+
+/** Высота панели в развёрнутом виде без показа пользователю (чтобы контент не прыгал при open/close) */
+function measureServicesDropdownPanelHeight() {
+    const panel = document.getElementById('servicesDropdownPanel');
+    const wrap = document.querySelector('.header-services-wrap');
+    if (!panel) return 0;
+    if (wrap && window.getComputedStyle(wrap).display === 'none') {
+        return 0;
+    }
+
+    const wasOpen = panel.classList.contains('is-open');
+    panel.classList.add('is-open');
+    panel.style.visibility = 'hidden';
+    panel.style.opacity = '0';
+    panel.style.pointerEvents = 'none';
+
+    const h = panel.offsetHeight;
+
+    panel.style.visibility = '';
+    panel.style.opacity = '';
+    panel.style.pointerEvents = '';
+    if (!wasOpen) {
+        panel.classList.remove('is-open');
+    }
+
+    return h;
+}
+
 function adjustBodyPadding() {
     const header = document.getElementById('header');
-    if (header) {
-        // Ждем полной загрузки изображений
-        setTimeout(() => {
-            const headerHeight = header.offsetHeight;
-            const padding = headerHeight + 10; // Добавляем 10px запас
-            document.body.style.paddingTop = padding + 'px';
-            console.log('Header height:', headerHeight, 'Body padding-top:', padding);
-        }, 100);
-    }
+    if (!header) return;
+    updateHeaderOffset();
+    const bar = header.offsetHeight;
+    const panelReserve = measureServicesDropdownPanelHeight();
+    const slot = panelReserve + SERVICES_PANEL_CONTENT_GAP_PX;
+    document.documentElement.style.setProperty('--services-panel-slot', `${slot}px`);
+    document.body.style.paddingTop = `${bar}px`;
 }
 
 // Пересчитываем отступ при изменении размера окна

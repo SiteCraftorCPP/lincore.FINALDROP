@@ -11,7 +11,7 @@
     
     <!-- CSS -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202509212100">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202604025430">
     
     <!-- Meta теги -->
     <meta name="description" content="Профессиональные инженерные услуги: обслуживание, ремонт, монтаж инженерных систем">
@@ -23,8 +23,9 @@
     <meta property="og:type" content="website">
     
     {% block extra_css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/hero-pages.css' %}?v=202604021960">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
     <!-- Прелоадер -->
     <div id="preloader">
         <div class="preloader-spinner">
@@ -38,81 +39,101 @@
         <div class="container">
             <!-- Верхняя строка с логотипом и контактами -->
             <div class="header-top">
-                <div class="logo">
-                    <a href="{% url 'website:index' %}" class="logo-link">
-                        <img src="{% static 'images/logo.png' %}" alt="Логотип компании" class="logo-img">
-                    </a>
-                </div>
-                
-                <div class="header-actions">
-                    {% if contact_info %}
-                        <a href="tel:{{ contact_info.phone_main }}" class="phone-link">
-                            <span class="phone-icon">📞</span>
-                            <span>{{ contact_info.phone_main }}</span>
+                <div class="header-brand">
+                    <div class="logo">
+                        <a href="{% url 'website:index' %}" class="logo-link">
+                            <img src="{% static 'images/logo.png' %}" alt="Логотип компании" class="logo-img">
                         </a>
-                    {% endif %}
-                    
-                    <a href="/#contacts" class="btn-contacts">Контакты</a>
-                    
-                    <button class="btn-callback" id="callbackBtn">
-                        <span class="btn-icon">📞</span>
-                        <span>Заказать звонок</span>
-                    </button>
-                    
-                    <button class="btn-tender" id="tenderBtn">
+                    </div>
+                    <div class="header-services-wrap">
+                        <div class="services-dropdown" id="servicesDropdown">
+                            <button type="button" class="services-dropdown-toggle" id="servicesDropdownToggle" aria-expanded="false" aria-haspopup="true" aria-controls="servicesDropdownPanel">
+                                Наши услуги
+                                <span class="services-dropdown-chevron" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="header-actions">
+                    <button class="btn-tender js-tender-open" id="tenderBtn" type="button">
                         <span class="btn-icon">🎯</span>
-                        <span>Пригласить в тендер</span>
+                        <span class="btn-tender-text">
+                            <span class="header-label-desktop">Пригласить в тендер</span>
+                            <span class="header-label-mobile">В тендер</span>
+                        </span>
+                    </button>
+                    <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="phone-link">
+                        <span class="phone-icon">📞</span>
+                        <span class="phone-link-text">
+                            <span class="header-label-desktop">{{ contact_info.phone_main|default:"+7 (952) 064-09-55" }}</span>
+                            <span class="header-label-mobile">Позвонить</span>
+                        </span>
+                    </a>
+                    {% block header_actions_extra %}{% endblock %}
+                    <a href="#contacts" class="btn-contacts">Контакты</a>
+                    <button class="btn-callback js-callback-open" id="callbackBtn" type="button">
+                        <span class="btn-icon">📞</span>
+                        <span class="btn-callback-text">
+                            <span class="header-label-desktop">Заказать звонок</span>
+                            <span class="header-label-mobile">Обратный звонок</span>
+                        </span>
                     </button>
                 </div>
+
+                <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="header-mobile-phone-tap" aria-label="Позвонить: {{ contact_info.phone_main|default:'+7 (952) 064-09-55' }}">
+                    <span class="header-mobile-phone-tap__icon" aria-hidden="true">📞</span>
+                </a>
                 
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+                    <svg class="mobile-menu-toggle__icon" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                        <path d="M4 6h14M4 11h14M4 16h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
                 </button>
             </div>
             
-            <!-- Нижняя строка с полной навигацией -->
-            <nav class="header-navigation">
-                <div class="nav-grid">
-                    <a href="{% url 'website:complex_service' %}" class="nav-item">
-                        <span class="nav-icon">🔧</span>
-                        <span class="nav-text">Комплексное обслуживание инженерных систем</span>
-                    </a>
-                    <a href="{% url 'website:heating_service' %}" class="nav-item">
-                        <span class="nav-icon">🏭</span>
-                        <span class="nav-text">Комплексное обслуживание систем (ИТП) отопления</span>
-                    </a>
-                    <a href="{% url 'website:verification' %}" class="nav-item">
-                        <span class="nav-icon">⚖️</span>
-                        <span class="nav-text">Поверка приборов учёта</span>
-                    </a>
-                    <a href="{% url 'website:emergency' %}" class="nav-item">
-                        <span class="nav-icon">🚨</span>
-                        <span class="nav-text">Аварийная служба</span>
-                    </a>
-                    <a href="{% url 'website:installation' %}" class="nav-item">
-                        <span class="nav-icon">🔨</span>
-                        <span class="nav-text">Монтаж инженерных коммуникаций</span>
-                    </a>
-                    <a href="{% url 'website:audit' %}" class="nav-item">
-                        <span class="nav-icon">📋</span>
-                        <span class="nav-text">Аудит инженерных систем</span>
-                    </a>
-                    <a href="{% url 'website:heating_preparation' %}" class="nav-item">
-                        <span class="nav-icon">❄️</span>
-                        <span class="nav-text">Подготовка к отопительному сезону</span>
-                    </a>
-                    <a href="{% url 'website:ventilation' %}" class="nav-item">
-                        <span class="nav-icon">🌪️</span>
-                        <span class="nav-text">Вентиляция</span>
-                    </a>
-                </div>
-            </nav>
-            
             <!-- Мобильное меню -->
-            <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Меню сайта">
                 <div class="mobile-menu-content">
+                    <div class="mobile-menu-top">
+                        <button type="button" class="mobile-menu-close" id="mobileMenuClose" aria-label="Закрыть меню">
+                            <span class="mobile-menu-close__icon" aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="mobile-menu-body">
+                    <div class="mobile-menu-quick" aria-label="Быстрые действия">
+                        <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="mobile-menu-quick__item mobile-menu-quick__item--call">
+                            <span class="mobile-menu-quick__icon" aria-hidden="true">📞</span>
+                            <span class="mobile-menu-quick__body">
+                                <span class="mobile-menu-quick__title">Позвонить</span>
+                                <span class="mobile-menu-quick__sub">{{ contact_info.phone_main|default:'+7 (952) 064-09-55' }}</span>
+                            </span>
+                        </a>
+                        <a href="#contacts" class="mobile-menu-quick__item mobile-menu-quick__item--neutral">
+                            <span class="mobile-menu-quick__icon" aria-hidden="true">📍</span>
+                            <span class="mobile-menu-quick__body">
+                                <span class="mobile-menu-quick__title">Контакты</span>
+                                <span class="mobile-menu-quick__sub">Адрес и карта</span>
+                            </span>
+                        </a>
+                        <button type="button" class="mobile-menu-quick__item mobile-menu-quick__item--accent js-callback-open">
+                            <span class="mobile-menu-quick__icon" aria-hidden="true">📲</span>
+                            <span class="mobile-menu-quick__body">
+                                <span class="mobile-menu-quick__title">Обратный звонок</span>
+                                <span class="mobile-menu-quick__sub">Оставьте номер — перезвоним</span>
+                            </span>
+                        </button>
+                        {% block mobile_menu_quick_extra %}{% endblock %}
+                        <button type="button" class="mobile-menu-quick__item mobile-menu-quick__item--tender js-tender-open">
+                            <span class="mobile-menu-quick__icon" aria-hidden="true">🎯</span>
+                            <span class="mobile-menu-quick__body">
+                                <span class="mobile-menu-quick__title">Пригласить в тендер</span>
+                                <span class="mobile-menu-quick__sub">Заявка и документы</span>
+                            </span>
+                        </button>
+                    </div>
+                    <p class="mobile-menu-section-title">Услуги</p>
+                    <nav class="mobile-menu-services" aria-label="Разделы услуг">
                     <a href="{% url 'website:complex_service' %}" class="mobile-nav-item">
                         <span class="nav-icon">🔧</span>
                         <span class="nav-text">Комплексное обслуживание инженерных систем</span>
@@ -145,7 +166,48 @@
                         <span class="nav-icon">🌪️</span>
                         <span class="nav-text">Вентиляция</span>
                     </a>
+                    </nav>
+                    </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="services-dropdown-panel" id="servicesDropdownPanel" role="menu" aria-hidden="true">
+            <div class="container">
+                <nav class="services-dropdown-grid" aria-label="Услуги компании">
+                    <a href="{% url 'website:complex_service' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">🔧</span>
+                        <span class="nav-text">Комплексное обслуживание инженерных систем</span>
+                    </a>
+                    <a href="{% url 'website:heating_service' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">🏭</span>
+                        <span class="nav-text">Комплексное обслуживание систем (ИТП) отопления</span>
+                    </a>
+                    <a href="{% url 'website:verification' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">⚖️</span>
+                        <span class="nav-text">Поверка приборов учёта</span>
+                    </a>
+                    <a href="{% url 'website:emergency' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">🚨</span>
+                        <span class="nav-text">Аварийная служба</span>
+                    </a>
+                    <a href="{% url 'website:installation' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">🔨</span>
+                        <span class="nav-text">Монтаж инженерных коммуникаций</span>
+                    </a>
+                    <a href="{% url 'website:audit' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-text">Аудит инженерных систем</span>
+                    </a>
+                    <a href="{% url 'website:heating_preparation' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">❄️</span>
+                        <span class="nav-text">Подготовка к отопительному сезону</span>
+                    </a>
+                    <a href="{% url 'website:ventilation' %}" class="nav-item" role="menuitem">
+                        <span class="nav-icon">🌪️</span>
+                        <span class="nav-text">Вентиляция</span>
+                    </a>
+                </nav>
             </div>
         </div>
     </header>
@@ -156,9 +218,37 @@
         {% block content %}{% endblock %}
     </main>
 
+    {% block site_footer %}
+    <footer class="site-footer-contact-bundle {% block footer_bundle_class %}cta-section-modern{% endblock %}" aria-label="Контакты и призыв к действию">
+        {% block footer_cta_backdrop %}
+        <div class="cta-gradient" aria-hidden="true"></div>
+        {% endblock %}
+        <div class="container">
+            {% block footer_contact_lead %}
+            <div class="footer-contact-lead" data-aos="fade-up">
+                <h2 class="footer-contact-lead__title">Готовы обсудить задачу?</h2>
+                <p class="footer-contact-lead__text">Позвоните или напишите — подскажем по срокам, стоимости и формату работ.</p>
+                <div class="footer-contact-lead__actions">
+                    <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="footer-contact-lead__btn footer-contact-lead__btn--primary">Позвонить</a>
+                    <a href="#contacts" class="footer-contact-lead__btn footer-contact-lead__btn--ghost">Контакты и карта</a>
+                </div>
+            </div>
+            {% endblock %}
+            <div id="contacts" class="site-footer-contacts-panel" data-aos="fade-up" data-aos-delay="100" aria-label="Контакты и схема проезда">
+                <h2 class="site-footer-contacts__title site-footer-contacts__title--panel">Контакты</h2>
+                {% include 'website/includes/contact_info_block.html' %}
+            </div>
+        </div>
+    </footer>
+    {% endblock %}
+
+    <button type="button" class="callback-fab" data-service="call" title="Обратный звонок" aria-label="Обратный звонок">
+        <span class="callback-fab__icon" aria-hidden="true">📞</span>
+    </button>
+
     <!-- Модальное окно приглашения в тендер -->
     <div class="modal" id="tenderModal">
-        <div class="modal-content">
+        <div class="modal-content tender-modal-content">
             <div class="modal-header">
                 <h3>Приглашение в тендер</h3>
                 <button class="modal-close" id="tenderModalClose">&times;</button>
@@ -181,21 +271,23 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="tenderFile">Прикрепите техническое задание</label>
-                        <div class="file-upload">
-                            <input type="file" id="tenderFile" name="technical_task" accept=".pdf,.doc,.docx">
-                            <label for="tenderFile" class="file-upload-label">
-                                <i class="icon-upload"></i>
-                                <span>Выберите файл</span>
+                        <span class="upload-field-heading" id="tenderFileLegend">Прикрепите техническое задание</span>
+                        <div class="file-upload file-upload--plate">
+                            <input type="file" id="tenderFile" name="technical_task" accept=".pdf,.doc,.docx" class="file-upload__input" aria-labelledby="tenderFileLegend">
+                            <label for="tenderFile" class="file-upload__plate">
+                                <span class="file-upload__icon" aria-hidden="true">📎</span>
+                                <span class="file-upload__caption">Выберите файл</span>
                             </label>
                         </div>
                     </div>
                     
-                    <div class="form-group checkbox-group">
-                        <label class="checkbox-label">
-                            <input type="checkbox" name="agreed_to_processing" required>
-                            <span class="checkmark"></span>
-                            Согласен на обработку персональных данных
+                    <div class="form-group tender-consent-group">
+                        <label class="tender-consent-label" for="tenderAgreedProcessing">
+                            <input type="checkbox" id="tenderAgreedProcessing" class="tender-consent-input" name="agreed_to_processing" required>
+                            <span class="tender-consent-text">
+                                Согласен на
+                                <a href="{% url 'website:personal_data_policy' %}" target="_blank" rel="noopener noreferrer">обработку персональных данных</a>
+                            </span>
                         </label>
                     </div>
                     
@@ -236,20 +328,26 @@
     <div class="modal" id="callModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Заказать звонок</h3>
-                <button class="modal-close" id="callModalClose">&times;</button>
+                <div class="call-modal-header-inner">
+                    <h3>Заказать звонок</h3>
+                    <p class="call-modal-header-lead">Оставьте имя и телефон — специалист перезвонит в рабочее время и поможет с вопросами по услугам, срокам и стоимости.</p>
+                </div>
+                <button type="button" class="modal-close" id="callModalClose" aria-label="Закрыть">&times;</button>
             </div>
             <div class="modal-body">
+                <p class="call-modal-body-intro">Обычно отвечаем в течение 30 минут в будни. Номер используем только для связи с вами по заявке.</p>
                 <form id="callForm" class="form">
                     <div class="form-group">
-                        <label for="callFullName">ФИО:</label>
-                        <input type="text" id="callFullName" name="full_name" class="form-input" required>
+                        <label for="callFullName">ФИО *</label>
+                        <input type="text" id="callFullName" name="full_name" class="form-input" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="callPhone">Номер телефона:</label>
-                        <input type="tel" id="callPhone" name="phone" class="form-input" required>
+                        <label for="callPhone">Телефон *</label>
+                        <input type="tel" id="callPhone" name="phone" class="form-input" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
                     </div>
+                    
+                    <p class="call-modal-footnote">В выходные и праздники ответ может занять дольше. Срочные ситуации — позвоните по номеру в шапке сайта.</p>
                     
                     <div class="form-actions">
                         <button type="submit" class="btn-primary call-submit-btn">Заказать звонок</button>
@@ -263,7 +361,7 @@
     <div id="notifications"></div>
 
     <!-- JavaScript -->
-    <script src="{% static 'js/main.js' %}?v=202509211380"></script>
+    <script src="{% static 'js/main.js' %}?v=202604025200"></script>
     {% block extra_js %}{% endblock %}
     
     <!-- Intersection Observer Polyfill для старых браузеров -->

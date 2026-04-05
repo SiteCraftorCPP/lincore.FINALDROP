@@ -1,6 +1,8 @@
 {% extends 'website/base.html' %}
 {% load static %}
 
+{% block body_class %}page-home{% endblock %}
+
 {% block title %}Инженерно-сервисная компания - Главная{% endblock %}
 
 {% block content %}
@@ -41,10 +43,6 @@
             </div>
 
             <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
-                <button class="btn-modern btn-primary" onclick="scrollToServices()">
-                    <span class="btn-text">Выбрать услугу</span>
-                    <span class="btn-icon">🚀</span>
-                </button>
                 <button class="btn-modern btn-secondary" id="heroCallBtn">
                     <span class="btn-text">Заказать звонок</span>
                     <span class="btn-icon">📞</span>
@@ -54,7 +52,7 @@
     </div>
     
     <!-- Scroll indicator -->
-    <div class="scroll-indicator" data-aos="fade-up" data-aos-delay="600">
+    <div class="scroll-indicator">
         <div class="scroll-mouse">
             <div class="scroll-wheel"></div>
         </div>
@@ -274,105 +272,108 @@
     </div>
 </section>
 
-<!-- Секция контактов -->
-<section id="contacts" class="contacts-section-modern">
+<!-- Команда: после блока услуг, затем преимущества и галерея объектов -->
+<section class="team-block-home" aria-label="Наша команда">
     <div class="container">
-        <h2 class="contacts-title animate-on-scroll">Контакты</h2>
-        
-        <!-- Карта -->
-        <div class="map-section animate-on-scroll animate-fade-in-up">
-            <div class="map-header">
-                <p class="map-address">
-                    <span class="address-icon">📍</span>
-                    <span class="address-text">{{ contact_info.address|default:"г. Москва М. Шоссе Энтузиастов 31 строение 38" }}</span>
-                </p>
-            </div>
-            <div class="map-container-large">
-                <iframe 
-                    src="https://yandex.ru/map-widget/v1/?text=г.%20Москва%20М.%20Шоссе%20Энтузиастов%2031%20строение%2038&amp;z=16&amp;ll=37.7749%2C55.7558" 
-                    width="100%" 
-                    height="450" 
-                    frameborder="0"
-                    style="border-radius: 20px;">
-                </iframe>
-            </div>
-            <div class="map-actions">
-                <button class="btn-call-modern" data-service="call">
-                    <span class="btn-icon">📞</span>
-                    <span class="btn-text">Заказать звонок</span>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Текст о команде -->
         <div class="team-intro-section animate-on-scroll animate-fade-in-up">
             <div class="team-intro-content">
                 <h3 class="team-intro-title">У нас работают люди, проверенные временем!</h3>
                 <p class="team-intro-description">
-                    Наша команда — это профессионалы с многолетним опытом работы в сфере инженерных систем. 
+                    Наша команда — это профессионалы с многолетним опытом работы в сфере инженерных систем.
                     Каждый специалист прошел строгий отбор и имеет все необходимые сертификаты и допуски.
                 </p>
             </div>
         </div>
-        
-        <!-- Галерея команды -->
+
         <div class="team-gallery-section animate-on-scroll animate-fade-in-up animate">
-            <div class="team-gallery">
-                {% if photos.main_team_1 %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{{ photos.main_team_1.image.url }}" alt="{{ photos.main_team_1.alt_text|default:'Специалист 1' }}" loading="lazy">
+            <div class="team-gallery team-gallery-interactive" aria-label="Фотографии специалистов">
+                <div class="team-gallery-shell">
+                    <div class="team-gallery-slider" id="teamGallerySlider">
+                        {% if photos.main_team_1 %}
+                        <div class="team-gallery-slide active">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{{ photos.main_team_1.image.url }}" alt="{{ photos.main_team_1.alt_text|default:'Специалист 1' }}" loading="lazy">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 1" loading="lazy">
+                        {% else %}
+                        <div class="team-gallery-slide active">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 1" loading="lazy">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-                
-                {% if photos.main_team_2 %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{{ photos.main_team_2.image.url }}" alt="{{ photos.main_team_2.alt_text|default:'Специалист 2' }}" loading="lazy">
+                        {% endif %}
+
+                        {% if photos.main_team_2 %}
+                        <div class="team-gallery-slide">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{{ photos.main_team_2.image.url }}" alt="{{ photos.main_team_2.alt_text|default:'Специалист 2' }}" loading="lazy">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 2" loading="lazy">
+                        {% else %}
+                        <div class="team-gallery-slide">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 2" loading="lazy">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-                
-                {% if photos.main_team_3 %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{{ photos.main_team_3.image.url }}" alt="{{ photos.main_team_3.alt_text|default:'Специалист 3' }}" loading="lazy">
+                        {% endif %}
+
+                        {% if photos.main_team_3 %}
+                        <div class="team-gallery-slide">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{{ photos.main_team_3.image.url }}" alt="{{ photos.main_team_3.alt_text|default:'Специалист 3' }}" loading="lazy">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 3" loading="lazy">
+                        {% else %}
+                        <div class="team-gallery-slide">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 3" loading="lazy">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% endif %}
-                
-                {% if photos.main_team_4 %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{{ photos.main_team_4.image.url }}" alt="{{ photos.main_team_4.alt_text|default:'Специалист 4' }}" loading="lazy">
+                        {% endif %}
+
+                        {% if photos.main_team_4 %}
+                        <div class="team-gallery-slide">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{{ photos.main_team_4.image.url }}" alt="{{ photos.main_team_4.alt_text|default:'Специалист 4' }}" loading="lazy">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                {% else %}
-                    <div class="team-photo-item">
-                        <div class="photo-frame">
-                            <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 4" loading="lazy">
+                        {% else %}
+                        <div class="team-gallery-slide">
+                            <div class="team-photo-item">
+                                <div class="photo-frame">
+                                    <img src="{% static 'images/placeholder.svg' %}" alt="Специалист 4" loading="lazy">
+                                </div>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
-                {% endif %}
+
+                    <div class="gallery-controls team-gallery-controls">
+                        <button type="button" class="gallery-btn gallery-prev" id="teamGalleryPrev" aria-label="Предыдущее фото">
+                            <span class="btn-icon" aria-hidden="true">←</span>
+                            <span class="btn-text">Назад</span>
+                        </button>
+                        <button type="button" class="gallery-btn gallery-next" id="teamGalleryNext" aria-label="Следующее фото">
+                            <span class="btn-text">Вперед</span>
+                            <span class="btn-icon" aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                    <div class="gallery-indicators team-gallery-indicators" id="teamGalleryIndicators" aria-hidden="true"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -737,7 +738,16 @@ div.service-card-modern:hover,
     
     .hero-stats {
         flex-direction: column !important;
+        align-items: stretch !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
         gap: 20px !important;
+    }
+
+    .hero-stats .stat-item {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
     
     .hero-cta {
@@ -832,12 +842,14 @@ div.service-card-modern:hover,
 /* Modern Hero Section for Home Page */
 .modern-hero-section-home {
     position: relative;
-    min-height: auto;
+    min-height: calc(100vh - var(--header-offset, 72px));
+    min-height: calc(100svh - var(--header-offset, 72px));
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #1e1a6b 0%, #3d5ba5 50%, #1e1a6b 100%);
     overflow: hidden;
-    padding: 40px 0 300px;
+    padding: 0 0 100px;
+    margin-top: 0;
 }
 
 .hero-gradient {
@@ -899,8 +911,8 @@ div.service-card-modern:hover,
     color: white;
     font-size: 16px;
     font-weight: 600;
-    margin-top: 40px !important;
-    margin-bottom: 40px;
+    margin-top: 12px !important;
+    margin-bottom: 32px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     animation: badgePulse 3s ease-in-out infinite;
@@ -1152,7 +1164,16 @@ div.service-card-modern:hover,
     
     .hero-stats {
         flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        box-sizing: border-box;
         gap: 20px;
+    }
+
+    .hero-stats .stat-item {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
     
     .hero-actions {
@@ -1173,7 +1194,7 @@ div.service-card-modern:hover,
 
 @media (max-width: 480px) {
     .modern-hero-section-home {
-        padding: 15px 0 250px;
+        padding: 0 0 80px;
     }
     
     .hero-content-wrapper {
@@ -1181,8 +1202,8 @@ div.service-card-modern:hover,
     }
     
     .hero-badge {
-        margin-top: 30px !important;
-        margin-bottom: 30px;
+        margin-top: 8px !important;
+        margin-bottom: 24px;
         padding: 12px 20px;
         font-size: 14px;
     }
@@ -1200,341 +1221,12 @@ div.service-card-modern:hover,
     }
 }
 
-/* Стили модальных окон как на странице комплексного обслуживания */
-.modal-content {
-    background: linear-gradient(135deg, #1e1a6b 0%, #2d1b69 100%) !important;
-    margin: 5% auto !important;
-    padding: 0 !important;
-    border-radius: 20px !important;
-    width: 90% !important;
-    max-width: 500px !important;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
-    animation: modalSlideIn 0.3s ease-out !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
+/* Модальные окна: общий вид в static/css/styles.css */
 
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.modal-header {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 30px 30px 20px !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-
-.modal-header h3 {
-    color: white !important;
-    font-size: 1.5rem !important;
-    font-weight: 700 !important;
-    margin: 0 !important;
-}
-
-.modal-close {
-    color: white !important;
-    font-size: 28px !important;
-    font-weight: bold !important;
-    cursor: pointer !important;
-    transition: color 0.3s ease !important;
-}
-
-.modal-close:hover {
-    color: #ff6b6b !important;
-}
-
-.modal-form {
-    padding: 30px !important;
-}
-
-.form-group {
-    margin-bottom: 25px !important;
-}
-
-.form-group label {
-    display: block !important;
-    color: white !important;
-    font-weight: 600 !important;
-    margin-bottom: 8px !important;
-    font-size: 0.95rem !important;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100% !important;
-    padding: 15px 20px !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
-    border-radius: 12px !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-    font-size: 1rem !important;
-    transition: all 0.3s ease !important;
-    backdrop-filter: blur(10px) !important;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none !important;
-    border-color: rgba(255, 255, 255, 0.4) !important;
-    background: rgba(255, 255, 255, 0.15) !important;
-    transform: translateY(-2px) !important;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7) !important;
-}
-
-.submit-btn {
-    width: 100% !important;
-    padding: 18px 30px !important;
-    background: linear-gradient(135deg, #dc267f 0%, #ff6b6b 100%) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 12px !important;
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-}
-
-.submit-btn:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 10px 30px rgba(220, 38, 127, 0.4) !important;
-}
-
-/* Стили для кнопки "Заказать звонок" */
-.call-submit-btn {
-    width: 100% !important;
-    padding: 18px 30px !important;
-    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%) !important;
-    color: white !important;
-    border: none !important;
-    border-radius: 12px !important;
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    transition: all 0.3s ease !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-    margin-top: 10px !important;
-}
-
-.call-submit-btn:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4) !important;
-    background: linear-gradient(135deg, #45a049 0%, #4CAF50 100%) !important;
-}
-
-.form-actions {
-    margin-top: 20px !important;
-}
-
-/* Адаптивность для модальных окон */
-@media (max-width: 768px) {
-    .modal-content {
-        margin: 10% auto !important;
-        width: 95% !important;
-        max-width: 400px !important;
-    }
-    
-    .modal-header {
-        padding: 25px 25px 15px !important;
-    }
-    
-    .modal-header h3 {
-        font-size: 1.3rem !important;
-    }
-    
-    .modal-form {
-        padding: 25px !important;
-    }
-    
-    .form-group input {
-        padding: 12px 15px !important;
-        font-size: 0.95rem !important;
-    }
-    
-    .submit-btn {
-        padding: 15px 25px !important;
-        font-size: 1rem !important;
-    }
-    
-    .call-submit-btn {
-        padding: 15px 25px !important;
-        font-size: 1rem !important;
-    }
-}
-
-/* ===== СОВРЕМЕННАЯ СЕКЦИЯ КОНТАКТОВ ===== */
-.contacts-section-modern {
-    padding: 0 0 80px 0;
-    background: #ffffff !important;
-    background-color: #ffffff !important;
-    background-image: none !important;
-    position: relative;
-    overflow: hidden;
-}
-
-.contacts-section-modern::before {
-    display: none;
-}
-
-.contacts-section-modern .container {
-    position: relative;
-    z-index: 2;
-}
-
-.contacts-title {
-    text-align: center;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-    color: var(--color-primary);
-    margin-top: 80px;
-    margin-bottom: 60px;
-    position: relative;
-    z-index: 2;
-}
-
-.contacts-title::after {
-    content: '';
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 4px;
-    background: linear-gradient(90deg, #1e1a6b, #3d5ba5, #dc267f);
-    border-radius: 2px;
-}
-
-/* ===== СЕКЦИЯ КАРТЫ ===== */
-.map-section {
-    margin-bottom: 80px;
-    position: relative;
-    z-index: 2;
-}
-
-.map-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.map-address {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(30, 26, 107, 0.1);
-    padding: 16px 32px;
-    border-radius: 50px;
-    color: var(--color-primary);
-    font-size: 18px;
-    font-weight: 600;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.map-address:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px rgba(30, 26, 107, 0.2);
-}
-
-.address-icon {
-    font-size: 24px;
-    animation: locationPulse 2s ease-in-out infinite;
-}
-
-@keyframes locationPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-}
-
-.map-container-large {
-    width: 100%;
-    height: 450px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.map-container-large:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
-}
-
-.map-container-large iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 20px;
-}
-
-.map-actions {
-    text-align: center;
-    margin-top: 30px;
-}
-
-.btn-call-modern {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    background: linear-gradient(135deg, #1e1a6b 0%, #3d5ba5 100%);
-    color: white;
-    border: none;
-    padding: 16px 32px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 32px rgba(30, 26, 107, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-.btn-call-modern::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s;
-}
-
-.btn-call-modern:hover::before {
-    left: 100%;
-}
-
-.btn-call-modern:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 45px rgba(30, 26, 107, 0.4);
-    background: linear-gradient(135deg, #dc267f 0%, #1e1a6b 100%);
-}
-
-.btn-icon {
-    font-size: 18px;
-    transition: transform 0.3s ease;
-}
-
-.btn-call-modern:hover .btn-icon {
-    transform: scale(1.1);
+/* Блок команды перед контактами (контакты + карта — последние на странице) */
+.team-block-home {
+    padding: 72px 0 48px;
+    background: #ffffff;
 }
 
 /* ===== СЕКЦИЯ О КОМАНДЕ ===== */
@@ -1638,13 +1330,46 @@ div.service-card-modern:hover,
     z-index: 2;
 }
 
-.team-gallery {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+/* Десктоп: сетка 2×2; мобилка: карусель (стили ниже в @media) */
+.team-gallery-interactive {
     max-width: 100%;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.team-gallery-interactive .team-gallery-shell {
+    position: relative;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    border-radius: 0;
+}
+
+.team-gallery-interactive .team-gallery-slider {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.team-gallery-interactive .team-gallery-slide {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    display: block;
+    background: transparent;
+    transition: none;
+}
+
+.team-gallery-interactive .team-gallery-controls,
+.team-gallery-interactive .team-gallery-indicators {
+    display: none !important;
 }
 
 .team-photo-item {
@@ -1831,29 +1556,8 @@ div.service-card-modern:hover,
 
 /* ===== АДАПТИВНОСТЬ ===== */
 @media (max-width: 768px) {
-    .contacts-section-modern {
-        padding: 0 0 60px 0;
-    }
-    
-    .contacts-title {
-        margin-top: 60px;
-    }
-    
-    .contacts-title {
-        margin-bottom: 40px;
-    }
-    
-    .map-section {
-        margin-bottom: 60px;
-    }
-    
-    .map-container-large {
-        height: 300px;
-    }
-    
-    .map-address {
-        padding: 12px 24px;
-        font-size: 16px;
+    .team-block-home {
+        padding: 48px 0 32px;
     }
     
     .team-intro-content {
@@ -1875,16 +1579,72 @@ div.service-card-modern:hover,
     .team-intro-content::before {
         border-radius: 15px;
     }
-    
-    .team-gallery {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        max-width: 100%;
+
+    .team-gallery-interactive {
         padding: 0 15px;
     }
-    
-    .photo-frame {
-        height: 300px;
+
+    .team-gallery-interactive .team-gallery-shell {
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .team-gallery-interactive .team-gallery-slider {
+        display: block;
+        height: 320px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .team-gallery-interactive .team-gallery-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+    }
+
+    .team-gallery-interactive .team-gallery-slide.active {
+        opacity: 1;
+    }
+
+    .team-gallery-interactive .team-gallery-slide .team-photo-item {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+    }
+
+    .team-gallery-interactive .team-gallery-controls {
+        display: flex !important;
+    }
+
+    .team-gallery-interactive .team-gallery-indicators {
+        display: flex !important;
+    }
+
+    /* Точки на белом фоне карточки — читаемее, чем белые полупрозрачные */
+    .team-gallery-interactive .gallery-indicator {
+        background: rgba(61, 91, 165, 0.3);
+    }
+
+    .team-gallery-interactive .gallery-indicator.active {
+        background: var(--color-primary);
+    }
+
+    .team-gallery-interactive .photo-frame {
+        height: 100%;
+        max-height: 100%;
+        min-height: 0;
         border-radius: 15px;
         padding: 15px 20px;
     }
@@ -1924,24 +1684,6 @@ div.service-card-modern:hover,
 }
 
 @media (max-width: 480px) {
-    .contacts-section-modern {
-        padding: 0 0 40px 0;
-    }
-    
-    .contacts-title {
-        margin-top: 40px;
-    }
-    
-    .map-container-large {
-        height: 250px;
-        border-radius: 15px;
-    }
-    
-    .map-address {
-        padding: 10px 20px;
-        font-size: 14px;
-    }
-    
     .team-intro-content {
         padding: 20px 15px;
         min-height: 160px;
@@ -1956,10 +1698,9 @@ div.service-card-modern:hover,
         font-size: 0.95rem;
         line-height: 1.4;
     }
-    
-    .btn-call-modern {
-        padding: 14px 28px;
-        font-size: 14px;
+
+    .team-gallery-interactive .team-gallery-slider {
+        height: 300px;
     }
     
     .gallery-slider {
@@ -2158,6 +1899,66 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Автопрокрутка каждые 5 секунд
         setInterval(nextSlide, 5000);
+    }
+
+    // Галерея команды (мобилка — те же кнопки и индикаторы, что у блока «Живые фотографии»)
+    const teamGallerySlider = document.getElementById('teamGallerySlider');
+    const teamGalleryPrev = document.getElementById('teamGalleryPrev');
+    const teamGalleryNext = document.getElementById('teamGalleryNext');
+    const teamGalleryIndicators = document.getElementById('teamGalleryIndicators');
+
+    if (teamGallerySlider && teamGalleryPrev && teamGalleryNext && teamGalleryIndicators) {
+        const teamSlides = teamGallerySlider.querySelectorAll('.team-gallery-slide');
+        if (teamSlides.length > 0) {
+            let teamCurrentSlide = 0;
+            teamGalleryIndicators.innerHTML = '';
+            teamGalleryIndicators.removeAttribute('aria-hidden');
+
+            teamSlides.forEach((slide, index) => {
+                const indicator = document.createElement('div');
+                indicator.className = 'gallery-indicator';
+                indicator.setAttribute('role', 'button');
+                indicator.setAttribute('tabindex', '0');
+                indicator.setAttribute('aria-label', 'Фото ' + (index + 1));
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => teamGoToSlide(index));
+                indicator.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        teamGoToSlide(index);
+                    }
+                });
+                teamGalleryIndicators.appendChild(indicator);
+            });
+
+            function teamShowSlide(index) {
+                teamSlides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                teamGalleryIndicators.querySelectorAll('.gallery-indicator').forEach((ind, i) => {
+                    ind.classList.toggle('active', i === index);
+                });
+            }
+
+            function teamGoToSlide(index) {
+                teamCurrentSlide = index;
+                teamShowSlide(teamCurrentSlide);
+            }
+
+            function teamNextSlide() {
+                teamCurrentSlide = (teamCurrentSlide + 1) % teamSlides.length;
+                teamShowSlide(teamCurrentSlide);
+            }
+
+            function teamPrevSlide() {
+                teamCurrentSlide = (teamCurrentSlide - 1 + teamSlides.length) % teamSlides.length;
+                teamShowSlide(teamCurrentSlide);
+            }
+
+            teamGalleryNext.addEventListener('click', teamNextSlide);
+            teamGalleryPrev.addEventListener('click', teamPrevSlide);
+            setInterval(teamNextSlide, 5000);
+        }
     }
 });
 </script>

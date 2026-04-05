@@ -4,12 +4,11 @@
 /* Modern Hero Section */
 .modern-hero-section {
     position: relative;
-    min-height: auto;
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 25%, #6d28d9 75%, #5b21b6 100%);
     overflow: hidden;
-    padding: 40px 0 250px !important;
+    padding: 0 0 100px;
 }
 
 .hero-gradient {
@@ -71,7 +70,7 @@
     color: white;
     font-size: 16px;
     font-weight: 600;
-    margin-top: 40px !important;
+    margin-top: 12px !important;
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -429,7 +428,7 @@
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 30px;
     margin-top: 60px;
 }
@@ -526,93 +525,140 @@
 
 /* Process Section */
 .process-section {
-    padding: 80px 0;
+    padding: 56px 0;
     background: #f9fafb;
+    overflow-x: hidden;
 }
 
-.process-timeline {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-}
-
-.process-timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: linear-gradient(180deg, #8b5cf6, #5b21b6);
-    transform: translateX(-50%);
-}
-
-.timeline-item {
+.process-section-cta {
     display: flex;
-    align-items: center;
-    margin-bottom: 60px;
+    justify-content: center;
+    margin-top: 48px;
+    padding-top: 8px;
+}
+
+/* Без transition:all и без overflow:hidden — иначе при hover «белеют» края; фон/бордер не анимируем */
+.process-section-cta .btn-modern {
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Кнопка на светлом фоне: базовый .btn-primary для героя — белая; здесь — заливка бренда */
+.process-section-cta .btn-modern.btn-primary {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 50%, #5b21b6 100%);
+    color: #fff;
+    border: 2px solid rgba(91, 33, 182, 0.35);
+    box-shadow: 0 8px 28px rgba(91, 33, 182, 0.28);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.process-section-cta .btn-modern.btn-primary:hover {
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 50%, #4c1d95 100%);
+    color: #fff;
+    border-color: rgba(76, 29, 149, 0.55);
+    transform: translate3d(0, -3px, 0);
+    box-shadow: 0 14px 36px rgba(91, 33, 182, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Белая «волна» ::before — полностью отключаем */
+.process-section-cta .btn-modern::before,
+.process-section-cta .btn-modern:hover::before {
+    content: none;
+    display: none;
+}
+
+/* Блок этапов по центру; без position:left — сдвиг вправо давал обрезку текста на мобилке */
+.process-section .process-steps {
+    width: 100%;
+    max-width: 42rem;
+    margin: 2.75rem auto 0;
+    padding: 0;
+    box-sizing: border-box;
     position: relative;
+    left: 0;
 }
 
-.timeline-item:nth-child(even) {
-    flex-direction: row-reverse;
+.process-section .process-steps__body {
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }
 
-.timeline-item:nth-child(even) .timeline-content {
-    text-align: right;
+.process-section .process-steps__row {
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: 1rem 1.25rem;
+    align-items: start;
+    margin: 0;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-.timeline-icon {
-    width: 80px;
-    height: 80px;
-    background: white;
-    border: 4px solid #8b5cf6;
-    border-radius: 50%;
+.process-section .process-steps__row:first-child {
+    padding-top: 0;
+}
+
+.process-section .process-steps__row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.process-section .process-steps__index {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    z-index: 2;
-    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-}
-
-.timeline-icon .icon {
-    font-size: 32px;
-}
-
-.timeline-content {
-    flex: 1;
-    padding: 0 40px;
-    max-width: 300px;
-}
-
-.timeline-content h4 {
-    font-size: 1.5rem;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-top: 2px;
+    border-radius: 50%;
+    font-size: 0.875rem;
     font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 10px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    color: #5b21b6;
+    background: #ede9fe;
+    border: 1px solid rgba(91, 33, 182, 0.12);
 }
 
-.timeline-content ul {
-    list-style: none;
-    padding: 0;
+.process-section .process-steps__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.1875rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.38;
+    color: #111827;
+}
+
+.process-section .process-steps__list {
     margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-.timeline-content li {
-    color: #6b7280;
-    line-height: 1.6;
-    margin-bottom: 5px;
+.process-section .process-steps__list li {
     position: relative;
-    padding-left: 20px;
+    margin: 0 0 0.4rem;
+    padding-left: 1rem;
+    font-size: 1.0625rem;
+    line-height: 1.58;
+    color: #4b5563;
 }
 
-.timeline-content li::before {
-    content: '•';
+.process-section .process-steps__list li:last-child {
+    margin-bottom: 0;
+}
+
+.process-section .process-steps__list li::before {
+    content: '';
     position: absolute;
     left: 0;
-    color: #8b5cf6;
-    font-weight: bold;
+    top: 0.58em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #8b5cf6;
 }
 
 /* Advantages Section */
@@ -749,8 +795,10 @@
     position: relative;
     z-index: 2;
     text-align: center;
-    max-width: 600px;
+    max-width: min(1180px, 100%);
     margin: 0 auto;
+    padding: 0 12px;
+    box-sizing: border-box;
 }
 
 .cta-icon {
@@ -775,11 +823,15 @@
 }
 
 .cta-title {
-    font-size: 2.5rem;
+    font-size: clamp(2.2rem, 5.4vw, 3.65rem);
     font-weight: 800;
     color: white;
     margin-bottom: 40px;
-    line-height: 1.2;
+    line-height: 1.14;
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 4px;
 }
 
 .cta-buttons {
@@ -830,126 +882,7 @@
     box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
 }
 
-/* Modal Styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
-
-.modal-content {
-    background: linear-gradient(135deg, #8b5cf6 0%, #5b21b6 100%);
-    margin: 5% auto;
-    padding: 0;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    animation: modalSlideIn 0.3s ease-out;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@keyframes modalSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-50px) scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 30px 20px;
-    color: white;
-}
-
-.modal-header h3 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
-    color: white;
-}
-
-.close {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.close:hover {
-    color: white;
-}
-
-.modal-body {
-    padding: 0 30px 30px;
-}
-
-.modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-group {
-    position: relative;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 15px 20px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    box-sizing: border-box;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: white;
-    background: rgba(255, 255, 255, 0.2);
-}
-
-.btn-submit {
-    background: white;
-    color: #8b5cf6;
-    border: none;
-    padding: 15px 30px;
-    border-radius: 15px;
-    font-weight: 600;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-submit:hover {
-    background: #f9fafb;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
-}
+/* Модальные окна: static/css/styles.css */
 
 /* Animations */
 @keyframes animate-tools {
@@ -1112,22 +1045,32 @@
         grid-template-columns: 1fr;
     }
     
-    .timeline-item {
-        flex-direction: column !important;
-        text-align: center !important;
-    }
-    
-    .timeline-item:nth-child(even) .timeline-content {
-        text-align: center !important;
-    }
-    
-    .timeline-content {
-        padding: 20px 0 0 0;
+    .process-section .process-steps {
+        margin-top: 1.75rem;
         max-width: 100%;
+        left: 0;
+        padding: 0 clamp(8px, 3vw, 16px);
+        width: 100%;
     }
-    
-    .process-timeline::before {
-        display: none;
+
+    .process-section .process-steps__row {
+        grid-template-columns: 2.5rem minmax(0, 1fr);
+        gap: 0.75rem 0.75rem;
+        padding: 1rem 0;
+    }
+
+    .process-section .process-steps__title {
+        font-size: 1.05rem;
+    }
+
+    .process-section .process-steps__list li {
+        font-size: 0.9375rem;
+    }
+
+    .process-section .process-steps__index {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 0.75rem;
     }
     
     .advantages-grid {
@@ -1148,17 +1091,13 @@
 }
 
 @media (max-width: 480px) {
-    .modern-hero-section {
-        padding: 15px 0 100px;
-    }
-    
     .hero-content-wrapper {
         padding: 10px;
     }
     
     .hero-badge {
-        margin-top: 30px !important;
-        margin-bottom: 30px;
+        margin-top: 8px !important;
+        margin-bottom: 24px;
         padding: 12px 20px;
         font-size: 14px;
     }
@@ -1203,11 +1142,6 @@
     .cta-title {
         font-size: 2rem;
     }
-}
-
-/* Принудительное увеличение отступа для hero section */
-.modern-hero-section {
-    padding-bottom: 250px !important;
 }
 
 /* Принудительный отступ сверху для nav-pills-section */
