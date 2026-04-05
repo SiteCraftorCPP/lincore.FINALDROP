@@ -4,3 +4,14 @@
 SECRET_KEY=your-secret-key-here
 DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1
+
+# Продакшен (опционально): PostgreSQL — если задан DB_NAME, SQLite не используется
+# DB_NAME=engineering_db
+# DB_USER=django
+# DB_PASSWORD=
+# DB_HOST=localhost
+# DB_PORT=5432
+
+# HTTPS за reverse-proxy (опционально)
+# SECURE_PROXY_SSL_HEADER=HTTP_X_FORWARDED_PROTO,https
+# CSRF_TRUSTED_ORIGINS=https://example.com

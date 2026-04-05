@@ -3,3 +3,6 @@ Django==3.2.25
 
 # Работа с изображениями
 Pillow==10.0.0
+
+# PostgreSQL (settings_production при заданном DB_NAME в .env)
+psycopg2-binary==2.9.9
