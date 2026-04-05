@@ -1463,7 +1463,7 @@ section,
 .mobile-nav-item {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 0;
     width: 100%;
     min-height: 52px;
     padding: 12px 14px;
@@ -1498,30 +1498,11 @@ section,
     outline-offset: 2px;
 }
 
-.mobile-nav-item .nav-icon {
-    font-size: 22px;
-    line-height: 1;
-    flex-shrink: 0;
-    width: 36px;
-    text-align: center;
-}
-
 .mobile-nav-item .nav-text {
     font-size: 14px;
     line-height: 1.4;
     flex: 1;
     min-width: 0;
-}
-
-/* Главная — мобильное меню: пункты «Услуги» без иконок разделов */
-@media (max-width: 768px) {
-    .page-home .mobile-nav-item .nav-icon {
-        display: none;
-    }
-
-    .page-home .mobile-nav-item {
-        gap: 0;
-    }
 }
 
 /* Навигация по услугам — в выпадающей панели (.services-dropdown-grid) */

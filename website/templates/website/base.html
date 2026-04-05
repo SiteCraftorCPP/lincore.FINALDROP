@@ -11,7 +11,7 @@
     
     <!-- CSS -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202604025430">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202604026000">
     
     <!-- Meta теги -->
     <meta name="description" content="Профессиональные инженерные услуги: обслуживание, ремонт, монтаж инженерных систем">
@@ -135,35 +135,27 @@
                     <p class="mobile-menu-section-title">Услуги</p>
                     <nav class="mobile-menu-services" aria-label="Разделы услуг">
                     <a href="{% url 'website:complex_service' %}" class="mobile-nav-item">
-                        <span class="nav-icon">🔧</span>
                         <span class="nav-text">Комплексное обслуживание инженерных систем</span>
                     </a>
                     <a href="{% url 'website:heating_service' %}" class="mobile-nav-item">
-                        <span class="nav-icon">🏭</span>
                         <span class="nav-text">Комплексное обслуживание систем (ИТП) отопления</span>
                     </a>
                     <a href="{% url 'website:verification' %}" class="mobile-nav-item">
-                        <span class="nav-icon">⚖️</span>
                         <span class="nav-text">Поверка приборов учёта</span>
                     </a>
                     <a href="{% url 'website:emergency' %}" class="mobile-nav-item">
-                        <span class="nav-icon">🚨</span>
                         <span class="nav-text">Аварийная служба</span>
                     </a>
                     <a href="{% url 'website:installation' %}" class="mobile-nav-item">
-                        <span class="nav-icon">🔨</span>
                         <span class="nav-text">Монтаж инженерных коммуникаций</span>
                     </a>
                     <a href="{% url 'website:audit' %}" class="mobile-nav-item">
-                        <span class="nav-icon">📋</span>
                         <span class="nav-text">Аудит инженерных систем</span>
                     </a>
                     <a href="{% url 'website:heating_preparation' %}" class="mobile-nav-item">
-                        <span class="nav-icon">❄️</span>
                         <span class="nav-text">Подготовка к отопительному сезону</span>
                     </a>
                     <a href="{% url 'website:ventilation' %}" class="mobile-nav-item">
-                        <span class="nav-icon">🌪️</span>
                         <span class="nav-text">Вентиляция</span>
                     </a>
                     </nav>
