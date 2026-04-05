@@ -131,6 +131,7 @@ dmypy.json
 # Django specific
 media/
 staticfiles/
+gunicorn.sock
 static_root/
 
 # IDE
