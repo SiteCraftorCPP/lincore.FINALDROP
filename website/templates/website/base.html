@@ -11,7 +11,7 @@
     
     <!-- CSS -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202604021600">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202604021800">
     <link rel="stylesheet" href="{% static 'css/ui-icons.css' %}?v=202604021700">
     
     <!-- Meta теги -->
@@ -265,11 +265,11 @@
                     
                     <div class="form-group">
                         <span class="upload-field-heading" id="tenderFileLegend">Прикрепите техническое задание</span>
-                        <div class="file-upload file-upload--plate">
-                            <input type="file" id="tenderFile" name="technical_task" accept=".pdf,.doc,.docx" class="file-upload__input" aria-labelledby="tenderFileLegend">
-                            <label for="tenderFile" class="file-upload__plate">
+                        <div class="file-upload">
+                            <label class="file-upload__plate file-upload--plate">
                                 <span class="file-upload__icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='paperclip' w=22 h=22 %}</span>
                                 <span class="file-upload__caption">Выберите файл</span>
+                                <input type="file" id="tenderFile" name="technical_task" accept=".pdf,.doc,.docx" class="file-upload__input" aria-labelledby="tenderFileLegend">
                             </label>
                         </div>
                     </div>
@@ -344,7 +344,7 @@
     <div id="notifications"></div>
 
     <!-- JavaScript -->
-    <script src="{% static 'js/main.js' %}?v=202604021600"></script>
+    <script src="{% static 'js/main.js' %}?v=202604021800"></script>
     {% block extra_js %}{% endblock %}
     
     <!-- Intersection Observer Polyfill для старых браузеров -->
