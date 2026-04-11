@@ -1,13 +1,33 @@
 from django.contrib import admin
+from django.core.files.storage import default_storage
 from django.utils.html import format_html
-from django.urls import reverse
-from django.utils.safestring import mark_safe
 from .models import (
     ContactInfo, ServiceApplication, CallbackRequest, TenderInvitation,
     Photo, GalleryPhoto, PhotoGroup, GalleryGroup, ComplexGalleryGroup, HeatingGalleryGroup, VerificationGalleryGroup, EmergencyPhotoGroup, AuditGalleryGroup, PreparationGalleryGroup, VentilationPhotoGroup, HeatingPhotoGroup, CommercialProposal
 )
 
 # Создаем группы в админ панели - регистрация будет в конце файла
+
+
+def admin_image_preview(obj, field_name='image'):
+    """Превью в админке: если путь в БД есть, а файла на диске нет — явное сообщение (типично права/nginx)."""
+    field = getattr(obj, field_name, None)
+    if not field:
+        return 'Нет изображения'
+    name = getattr(field, 'name', None) or ''
+    if not str(name).strip():
+        return 'Нет изображения'
+    if not default_storage.exists(name):
+        return format_html(
+            '<p style="color:#b42318;max-width:420px">Файл на сервере не найден: <code>{}</code>. '
+            'Проверьте права на <code>media/</code> (владелец процесса gunicorn), место на диске и '
+            'что запросы к <code>/media/</code> доходят до Django или отдаются nginx с тем же путём.</p>',
+            name,
+        )
+    return format_html(
+        '<img src="{}" alt="" style="max-width:200px;max-height:200px;" />',
+        field.url,
+    )
 
 
 @admin.register(ContactInfo)
@@ -125,12 +145,8 @@ class CommercialProposalAdmin(admin.ModelAdmin):
     date_hierarchy = 'created_at'
     
     def image_preview(self, obj):
-        if obj.image:
-            return format_html(
-                '<img src="{}" style="max-width: 200px; max-height: 200px;" />',
-                obj.image.url
-            )
-        return "Нет изображения"
+        return admin_image_preview(obj, 'image')
+
     image_preview.short_description = 'Предварительный просмотр'
     
     fieldsets = (
@@ -172,12 +188,8 @@ class GalleryPhotoAdmin(admin.ModelAdmin):
     gallery_type_display.short_description = 'Тип галереи'
     
     def image_preview(self, obj):
-        if obj.image:
-            return format_html(
-                '<img src="{}" style="max-width: 200px; max-height: 200px;" />',
-                obj.image.url
-            )
-        return "Нет изображения"
+        return admin_image_preview(obj, 'image')
+
     image_preview.short_description = 'Предварительный просмотр'
     
     fieldsets = (
@@ -249,12 +261,8 @@ class PhotoAdmin(admin.ModelAdmin):
     photo_type_display.short_description = 'Тип фотографии'
     
     def image_preview(self, obj):
-        if obj.image:
-            return format_html(
-                '<img src="{}" style="max-width: 200px; max-height: 200px;" />',
-                obj.image.url
-            )
-        return "Нет изображения"
+        return admin_image_preview(obj, 'image')
+
     image_preview.short_description = 'Предварительный просмотр'
     
     fieldsets = (

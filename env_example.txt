@@ -15,3 +15,6 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 # HTTPS за reverse-proxy (опционально)
 # SECURE_PROXY_SSL_HEADER=HTTP_X_FORWARDED_PROTO,https
 # CSRF_TRUSTED_ORIGINS=https://example.com
+# USE_X_FORWARDED_HOST=True
+
+# Если в админке не сохраняются файлы: client_max_body_size 25m; в .env на проде SECURE_PROXY_SSL_HEADER + CSRF_TRUSTED_ORIGINS
