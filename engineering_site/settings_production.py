@@ -9,6 +9,27 @@ from .settings import *  # noqa: F401,F403
 # По умолчанию на проде DEBUG выключен (в .env можно задать DEBUG=True для отладки)
 DEBUG = os.environ.get("DEBUG", "False").strip().lower() in ("1", "true", "yes")
 
+_proxy_ssl = bool(os.environ.get("SECURE_PROXY_SSL_HEADER", "").strip())
+
+# SECURE_SSL_REDIRECT=True без SECURE_PROXY_SSL_HEADER за nginx → редирект-петля, админка «не открывается».
+_want_ssl_redirect = os.environ.get("SECURE_SSL_REDIRECT", "").strip().lower() in ("1", "true", "yes")
+SECURE_SSL_REDIRECT = _want_ssl_redirect and _proxy_ssl
+
+# CSRF: если в .env пусто — собираем из ALLOWED_HOSTS (уже подтянут из .env в settings.py).
+if not os.environ.get("CSRF_TRUSTED_ORIGINS", "").strip():
+    _auto_csrf = []
+    for host in ALLOWED_HOSTS:  # noqa: F405
+        host = str(host).strip()
+        if not host or host == "*":
+            continue
+        if host in ("localhost", "127.0.0.1", "[::1]"):
+            _auto_csrf.extend((f"http://{host}", f"https://{host}"))
+        else:
+            _auto_csrf.append(f"https://{host}")
+            _auto_csrf.append(f"http://{host}")
+    if _auto_csrf:
+        CSRF_TRUSTED_ORIGINS = list(dict.fromkeys(_auto_csrf))
+
 # PostgreSQL: если в .env задан DB_NAME — используем его, иначе остаётся SQLite из settings.py
 if os.environ.get("DB_NAME", "").strip():
     DATABASES = {
