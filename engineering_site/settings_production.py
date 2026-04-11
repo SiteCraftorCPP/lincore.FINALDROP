@@ -32,12 +32,9 @@ _csrf = os.environ.get("CSRF_TRUSTED_ORIGINS", "").strip()
 if _csrf:
     CSRF_TRUSTED_ORIGINS = [x.strip() for x in _csrf.split(",") if x.strip()]
 
-# За nginx: корректный Host и схема (иначе редиректы/CSRF и иногда ссылки на /media/ ломаются)
-USE_X_FORWARDED_HOST = os.environ.get("USE_X_FORWARDED_HOST", "True").strip().lower() in (
-    "1",
-    "true",
-    "yes",
-)
+# Только если явно в .env — иначе можно сломать Host за нестандартным прокси
+if os.environ.get("USE_X_FORWARDED_HOST", "").strip().lower() in ("1", "true", "yes"):
+    USE_X_FORWARDED_HOST = True
 
 # Загрузка картинок из админки (по умолчанию Django режет крупные файлы в памяти)
 DATA_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get("DATA_UPLOAD_MAX_MEMORY_SIZE", str(12 * 1024 * 1024)))
