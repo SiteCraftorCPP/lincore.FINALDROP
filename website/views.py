@@ -98,13 +98,7 @@ def get_photos_context():
     except Exception as e:
         print(f"Error loading ventilation photos from database: {e}")
 
-    # Загружаем фотографии ИТП и ЦТП
-    try:
-        heating_photos = Photo.objects.filter(photo_type__startswith='heating_professional')
-        for heating_photo in heating_photos:
-            photos[heating_photo.photo_type] = heating_photo
-    except Exception as e:
-        print(f"Error loading heating photos from database: {e}")
+    # Слайдер ИТП/ЦТП — только GalleryPhoto (heating_gallery_*), см. «Галерея … ИТП …» в админке.
 
     return photos
 
