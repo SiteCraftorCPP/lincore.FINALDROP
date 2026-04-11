@@ -28,6 +28,35 @@ def _media_photo_placeholder(url, alt_text=''):
     return SimpleNamespace(image=SimpleNamespace(url=url), alt_text=alt_text)
 
 
+def _db_upload_file_exists(obj) -> bool:
+    """
+    True, если у записи из БД (Photo / GalleryPhoto) реально есть файл в MEDIA_ROOT.
+    У объектов из _media_photo_placeholder нет image.name — считаем источник валидным.
+    """
+    img = getattr(obj, 'image', None)
+    if img is None:
+        return False
+    name = getattr(img, 'name', None)
+    if name is None:
+        return bool(getattr(img, 'url', None))
+    name_str = str(name).strip()
+    if not name_str:
+        try:
+            return bool(img.url)
+        except Exception:
+            return False
+    return (Path(settings.MEDIA_ROOT) / name_str).is_file()
+
+
+def _fill_bundled_if_missing(photos: dict, key: str, url: Optional[str], alt_text: str) -> None:
+    """Подставляет bundled/static URL, если слота нет или файл из админки на диске отсутствует."""
+    if not url:
+        return
+    cur = photos.get(key)
+    if cur is None or not _db_upload_file_exists(cur):
+        photos[key] = _media_photo_placeholder(url, alt_text)
+
+
 # Копии тех же путей, что в media/, но под static/bundled_media/ — в git, без загрузки на VPS через админку
 BUNDLED_MEDIA_PREFIX = 'bundled_media'
 
@@ -135,21 +164,20 @@ def get_photos_context():
     except Exception as e:
         print(f"Error loading heating photos from database: {e}")
     
-    # Файлы с диска: сначала MEDIA, иначе static/bundled_media/ (в репозитории для VPS)
+    # Файлы с диска: сначала MEDIA, иначе static/bundled_media/ (в репозитории для VPS).
+    # Записи в БД без файла на диске (типично после бэка/миграций на VPS) не блокируют подстановку bundled.
     for i in range(1, 5):
         photo_file = f'photo{i}.jpg'
         team_key = f'main_team_{i}'
         url = _public_image_url(f'str1/{photo_file}')
-        if url and team_key not in photos:
-            photos[team_key] = _media_photo_placeholder(url, f'Специалист {i}')
+        _fill_bundled_if_missing(photos, team_key, url, f'Специалист {i}')
 
     for i in range(14, 18):
         photo_file = f'photo{i}.jpg'
         gallery_index = i - 13
         gallery_key = f'main_gallery_{gallery_index}'
         url = _public_image_url(f'str1/{photo_file}')
-        if url and gallery_key not in photos:
-            photos[gallery_key] = _media_photo_placeholder(url, f'Галерея фото {gallery_index}')
+        _fill_bundled_if_missing(photos, gallery_key, url, f'Галерея фото {gallery_index}')
 
     for i in range(5, 9):
         photo_file = f'photo{i}.jpg'
@@ -159,40 +187,37 @@ def get_photos_context():
         photos[f'service_str2_{i}'] = _media_photo_placeholder(url, f'Фото {i}')
         complex_index = i - 4
         complex_key = f'complex_str2_{complex_index}'
-        if complex_key not in photos:
-            photos[complex_key] = _media_photo_placeholder(url, f'Фото {i}')
-        if i == 5 and 'complex_team_1' not in photos:
-            photos['complex_team_1'] = _media_photo_placeholder(url, 'Специалист 1 - Комплексное обслуживание')
-        elif i == 6 and 'complex_team_2' not in photos:
-            photos['complex_team_2'] = _media_photo_placeholder(url, 'Специалист 2 - Комплексное обслуживание')
-        elif i == 7 and 'complex_electro_1' not in photos:
-            photos['complex_electro_1'] = _media_photo_placeholder(url, 'Электрохозяйство 1 - Комплексное обслуживание')
-        elif i == 8 and 'complex_electro_2' not in photos:
-            photos['complex_electro_2'] = _media_photo_placeholder(url, 'Электрохозяйство 2 - Комплексное обслуживание')
+        _fill_bundled_if_missing(photos, complex_key, url, f'Фото {i}')
+        if i == 5:
+            _fill_bundled_if_missing(photos, 'complex_team_1', url, 'Специалист 1 - Комплексное обслуживание')
+        elif i == 6:
+            _fill_bundled_if_missing(photos, 'complex_team_2', url, 'Специалист 2 - Комплексное обслуживание')
+        elif i == 7:
+            _fill_bundled_if_missing(photos, 'complex_electro_1', url, 'Электрохозяйство 1 - Комплексное обслуживание')
+        elif i == 8:
+            _fill_bundled_if_missing(photos, 'complex_electro_2', url, 'Электрохозяйство 2 - Комплексное обслуживание')
 
     photo9_url = _public_image_url('str3/photo9.jpg')
     if photo9_url:
-        photos['service_str3_9'] = _media_photo_placeholder(photo9_url, 'Фото 9')
-        photos['heating_str3_1'] = _media_photo_placeholder(photo9_url, 'ИТП отопления')
-        photos['heating_team_1'] = _media_photo_placeholder(photo9_url, 'Команда ИТП 1')
+        _fill_bundled_if_missing(photos, 'service_str3_9', photo9_url, 'Фото 9')
+        _fill_bundled_if_missing(photos, 'heating_str3_1', photo9_url, 'ИТП отопления')
+        _fill_bundled_if_missing(photos, 'heating_team_1', photo9_url, 'Команда ИТП 1')
 
     url_ff = _public_image_url('str3/photoFF.jpg')
     if url_ff:
-        photos['heating_team_2'] = _media_photo_placeholder(url_ff, 'Команда ИТП 2')
+        _fill_bundled_if_missing(photos, 'heating_team_2', url_ff, 'Команда ИТП 2')
 
     gallery_files = ['photou', 'photop', 'photoy', 'photog']
     for i, stem in enumerate(gallery_files, 1):
         heating_key = f'heating_gallery_{i}'
         url = _public_image_url(f'str3/{stem}.jpg')
-        if url and heating_key not in photos:
-            photos[heating_key] = _media_photo_placeholder(url, f'Работа специалистов ИТП {i}')
+        _fill_bundled_if_missing(photos, heating_key, url, f'Работа специалистов ИТП {i}')
 
     gallery_files_v = ['photojk', 'photopkk', 'photoub', 'photogl']
     for i, stem in enumerate(gallery_files_v, 1):
         verification_key = f'verification_gallery_{i}'
         url = _public_image_url(f'str4/{stem}.jpg')
-        if url and verification_key not in photos:
-            photos[verification_key] = _media_photo_placeholder(url, f'Работа специалистов поверки {i}')
+        _fill_bundled_if_missing(photos, verification_key, url, f'Работа специалистов поверки {i}')
 
     for i in range(10, 14):
         photo_file = f'photo{i}.jpg'
@@ -207,28 +232,24 @@ def get_photos_context():
 
     url_p1 = _public_image_url('str8/photougtt.jpg')
     if url_p1:
-        photos['preparation_team_1'] = _media_photo_placeholder(url_p1, 'Специалист подготовки 1')
+        _fill_bundled_if_missing(photos, 'preparation_team_1', url_p1, 'Специалист подготовки 1')
     url_p2 = _public_image_url('str8/photoyktt.jpg')
     if url_p2:
-        photos['preparation_team_2'] = _media_photo_placeholder(url_p2, 'Специалист подготовки 2')
+        _fill_bundled_if_missing(photos, 'preparation_team_2', url_p2, 'Специалист подготовки 2')
 
     url_v1 = _public_image_url('str9/vent1.jpg')
-    if url_v1 and 'ventilation_team_1' not in photos:
-        photos['ventilation_team_1'] = _media_photo_placeholder(url_v1, 'Специалист вентиляции 1')
+    _fill_bundled_if_missing(photos, 'ventilation_team_1', url_v1, 'Специалист вентиляции 1')
     url_v2 = _public_image_url('str9/vent2.jpg')
-    if url_v2 and 'ventilation_team_2' not in photos:
-        photos['ventilation_team_2'] = _media_photo_placeholder(url_v2, 'Специалист вентиляции 2')
+    _fill_bundled_if_missing(photos, 'ventilation_team_2', url_v2, 'Специалист вентиляции 2')
 
     url_a1 = _public_image_url('str7/photoug.jpg')
-    if url_a1 and 'audit_gallery_1' not in photos:
-        photos['audit_gallery_1'] = _media_photo_placeholder(url_a1, 'Аудит инженерных систем - Работа 1')
+    _fill_bundled_if_missing(photos, 'audit_gallery_1', url_a1, 'Аудит инженерных систем - Работа 1')
     url_a2 = _public_image_url('str7/photoyk.jpg')
-    if url_a2 and 'audit_gallery_2' not in photos:
-        photos['audit_gallery_2'] = _media_photo_placeholder(url_a2, 'Аудит инженерных систем - Работа 2')
+    _fill_bundled_if_missing(photos, 'audit_gallery_2', url_a2, 'Аудит инженерных систем - Работа 2')
 
     url_kp = _public_image_url('str7/kp.jpg')
     if url_kp:
-        photos['audit_kp_fallback'] = _media_photo_placeholder(url_kp, 'Коммерческое предложение')
+        _fill_bundled_if_missing(photos, 'audit_kp_fallback', url_kp, 'Коммерческое предложение')
 
     return photos
 
