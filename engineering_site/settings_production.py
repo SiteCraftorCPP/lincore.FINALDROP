@@ -31,3 +31,7 @@ if os.environ.get("SECURE_PROXY_SSL_HEADER", "").strip():
 _csrf = os.environ.get("CSRF_TRUSTED_ORIGINS", "").strip()
 if _csrf:
     CSRF_TRUSTED_ORIGINS = [x.strip() for x in _csrf.split(",") if x.strip()]
+
+# Загрузка картинок из админки (по умолчанию Django режет крупные файлы в памяти)
+DATA_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get("DATA_UPLOAD_MAX_MEMORY_SIZE", str(12 * 1024 * 1024)))
+FILE_UPLOAD_MAX_MEMORY_SIZE = int(os.environ.get("FILE_UPLOAD_MAX_MEMORY_SIZE", str(12 * 1024 * 1024)))
