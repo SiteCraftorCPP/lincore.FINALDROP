@@ -426,8 +426,6 @@
                             <div class="kp-image-container">
                                 {% if commercial_proposal %}
                                     <img src="{{ commercial_proposal.image.url }}" alt="{{ commercial_proposal.alt_text }}" class="kp-image">
-                                {% elif photos.audit_kp_fallback %}
-                                    <img src="{{ photos.audit_kp_fallback.image.url }}" alt="{{ photos.audit_kp_fallback.alt_text }}" class="kp-image">
                                 {% else %}
                                     <img src="{% static 'images/placeholder.svg' %}" alt="Коммерческое предложение" class="kp-image">
                                 {% endif %}

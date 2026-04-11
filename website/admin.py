@@ -218,6 +218,25 @@ class GalleryPhotoAdmin(admin.ModelAdmin):
         verbose_name_plural = "Галерея главной страницы"
 
 
+# Без поля «Тип галереи»: в proxy-админках оно задаётся автоматически (иначе по умолчанию
+# оказывается первая опция — главная — и запись «пропадает» из нужного раздела).
+_GALLERY_PROXY_FIELDSETS = (
+    ('Основная информация', {
+        'fields': ('title', 'alt_text'),
+    }),
+    ('Изображение', {
+        'fields': ('image', 'image_preview'),
+    }),
+    ('Настройки отображения', {
+        'fields': ('order', 'is_active'),
+    }),
+    ('Системная информация', {
+        'fields': ('created_at', 'updated_at'),
+        'classes': ('collapse',),
+    }),
+)
+
+
 # Админ для фото главной страницы (4 фотографии команды - только замена)
 class PhotoAdmin(admin.ModelAdmin):
     list_display = ['title', 'photo_type_display', 'image_preview', 'updated_at']
@@ -275,11 +294,20 @@ class PhotoGroupAdmin(PhotoAdmin):
 
 class GalleryGroupAdmin(GalleryPhotoAdmin):
     """Админ для группы Фотогалерея"""
-    pass
+    fieldsets = _GALLERY_PROXY_FIELDSETS
+
+    def save_model(self, request, obj, form, change):
+        obj.gallery_type = 'main_objects'
+        super().save_model(request, obj, form, change)
 
 class ComplexGalleryGroupAdmin(GalleryPhotoAdmin):
     """Админ для группы Галерея Комплексное обслуживание инженерных систем"""
-    
+    fieldsets = _GALLERY_PROXY_FIELDSETS
+
+    def save_model(self, request, obj, form, change):
+        obj.gallery_type = 'complex_objects'
+        super().save_model(request, obj, form, change)
+
     def get_queryset(self, request):
         """Фильтруем только галерею комплексного обслуживания"""
         # Получаем базовый queryset без фильтрации
@@ -292,7 +320,12 @@ class ComplexGalleryGroupAdmin(GalleryPhotoAdmin):
 
 class HeatingGalleryGroupAdmin(GalleryPhotoAdmin):
     """Админ для группы Галерея Комплексное обслуживание ИТП и ЦТП «под ключ»"""
-    
+    fieldsets = _GALLERY_PROXY_FIELDSETS
+
+    def save_model(self, request, obj, form, change):
+        obj.gallery_type = 'heating_objects'
+        super().save_model(request, obj, form, change)
+
     def get_queryset(self, request):
         """Фильтруем только галерею ИТП и ЦТП"""
         # Получаем базовый queryset без фильтрации
@@ -305,7 +338,12 @@ class HeatingGalleryGroupAdmin(GalleryPhotoAdmin):
 
 class VerificationGalleryGroupAdmin(GalleryPhotoAdmin):
     """Админ для группы Галерея Поверка, ремонт и восстановление приборов учета"""
-    
+    fieldsets = _GALLERY_PROXY_FIELDSETS
+
+    def save_model(self, request, obj, form, change):
+        obj.gallery_type = 'verification_objects'
+        super().save_model(request, obj, form, change)
+
     def get_queryset(self, request):
         """Фильтруем только галерею поверки"""
         # Получаем базовый queryset без фильтрации
@@ -331,7 +369,12 @@ class EmergencyPhotoGroupAdmin(PhotoAdmin):
 
 class AuditGalleryGroupAdmin(GalleryPhotoAdmin):
     """Админ для группы Галерея Аудит инженерных систем для госзаказчиков"""
-    
+    fieldsets = _GALLERY_PROXY_FIELDSETS
+
+    def save_model(self, request, obj, form, change):
+        obj.gallery_type = 'audit_objects'
+        super().save_model(request, obj, form, change)
+
     def get_queryset(self, request):
         """Фильтруем только галерею аудита"""
         # Получаем базовый queryset без фильтрации
@@ -344,7 +387,12 @@ class AuditGalleryGroupAdmin(GalleryPhotoAdmin):
 
 class PreparationGalleryGroupAdmin(GalleryPhotoAdmin):
     """Админ для группы Галерея Подготовка к отопительному сезону"""
-    
+    fieldsets = _GALLERY_PROXY_FIELDSETS
+
+    def save_model(self, request, obj, form, change):
+        obj.gallery_type = 'preparation_objects'
+        super().save_model(request, obj, form, change)
+
     def get_queryset(self, request):
         """Фильтруем только галерею подготовки к отопительному сезону"""
         # Получаем базовый queryset без фильтрации
