@@ -7,14 +7,14 @@
 <div class="header-email-copy">
     <a href="mailto:{{ contact_info.email_main|default:'service@lin-cor.ru' }}" class="header-email-copy__link">{{ contact_info.email_main|default:"service@lin-cor.ru" }}</a>
     <button type="button" class="header-email-copy__btn" data-copy-email="{{ contact_info.email_main|default:'service@lin-cor.ru' }}" title="Копировать e-mail" aria-label="Копировать адрес e-mail в буфер обмена">
-        <span class="header-email-copy__btn-icon" aria-hidden="true">📋</span>
+        <span class="header-email-copy__btn-icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=18 h=18 %}</span>
     </button>
 </div>
 {% endblock %}
 
 {% block mobile_menu_quick_extra %}
 <button type="button" class="mobile-menu-quick__item mobile-menu-quick__item--neutral js-copy-email-mobile" data-copy-email="{{ contact_info.email_main|default:'service@lin-cor.ru' }}">
-    <span class="mobile-menu-quick__icon" aria-hidden="true">✉️</span>
+    <span class="mobile-menu-quick__icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='mail' w=22 h=22 %}</span>
     <span class="mobile-menu-quick__body">
         <span class="mobile-menu-quick__title">E-mail</span>
         <span class="mobile-menu-quick__sub">{{ contact_info.email_main|default:"service@lin-cor.ru" }} · нажмите, чтобы скопировать</span>
@@ -31,7 +31,7 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                    <span class="badge-icon">🔍</span>
+                    {% include 'website/partials/ui_icon.html' with name='search' svg_class='badge-icon-svg' w=22 h=22 %}
                     <span>Для госзаказчиков</span>
                 </div>
                 
@@ -68,11 +68,11 @@
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                     <a href="tel:{{ contact_info.phone_main }}" class="btn-modern btn-primary">
                         <span class="btn-text">Позвонить</span>
-                        <span class="btn-icon">📞</span>
+                        {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
                     </a>
                     <button class="btn-modern btn-secondary" onclick="requestQuote()">
                         <span class="btn-text">Запросить КП</span>
-                        <span class="btn-icon">📋</span>
+                        {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
                     </button>
                 </div>
             </div>
@@ -92,19 +92,19 @@
     <div class="container">
             <div class="nav-pills" data-aos="fade-up">
                 <button class="pill-btn" data-target="services-section">
-                    <span class="pill-icon">🔍</span>
+                    {% include 'website/partials/ui_icon.html' with name='search' w=20 h=20 %}
                     <span>Услуги</span>
                 </button>
                 <button class="pill-btn" data-target="why-us-section">
-                    <span class="pill-icon">🛠</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Почему выбирают нас</span>
                 </button>
                 <button class="pill-btn" data-target="documents-section">
-                    <span class="pill-icon">📄</span>
+                    {% include 'website/partials/ui_icon.html' with name='file-text' w=20 h=20 %}
                     <span>Перечень документов</span>
                 </button>
                 <button class="pill-btn" data-target="advantages-section">
-                    <span class="pill-icon">✅</span>
+                    {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
                     <span>Преимущества</span>
                 </button>
             </div>
@@ -120,7 +120,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-search">🔍</span>
+                        <span class="icon animate-search">{% include 'website/partials/ui_icon.html' with name='search' w=24 h=24 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Услуги</h2>
@@ -133,7 +133,7 @@
                     <div class="mega-card-content">
                         <div class="mega-icon-wrapper">
                             <div class="mega-icon-circle">
-                                <span class="mega-icon animate-car">🚗</span>
+                                <span class="mega-icon animate-car">{% include 'website/partials/ui_icon.html' with name='car' w=24 h=24 %}</span>
                             </div>
                             <div class="icon-particles"></div>
                         </div>
@@ -149,7 +149,7 @@
                     <div class="mega-card-content">
                         <div class="mega-icon-wrapper">
                             <div class="mega-icon-circle">
-                                <span class="mega-icon animate-clipboard">📋</span>
+                                <span class="mega-icon animate-clipboard">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
                             </div>
                             <div class="icon-particles"></div>
                         </div>
@@ -165,7 +165,7 @@
                     <div class="mega-card-content">
                         <div class="mega-icon-wrapper">
                             <div class="mega-icon-circle">
-                                <span class="mega-icon animate-money">💰</span>
+                                <span class="mega-icon animate-money">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</span>
                             </div>
                             <div class="icon-particles"></div>
                         </div>
@@ -181,7 +181,7 @@
                     <div class="mega-card-content">
                         <div class="mega-icon-wrapper">
                             <div class="mega-icon-circle">
-                                <span class="mega-icon animate-document">📝</span>
+                                <span class="mega-icon animate-document">{% include 'website/partials/ui_icon.html' with name='file-text' w=24 h=24 %}</span>
                             </div>
                             <div class="icon-particles"></div>
                         </div>
@@ -197,7 +197,7 @@
                     <div class="mega-card-content">
                         <div class="mega-icon-wrapper">
                             <div class="mega-icon-circle">
-                                <span class="mega-icon animate-law">⚖️</span>
+                                <span class="mega-icon animate-law">{% include 'website/partials/ui_icon.html' with name='scale' w=24 h=24 %}</span>
                             </div>
                             <div class="icon-particles"></div>
                         </div>
@@ -216,7 +216,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-tools">🛠</span>
+                        <span class="icon animate-tools">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Почему выбирают нас?</h2>
@@ -228,7 +228,7 @@
                     <div class="why-card-front">
                         <div class="why-icon-container">
                             <div class="why-icon-bg">
-                                <span class="why-icon animate-wrench">🔧</span>
+                                <span class="why-icon animate-wrench">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                             </div>
                             <div class="why-glow-effect"></div>
                         </div>
@@ -250,7 +250,7 @@
                     <div class="why-card-front">
                         <div class="why-icon-container">
                             <div class="why-icon-bg">
-                                <span class="why-icon animate-specialist">👨‍🔧</span>
+                                <span class="why-icon animate-specialist">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
                             </div>
                             <div class="why-glow-effect"></div>
                         </div>
@@ -294,7 +294,7 @@
                     <div class="why-card-front">
                         <div class="why-icon-container">
                             <div class="why-icon-bg">
-                                <span class="why-icon animate-documents">📋</span>
+                                <span class="why-icon animate-documents">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
                             </div>
                             <div class="why-glow-effect"></div>
                         </div>
@@ -321,7 +321,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-folder">📄</span>
+                        <span class="icon animate-folder">{% include 'website/partials/ui_icon.html' with name='file-text' w=24 h=24 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Перечень документов</h2>
@@ -333,7 +333,7 @@
                         <div class="document-card active-doc" data-doc="1" data-aos="zoom-in" data-aos-delay="100">
                             <div class="doc-header">
                                 <div class="doc-icon">
-                                    <span class="animate-check-doc">📋</span>
+                                    <span class="animate-check-doc">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
                                 </div>
                                 <div class="doc-number">01</div>
                             </div>
@@ -350,7 +350,7 @@
                         <div class="document-card" data-doc="2" data-aos="zoom-in" data-aos-delay="200">
                             <div class="doc-header">
                                 <div class="doc-icon">
-                                    <span class="animate-report">📝</span>
+                                    <span class="animate-report">{% include 'website/partials/ui_icon.html' with name='file-text' w=24 h=24 %}</span>
                                 </div>
                                 <div class="doc-number">02</div>
                             </div>
@@ -367,7 +367,7 @@
                         <div class="document-card" data-doc="3" data-aos="zoom-in" data-aos-delay="300">
                             <div class="doc-header">
                                 <div class="doc-icon">
-                                    <span class="animate-chart">📊</span>
+                                    <span class="animate-chart">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</span>
                                 </div>
                                 <div class="doc-number">03</div>
                             </div>
@@ -384,7 +384,7 @@
                         <div class="document-card" data-doc="4" data-aos="zoom-in" data-aos-delay="400">
                             <div class="doc-header">
                                 <div class="doc-icon">
-                                    <span class="animate-calendar">📅</span>
+                                    <span class="animate-calendar">{% include 'website/partials/ui_icon.html' with name='calendar' w=24 h=24 %}</span>
                                 </div>
                                 <div class="doc-number">04</div>
                             </div>
@@ -401,7 +401,7 @@
                         <div class="document-card" data-doc="5" data-aos="zoom-in" data-aos-delay="500">
                             <div class="doc-header">
                                 <div class="doc-icon">
-                                    <span class="animate-task">📋</span>
+                                    <span class="animate-task">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
                                 </div>
                                 <div class="doc-number">05</div>
                             </div>
@@ -419,15 +419,17 @@
                         <div class="document-card kp-card" data-aos="zoom-in" data-aos-delay="600">
                             <div class="doc-header">
                                 <div class="doc-icon">
-                                    <span class="animate-kp">📄</span>
+                                    <span class="animate-kp">{% include 'website/partials/ui_icon.html' with name='file-text' w=24 h=24 %}</span>
                                 </div>
                                 <div class="doc-number">06</div>
                             </div>
                             <div class="kp-image-container">
                                 {% if commercial_proposal %}
                                     <img src="{{ commercial_proposal.image.url }}" alt="{{ commercial_proposal.alt_text }}" class="kp-image">
+                                {% elif photos.audit_kp_fallback %}
+                                    <img src="{{ photos.audit_kp_fallback.image.url }}" alt="{{ photos.audit_kp_fallback.alt_text }}" class="kp-image">
                                 {% else %}
-                                    <img src="/media/str7/kp.jpg" alt="Коммерческое предложение" class="kp-image">
+                                    <img src="{% static 'images/placeholder.svg' %}" alt="Коммерческое предложение" class="kp-image">
                                 {% endif %}
                                 <div class="kp-overlay">
                                     <div class="kp-content">
@@ -466,7 +468,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-star">✅</span>
+                        <span class="icon animate-star">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Преимущества</h2>
@@ -506,7 +508,7 @@
                     </div>
                     <div class="advantage-icon-mega">
                         <div class="icon-orbit">
-                            <span class="mega-emoji animate-savings">💰</span>
+                            <span class="mega-emoji animate-savings">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</span>
                         </div>
                         <div class="icon-shadow"></div>
                             </div>
@@ -530,7 +532,7 @@
                     </div>
                     <div class="advantage-icon-mega">
                         <div class="icon-orbit">
-                            <span class="mega-emoji animate-compliance">📋</span>
+                            <span class="mega-emoji animate-compliance">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
                         </div>
                         <div class="icon-shadow"></div>
                             </div>
@@ -553,7 +555,7 @@
                     </div>
                     <div class="advantage-icon-mega">
                         <div class="icon-orbit">
-                            <span class="mega-emoji animate-medal">🏅</span>
+                            <span class="mega-emoji animate-medal">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
                         </div>
                         <div class="icon-shadow"></div>
                             </div>
@@ -745,10 +747,6 @@
         <form id="quoteForm" class="modal-form">
             {% csrf_token %}
             <div class="form-group">
-                <label for="quoteName">ФИО *</label>
-                <input type="text" id="quoteName" name="name" required>
-            </div>
-            <div class="form-group">
                 <label for="quotePhone">Телефон *</label>
                 <input type="tel" id="quotePhone" name="phone" required>
             </div>
@@ -769,13 +767,13 @@
     <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
         <button class="btn-cta-secondary" onclick="requestQuote()">
             <span class="btn-text">Запросить КП</span>
-            <span class="btn-icon">📋</span>
+            {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
         </button>
     </div>
     <div class="government-contact" data-aos="fade-up" data-aos-delay="300">
         <p class="contact-label">Отдел по работе с госзаказчиками:</p>
         <a href="tel:{{ contact_info.phone_main }}" class="government-phone">
-            <span class="phone-icon">📞</span>
+            {% include 'website/partials/ui_icon.html' with name='phone' svg_class='phone-icon' w=20 h=20 %}
             <span>Позвонить</span>
         </a>
     </div>

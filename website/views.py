@@ -1,7 +1,9 @@
 from pathlib import Path
 from types import SimpleNamespace
+from typing import Optional
 
 from django.conf import settings
+from django.templatetags.static import static as static_asset_url
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -26,11 +28,30 @@ def _media_photo_placeholder(url, alt_text=''):
     return SimpleNamespace(image=SimpleNamespace(url=url), alt_text=alt_text)
 
 
+# Копии тех же путей, что в media/, но под static/bundled_media/ — в git, без загрузки на VPS через админку
+BUNDLED_MEDIA_PREFIX = 'bundled_media'
+
+
+def _public_image_url(relative_path: str) -> Optional[str]:
+    """
+    URL картинки: сначала файл из MEDIA (админка / заливка на сервер),
+    иначе — из static/bundled_media/... (приходит на VPS вместе с git + collectstatic).
+    """
+    rel = relative_path.replace('\\', '/').strip('/')
+    if not rel:
+        return None
+    media_abs = Path(settings.MEDIA_ROOT) / rel
+    if media_abs.is_file():
+        return f"{settings.MEDIA_URL.rstrip('/')}/{rel}"
+    bundled_abs = Path(settings.BASE_DIR) / 'static' / BUNDLED_MEDIA_PREFIX / rel
+    if bundled_abs.is_file():
+        return static_asset_url(f'{BUNDLED_MEDIA_PREFIX}/{rel}')
+    return None
+
+
 def get_photos_context():
     """Получить все фотографии для контекста"""
-    from django.conf import settings
     from .models import Photo, GalleryPhoto
-    import os
 
     photos = {}
     
@@ -114,221 +135,101 @@ def get_photos_context():
     except Exception as e:
         print(f"Error loading heating photos from database: {e}")
     
-    # Проверяем наличие фотографий в папках media (только если нет в БД)
-    media_root = settings.MEDIA_ROOT
-    
-    # Фотографии для главной страницы (str1) - только если нет в БД
-    str1_path = os.path.join(media_root, 'str1')
-    if os.path.exists(str1_path):
-        for i in range(1, 5):  # photo1.jpg - photo4.jpg
-            photo_file = f'photo{i}.jpg'
-            photo_path = os.path.join(str1_path, photo_file)
-            # Проверяем, есть ли уже фотография команды в БД
-            team_key = f'main_team_{i}'
-            if team_key not in photos and os.path.exists(photo_path):
-                photos[team_key] = _media_photo_placeholder(
-                    f'/media/str1/{photo_file}',
-                    f'Специалист {i}',
-                )
-        
-        # Новые фотографии для галереи в конце сайта - только если нет в БД
-        for i in range(14, 18):  # photo14.jpg - photo17.jpg
-            photo_file = f'photo{i}.jpg'
-            photo_path = os.path.join(str1_path, photo_file)
-            gallery_index = i - 13  # 1, 2, 3, 4
-            gallery_key = f'main_gallery_{gallery_index}'
-            if gallery_key not in photos and os.path.exists(photo_path):
-                photos[gallery_key] = _media_photo_placeholder(
-                    f'/media/str1/{photo_file}',
-                    f'Галерея фото {gallery_index}',
-                )
-    
-    # Фотографии для страниц услуг (str2)
-    str2_path = os.path.join(media_root, 'str2')
-    if os.path.exists(str2_path):
-        for i in range(5, 9):  # photo5.jpg - photo8.jpg
-            photo_file = f'photo{i}.jpg'
-            photo_path = os.path.join(str2_path, photo_file)
-            if os.path.exists(photo_path):
-                photos[f'service_str2_{i}'] = _media_photo_placeholder(
-                    f'/media/str2/{photo_file}',
-                    f'Фото {i}',
-                )
-                # Добавляем ключи для страницы комплексного обслуживания - только если нет в БД
-                complex_index = i - 4  # 1, 2, 3, 4
-                complex_key = f'complex_str2_{complex_index}'
-                if complex_key not in photos:
-                    photos[complex_key] = _media_photo_placeholder(
-                        f'/media/str2/{photo_file}',
-                        f'Фото {i}',
-                    )
+    # Файлы с диска: сначала MEDIA, иначе static/bundled_media/ (в репозитории для VPS)
+    for i in range(1, 5):
+        photo_file = f'photo{i}.jpg'
+        team_key = f'main_team_{i}'
+        url = _public_image_url(f'str1/{photo_file}')
+        if url and team_key not in photos:
+            photos[team_key] = _media_photo_placeholder(url, f'Специалист {i}')
 
-                # Добавляем ключи для команды комплексного обслуживания - только если нет в БД
-                if i == 5:  # photo5.jpg
-                    if 'complex_team_1' not in photos:
-                        photos['complex_team_1'] = _media_photo_placeholder(
-                            f'/media/str2/{photo_file}',
-                            'Специалист 1 - Комплексное обслуживание',
-                        )
-                elif i == 6:  # photo6.jpg
-                    if 'complex_team_2' not in photos:
-                        photos['complex_team_2'] = _media_photo_placeholder(
-                            f'/media/str2/{photo_file}',
-                            'Специалист 2 - Комплексное обслуживание',
-                        )
-                elif i == 7:  # photo7.jpg
-                    if 'complex_electro_1' not in photos:
-                        photos['complex_electro_1'] = _media_photo_placeholder(
-                            f'/media/str2/{photo_file}',
-                            'Электрохозяйство 1 - Комплексное обслуживание',
-                        )
-                elif i == 8:  # photo8.jpg
-                    if 'complex_electro_2' not in photos:
-                        photos['complex_electro_2'] = _media_photo_placeholder(
-                            f'/media/str2/{photo_file}',
-                            'Электрохозяйство 2 - Комплексное обслуживание',
-                        )
-    
-    # Фотографии str3
-    str3_path = os.path.join(media_root, 'str3')
-    if os.path.exists(str3_path):
-        # photo9.jpg
-        photo_file = 'photo9.jpg'
-        photo_path = os.path.join(str3_path, photo_file)
-        if os.path.exists(photo_path):
-            photos['service_str3_9'] = _media_photo_placeholder(
-                f'/media/str3/{photo_file}',
-                'Фото 9',
-            )
-            # Добавляем ключ для страницы ИТП
-            photos['heating_str3_1'] = _media_photo_placeholder(
-                f'/media/str3/{photo_file}',
-                'ИТП отопления',
-            )
-            # Добавляем ключ для команды ИТП
-            photos['heating_team_1'] = _media_photo_placeholder(
-                f'/media/str3/{photo_file}',
-                'Команда ИТП 1',
-            )
-        
-        # photoFF.jpg
-        photo_file = 'photoFF.jpg'
-        photo_path = os.path.join(str3_path, photo_file)
-        if os.path.exists(photo_path):
-            photos['heating_team_2'] = _media_photo_placeholder(
-                f'/media/str3/{photo_file}',
-                'Команда ИТП 2',
-            )
-        
-        # Новые фотографии галереи - только если нет в БД
-        # Убираем жестко заданный список файлов, чтобы не ограничивать количество фотографий
-        gallery_files = ['photou', 'photop', 'photoy', 'photog']
-        for i, photo_file in enumerate(gallery_files, 1):
-            photo_path = os.path.join(str3_path, f'{photo_file}.jpg')
-            heating_key = f'heating_gallery_{i}'
-            # Проверяем, что ключ не занят фотографией из БД
-            if heating_key not in photos and os.path.exists(photo_path):
-                photos[heating_key] = _media_photo_placeholder(
-                    f'/media/str3/{photo_file}.jpg',
-                    f'Работа специалистов ИТП {i}',
-                )
-    
-    # Фотографии str4 - только если нет в БД
-    str4_path = os.path.join(media_root, 'str4')
-    if os.path.exists(str4_path):
-        # Новые фотографии галереи поверки - только если нет в БД
-        gallery_files = ['photojk', 'photopkk', 'photoub', 'photogl']
-        for i, photo_file in enumerate(gallery_files, 1):
-            photo_path = os.path.join(str4_path, f'{photo_file}.jpg')
-            verification_key = f'verification_gallery_{i}'
-            # Проверяем, что ключ не занят фотографией из БД
-            if verification_key not in photos and os.path.exists(photo_path):
-                photos[verification_key] = _media_photo_placeholder(
-                    f'/media/str4/{photo_file}.jpg',
-                    f'Работа специалистов поверки {i}',
-                )
-    
-    # Фотографии str5
-    str5_path = os.path.join(media_root, 'str5')
-    if os.path.exists(str5_path):
-        for i in range(10, 14):  # photo10.jpg - photo13.jpg
-            photo_file = f'photo{i}.jpg'
-            photo_path = os.path.join(str5_path, photo_file)
-            if os.path.exists(photo_path):
-                photos[f'service_str5_{i}'] = _media_photo_placeholder(
-                    f'/media/str5/{photo_file}',
-                    f'Фото {i}',
-                )
-                # Добавляем ключи для галереи аварийной службы
-                gallery_index = i - 9  # 1, 2, 3, 4
-                photos[f'emergency_gallery_{gallery_index}'] = _media_photo_placeholder(
-                    f'/media/str5/{photo_file}',
-                    f'Аварийная служба фото {gallery_index}',
-                )
-    
-    # Фотографии str8
-    str8_path = os.path.join(media_root, 'str8')
-    if os.path.exists(str8_path):
-        # photougtt.jpg
-        photo_file = 'photougtt.jpg'
-        photo_path = os.path.join(str8_path, photo_file)
-        if os.path.exists(photo_path):
-            photos['preparation_team_1'] = _media_photo_placeholder(
-                f'/media/str8/{photo_file}',
-                'Специалист подготовки 1',
-            )
-        
-        # photoyktt.jpg
-        photo_file = 'photoyktt.jpg'
-        photo_path = os.path.join(str8_path, photo_file)
-        if os.path.exists(photo_path):
-            photos['preparation_team_2'] = _media_photo_placeholder(
-                f'/media/str8/{photo_file}',
-                'Специалист подготовки 2',
-            )
-    
-    # Фотографии str9
-    str9_path = os.path.join(media_root, 'str9')
-    if os.path.exists(str9_path):
-        # vent1.jpg - только если нет в БД
-        photo_file = 'vent1.jpg'
-        photo_path = os.path.join(str9_path, photo_file)
-        if 'ventilation_team_1' not in photos and os.path.exists(photo_path):
-            photos['ventilation_team_1'] = _media_photo_placeholder(
-                f'/media/str9/{photo_file}',
-                'Специалист вентиляции 1',
-            )
-        
-        # vent2.jpg - только если нет в БД
-        photo_file = 'vent2.jpg'
-        photo_path = os.path.join(str9_path, photo_file)
-        if 'ventilation_team_2' not in photos and os.path.exists(photo_path):
-            photos['ventilation_team_2'] = _media_photo_placeholder(
-                f'/media/str9/{photo_file}',
-                'Специалист вентиляции 2',
-            )
-    
-    # Фотографии для галереи аудита (str7)
-    str7_path = os.path.join(media_root, 'str7')
-    if os.path.exists(str7_path):
-        # photoug.jpg - только если нет в БД
-        photo_file = 'photoug.jpg'
-        photo_path = os.path.join(str7_path, photo_file)
-        if 'audit_gallery_1' not in photos and os.path.exists(photo_path):
-            photos['audit_gallery_1'] = _media_photo_placeholder(
-                f'/media/str7/{photo_file}',
-                'Аудит инженерных систем - Работа 1',
-            )
-        
-        # photoyk.jpg - только если нет в БД
-        photo_file = 'photoyk.jpg'
-        photo_path = os.path.join(str7_path, photo_file)
-        if 'audit_gallery_2' not in photos and os.path.exists(photo_path):
-            photos['audit_gallery_2'] = _media_photo_placeholder(
-                f'/media/str7/{photo_file}',
-                'Аудит инженерных систем - Работа 2',
-            )
-    
+    for i in range(14, 18):
+        photo_file = f'photo{i}.jpg'
+        gallery_index = i - 13
+        gallery_key = f'main_gallery_{gallery_index}'
+        url = _public_image_url(f'str1/{photo_file}')
+        if url and gallery_key not in photos:
+            photos[gallery_key] = _media_photo_placeholder(url, f'Галерея фото {gallery_index}')
+
+    for i in range(5, 9):
+        photo_file = f'photo{i}.jpg'
+        url = _public_image_url(f'str2/{photo_file}')
+        if not url:
+            continue
+        photos[f'service_str2_{i}'] = _media_photo_placeholder(url, f'Фото {i}')
+        complex_index = i - 4
+        complex_key = f'complex_str2_{complex_index}'
+        if complex_key not in photos:
+            photos[complex_key] = _media_photo_placeholder(url, f'Фото {i}')
+        if i == 5 and 'complex_team_1' not in photos:
+            photos['complex_team_1'] = _media_photo_placeholder(url, 'Специалист 1 - Комплексное обслуживание')
+        elif i == 6 and 'complex_team_2' not in photos:
+            photos['complex_team_2'] = _media_photo_placeholder(url, 'Специалист 2 - Комплексное обслуживание')
+        elif i == 7 and 'complex_electro_1' not in photos:
+            photos['complex_electro_1'] = _media_photo_placeholder(url, 'Электрохозяйство 1 - Комплексное обслуживание')
+        elif i == 8 and 'complex_electro_2' not in photos:
+            photos['complex_electro_2'] = _media_photo_placeholder(url, 'Электрохозяйство 2 - Комплексное обслуживание')
+
+    photo9_url = _public_image_url('str3/photo9.jpg')
+    if photo9_url:
+        photos['service_str3_9'] = _media_photo_placeholder(photo9_url, 'Фото 9')
+        photos['heating_str3_1'] = _media_photo_placeholder(photo9_url, 'ИТП отопления')
+        photos['heating_team_1'] = _media_photo_placeholder(photo9_url, 'Команда ИТП 1')
+
+    url_ff = _public_image_url('str3/photoFF.jpg')
+    if url_ff:
+        photos['heating_team_2'] = _media_photo_placeholder(url_ff, 'Команда ИТП 2')
+
+    gallery_files = ['photou', 'photop', 'photoy', 'photog']
+    for i, stem in enumerate(gallery_files, 1):
+        heating_key = f'heating_gallery_{i}'
+        url = _public_image_url(f'str3/{stem}.jpg')
+        if url and heating_key not in photos:
+            photos[heating_key] = _media_photo_placeholder(url, f'Работа специалистов ИТП {i}')
+
+    gallery_files_v = ['photojk', 'photopkk', 'photoub', 'photogl']
+    for i, stem in enumerate(gallery_files_v, 1):
+        verification_key = f'verification_gallery_{i}'
+        url = _public_image_url(f'str4/{stem}.jpg')
+        if url and verification_key not in photos:
+            photos[verification_key] = _media_photo_placeholder(url, f'Работа специалистов поверки {i}')
+
+    for i in range(10, 14):
+        photo_file = f'photo{i}.jpg'
+        url = _public_image_url(f'str5/{photo_file}')
+        if not url:
+            continue
+        photos[f'service_str5_{i}'] = _media_photo_placeholder(url, f'Фото {i}')
+        gallery_index = i - 9
+        photos[f'emergency_gallery_{gallery_index}'] = _media_photo_placeholder(
+            url, f'Аварийная служба фото {gallery_index}',
+        )
+
+    url_p1 = _public_image_url('str8/photougtt.jpg')
+    if url_p1:
+        photos['preparation_team_1'] = _media_photo_placeholder(url_p1, 'Специалист подготовки 1')
+    url_p2 = _public_image_url('str8/photoyktt.jpg')
+    if url_p2:
+        photos['preparation_team_2'] = _media_photo_placeholder(url_p2, 'Специалист подготовки 2')
+
+    url_v1 = _public_image_url('str9/vent1.jpg')
+    if url_v1 and 'ventilation_team_1' not in photos:
+        photos['ventilation_team_1'] = _media_photo_placeholder(url_v1, 'Специалист вентиляции 1')
+    url_v2 = _public_image_url('str9/vent2.jpg')
+    if url_v2 and 'ventilation_team_2' not in photos:
+        photos['ventilation_team_2'] = _media_photo_placeholder(url_v2, 'Специалист вентиляции 2')
+
+    url_a1 = _public_image_url('str7/photoug.jpg')
+    if url_a1 and 'audit_gallery_1' not in photos:
+        photos['audit_gallery_1'] = _media_photo_placeholder(url_a1, 'Аудит инженерных систем - Работа 1')
+    url_a2 = _public_image_url('str7/photoyk.jpg')
+    if url_a2 and 'audit_gallery_2' not in photos:
+        photos['audit_gallery_2'] = _media_photo_placeholder(url_a2, 'Аудит инженерных систем - Работа 2')
+
+    url_kp = _public_image_url('str7/kp.jpg')
+    if url_kp:
+        photos['audit_kp_fallback'] = _media_photo_placeholder(url_kp, 'Коммерческое предложение')
+
     return photos
 
 
@@ -449,9 +350,16 @@ def service_application(request):
         if request_type not in valid_requests:
             request_type = 'application'
 
+        phone = (data.get('phone') or '').strip()
+        if not phone:
+            return JsonResponse({
+                'success': False,
+                'message': 'Укажите телефон для связи.'
+            }, status=400)
+
         application = ServiceApplication.objects.create(
-            full_name=data.get('full_name', ''),
-            phone=data.get('phone', ''),
+            full_name=(data.get('full_name') or '').strip(),
+            phone=phone,
             service_type=service_type,
             request_type=request_type,
             organization=data.get('organization', ''),
@@ -477,18 +385,18 @@ def submit_request(request):
     """Обработчик для заявок с модальных окон"""
     if request.method == 'POST':
         try:
-            full_name = request.POST.get('name', '')
-            phone = request.POST.get('phone', '')
+            full_name = (request.POST.get('name') or '').strip()
+            phone = (request.POST.get('phone') or '').strip()
             service_type = request.POST.get('service_type', 'complex_service')
             request_type = request.POST.get('request_type', 'application')
             organization = request.POST.get('organization', '')
             message = request.POST.get('message', '')
             preferred_time = request.POST.get('preferred_time', '')
             
-            if not full_name or not phone:
+            if not phone:
                 return JsonResponse({
                     'success': False,
-                    'message': 'Пожалуйста, заполните все обязательные поля.'
+                    'message': 'Укажите телефон для связи.'
                 }, status=400)
             
             application = ServiceApplication.objects.create(
@@ -524,13 +432,19 @@ def tender_invitation(request):
     """AJAX обработчик для приглашений в тендер"""
     try:
         # Обработка обычных полей
-        full_name = request.POST.get('full_name', '')
-        phone = request.POST.get('phone', '')
+        full_name = (request.POST.get('full_name') or '').strip()
+        phone = (request.POST.get('phone') or '').strip()
         company_name = request.POST.get('company_name', '')
         agreed_to_processing = request.POST.get('agreed_to_processing') == 'on'
         
         # Обработка файла
         technical_task = request.FILES.get('technical_task')
+
+        if not phone:
+            return JsonResponse({
+                'success': False,
+                'message': 'Укажите телефон для связи.'
+            }, status=400)
         
         invitation = TenderInvitation.objects.create(
             full_name=full_name,
@@ -557,15 +471,15 @@ def tender_invitation(request):
 def submit_quote(request):
     """Обработка запроса КП для аудита"""
     try:
-        name = request.POST.get('name')
-        phone = request.POST.get('phone')
+        name = (request.POST.get('name') or '').strip()
+        phone = (request.POST.get('phone') or '').strip()
         organization = request.POST.get('organization', '')
         service_type = request.POST.get('service_type', 'audit')
         
-        if not all([name, phone]):
+        if not phone:
             return JsonResponse({
                 'success': False,
-                'message': 'Имя и телефон обязательны для заполнения'
+                'message': 'Укажите телефон для связи.'
             })
         
         # Создаем запись в ServiceApplication
