@@ -19,7 +19,6 @@
     bottom: 0;
     background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(254, 202, 202, 0.3) 0%, transparent 50%);
-    animation: gradientShift 8s ease-in-out infinite;
 }
 
 @keyframes gradientShift {
@@ -40,7 +39,6 @@
         radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.3), transparent);
     background-repeat: repeat;
     background-size: 150px 100px;
-    animation: particleFloat 20s linear infinite;
 }
 
 @keyframes particleFloat {
@@ -74,7 +72,6 @@
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -95,7 +92,6 @@
 
 .badge-icon {
     font-size: 20px;
-    animation: sirenPulse 2s ease-in-out infinite;
 }
 
 @keyframes sirenPulse {
@@ -251,7 +247,6 @@
     color: rgba(255, 255, 255, 0.7);
     text-align: center;
     font-size: 14px;
-    animation: bounce 2s infinite;
 }
 
 @keyframes bounce {
@@ -278,7 +273,6 @@
     top: 8px;
     left: 50%;
     transform: translateX(-50%);
-    animation: scroll 1.5s infinite;
 }
 
 @keyframes scroll {
@@ -514,11 +508,14 @@
 }
 
 .card-content li::before {
-    content: '✓';
+    content: '';
     position: absolute;
-    left: 0;
-    color: #dc2626;
-    font-weight: bold;
+    left: 4px;
+    top: 0.65em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #dc2626;
 }
 
 /* Team Section */
@@ -702,7 +699,6 @@
 
 .emergency-icon {
     font-size: 64px;
-    animation: emergencyPulse 2s ease-in-out infinite;
 }
 
 @keyframes emergencyPulse {
@@ -863,21 +859,23 @@
     50% { transform: scale(1.3); }
 }
 
-.animate-pulse { animation: animate-pulse 2s ease-in-out infinite; }
-.animate-tools { animation: animate-tools 2s ease-in-out infinite; }
-.animate-water { animation: animate-water 2s ease-in-out infinite; }
-.animate-fire { animation: animate-fire 1.5s ease-in-out infinite; }
-.animate-lightning { animation: animate-lightning 2.5s ease-in-out infinite; }
-.animate-wind { animation: animate-wind 2s ease-in-out infinite; }
-.animate-ambulance { animation: animate-ambulance 2s ease-in-out infinite; }
-.animate-team { animation: animate-team 2s ease-in-out infinite; }
-.animate-clock { animation: animate-clock 1.5s ease-in-out infinite; }
-.animate-phone { animation: animate-phone 2s ease-in-out infinite; }
-.animate-car { animation: animate-car 3s ease-in-out infinite; }
-.animate-search { animation: animate-search 2s ease-in-out infinite; }
-.animate-repair { animation: animate-repair 2s ease-in-out infinite; }
-.animate-clean { animation: animate-clean 1.5s ease-in-out infinite; }
-.animate-check { animation: animate-check 2s ease-in-out infinite; }
+.animate-pulse,
+.animate-tools,
+.animate-water,
+.animate-fire,
+.animate-lightning,
+.animate-wind,
+.animate-ambulance,
+.animate-team,
+.animate-clock,
+.animate-phone,
+.animate-car,
+.animate-search,
+.animate-repair,
+.animate-clean,
+.animate-check {
+    animation: none !important;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

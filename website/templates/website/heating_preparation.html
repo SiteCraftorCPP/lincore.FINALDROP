@@ -12,7 +12,7 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                    <span class="badge-icon animated-heating">🛠</span>
+                    <span class="badge-icon animated-heating">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                     <span>Комплекс технических мероприятий</span>
                 </div>
                 
@@ -44,11 +44,11 @@
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                     <a href="tel:{{ contact_info.phone_main }}" class="btn-modern btn-primary">
                         <span class="btn-text">Позвонить</span>
-                        <span class="btn-icon">📞</span>
+                        {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
                     </a>
                     <button class="btn-modern btn-secondary" onclick="openQuoteModal()">
                         <span class="btn-text">Запросить коммерческое предложение</span>
-                        <span class="btn-icon animated-document">📋</span>
+                        {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
                     </button>
                 </div>
             </div>
@@ -68,19 +68,19 @@
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
                 <a href="#services" class="pill-btn">
-                    <span class="pill-icon">🔧</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Услуги</span>
                 </a>
                 <a href="#workflow" class="pill-btn">
-                    <span class="pill-icon">📋</span>
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='clock' w=20 h=20 %}</span>
                     <span>Этапы работ</span>
                 </a>
                 <a href="#objects" class="pill-btn">
-                    <span class="pill-icon">📍</span>
+                    {% include 'website/partials/ui_icon.html' with name='map-pin' w=20 h=20 %}
                     <span>Объекты</span>
                 </a>
                 <a href="#documents" class="pill-btn">
-                    <span class="pill-icon">📄</span>
+                    {% include 'website/partials/ui_icon.html' with name='file-text' w=20 h=20 %}
                     <span>Документация</span>
                 </a>
             </div>
@@ -102,7 +102,7 @@
                 <div class="heating-service-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="service-header">
                         <div class="service-icon-wrapper">
-                            <span class="service-icon animated-pressure">🔧</span>
+                            <span class="service-icon animated-pressure">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                         </div>
                         <h3>Гидравлические испытания (опрессовка)</h3>
                     </div>
@@ -126,7 +126,7 @@
                 <div class="heating-service-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="service-header">
                         <div class="service-icon-wrapper">
-                            <span class="service-icon animated-wind">💨</span>
+                            <span class="service-icon animated-wind">{% include 'website/partials/ui_icon.html' with name='wind' w=24 h=24 %}</span>
                         </div>
                         <h3>Гидропневматическая промывка систем отопления</h3>
                     </div>
@@ -150,7 +150,7 @@
                 <div class="heating-service-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="service-header">
                         <div class="service-icon-wrapper">
-                            <span class="service-icon animated-chemistry">⚗️</span>
+                            <span class="service-icon animated-chemistry">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</span>
                         </div>
                         <h3>Химическая промывка теплообменного оборудования</h3>
                     </div>
@@ -183,7 +183,7 @@
             <div class="timeline-container">
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
                     <div class="timeline-number">01</div>
-                    <div class="timeline-icon animated-diagnostic">🔍</div>
+                    <div class="timeline-icon animated-diagnostic">{% include 'website/partials/ui_icon.html' with name='search' w=24 h=24 %}</div>
                     <div class="timeline-content">
                         <h3>Предпусковая диагностика</h3>
                         <ul>
@@ -196,7 +196,7 @@
 
                 <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
                     <div class="timeline-number">02</div>
-                    <div class="timeline-icon animated-preparation">🔧</div>
+                    <div class="timeline-icon animated-preparation">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</div>
                     <div class="timeline-content">
                         <h3>Подготовительные работы</h3>
                         <ul>
@@ -209,7 +209,7 @@
 
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
                     <div class="timeline-number">03</div>
-                    <div class="timeline-icon animated-execution">⚡</div>
+                    <div class="timeline-icon animated-execution">{% include 'website/partials/ui_icon.html' with name='zap' w=24 h=24 %}</div>
                     <div class="timeline-content">
                         <h3>Исполнительные работы</h3>
                         <ul>
@@ -222,7 +222,7 @@
 
                 <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
                     <div class="timeline-number">04</div>
-                    <div class="timeline-icon animated-startup">🚀</div>
+                    <div class="timeline-icon animated-startup">{% include 'website/partials/ui_icon.html' with name='flame' w=24 h=24 %}</div>
                     <div class="timeline-content">
                         <h3>Пусконаладочные работы</h3>
                         <ul>
@@ -235,7 +235,7 @@
 
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="500">
                     <div class="timeline-number">05</div>
-                    <div class="timeline-icon animated-completion">✅</div>
+                    <div class="timeline-icon animated-completion">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</div>
                     <div class="timeline-content">
                         <h3>Сдача в эксплуатацию</h3>
                         <ul>
@@ -259,7 +259,7 @@
             <div class="objects-grid">
                 <div class="object-card" data-aos="flip-left" data-aos-delay="100">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-building">🏢</span>
+                        <span class="object-icon animated-building">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
                     </div>
                     <h3>Многоквартирные жилые дома</h3>
                     <p>Подготовка систем отопления жилых комплексов, обслуживание ИТП и тепловых узлов</p>
@@ -267,7 +267,7 @@
 
                 <div class="object-card" data-aos="flip-left" data-aos-delay="200">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-office">🏛️</span>
+                        <span class="object-icon animated-office">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
                     </div>
                     <h3>Административные здания</h3>
                     <p>Офисные центры и государственные учреждения, комплексное обслуживание систем отопления</p>
@@ -275,7 +275,7 @@
 
                 <div class="object-card" data-aos="flip-left" data-aos-delay="300">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-factory">🏭</span>
+                        <span class="object-icon animated-factory">{% include 'website/partials/ui_icon.html' with name='factory' w=24 h=24 %}</span>
                     </div>
                     <h3>Промышленные сооружения</h3>
                     <p>Заводы, склады и производственные комплексы, промывка и испытание технологических систем</p>
@@ -283,7 +283,7 @@
 
                 <div class="object-card" data-aos="flip-left" data-aos-delay="400">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-hospital">🏥</span>
+                        <span class="object-icon animated-hospital">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
                     </div>
                     <h3>Социальные объекты</h3>
                     <p>Школы, больницы, детские сады со специальными требованиями к температурному режиму</p>
@@ -291,7 +291,7 @@
 
                 <div class="object-card" data-aos="flip-left" data-aos-delay="500">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-commercial">🏪</span>
+                        <span class="object-icon animated-commercial">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
                     </div>
                     <h3>Коммерческая недвижимость</h3>
                     <p>Торговые центры и коммерческие объекты, энергоэффективные решения для снижения затрат</p>
@@ -472,42 +472,42 @@
             </div>
             <div class="documents-interactive-grid">
                 <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="doc-icon-modern animated-document-ready">📋</div>
+                    <div class="doc-icon-modern animated-document-ready">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</div>
                     <h3>Акт готовности к отопительному периоду</h3>
                     <p>Официальный документ о готовности системы</p>
                     <div class="doc-badge official">ГОТОВНОСТЬ</div>
                 </div>
 
                 <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="doc-icon-modern animated-hydraulic">💧</div>
+                    <div class="doc-icon-modern animated-hydraulic">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</div>
                     <h3>Акт гидравлических испытаний</h3>
                     <p>Результаты опрессовки системы отопления</p>
                     <div class="doc-badge testing">ИСПЫТАНИЯ</div>
                 </div>
 
                 <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="doc-icon-modern animated-cleaning">🧹</div>
+                    <div class="doc-icon-modern animated-cleaning">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</div>
                     <h3>Акт промывки системы отопления</h3>
                     <p>Документация о проведенной промывке</p>
                     <div class="doc-badge cleaning">ПРОМЫВКА</div>
                 </div>
 
                 <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="doc-icon-modern animated-temperature">🌡️</div>
+                    <div class="doc-icon-modern animated-temperature">{% include 'website/partials/ui_icon.html' with name='thermometer' w=24 h=24 %}</div>
                     <h3>Протоколы проверки параметров</h3>
                     <p>Контроль качества теплоносителя</p>
                     <div class="doc-badge protocol">ПРОТОКОЛЫ</div>
                 </div>
 
                 <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="doc-icon-modern animated-scheme">📊</div>
+                    <div class="doc-icon-modern animated-scheme">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</div>
                     <h3>Исполнительные схемы</h3>
                     <p>Промывки и опрессовки системы</p>
                     <div class="doc-badge schemes">СХЕМЫ</div>
                 </div>
 
                 <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="doc-icon-modern animated-moek">🏢</div>
+                    <div class="doc-icon-modern animated-moek">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</div>
                     <h3>Акт допуска в эксплуатацию МОЭК</h3>
                     <p>Разрешение на эксплуатацию от МОЭК</p>
                     <div class="doc-badge moek">МОЭК</div>
@@ -530,10 +530,6 @@
         </div>
         <form id="quoteForm" class="modal-form" action="/submit-request/" method="POST" onsubmit="submitQuoteForm(event)">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="quoteName">ФИО *</label>
-                <input type="text" id="quoteName" name="name" required>
-            </div>
             <div class="form-group">
                 <label for="quotePhone">Телефон *</label>
                 <input type="tel" id="quotePhone" name="phone" required>
@@ -558,13 +554,13 @@
     <div class="cta-buttons">
         <button class="btn-modern btn-primary" onclick="openQuoteModal()">
             <span class="btn-text">Запросить коммерческое предложение</span>
-            <span class="btn-icon animated-document">📋</span>
+            {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
         </button>
     </div>
     <div class="cta-contact-info">
         <p>Отдел технического надзора:</p>
         <a href="tel:{{ contact_info.phone_main }}" class="animated-phone-call">
-            <span class="phone-icon">📞</span>
+            {% include 'website/partials/ui_icon.html' with name='phone' svg_class='phone-icon' w=20 h=20 %}
             <span>Позвонить</span>
         </a>
     </div>

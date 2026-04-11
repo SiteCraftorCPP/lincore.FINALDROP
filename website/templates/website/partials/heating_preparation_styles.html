@@ -74,7 +74,6 @@
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -95,7 +94,6 @@
 
 .badge-icon {
     font-size: 20px;
-    animation: heatingPulse 2s ease-in-out infinite;
 }
 
 @keyframes heatingPulse {
@@ -1252,29 +1250,31 @@
     50% { transform: translateY(3px); }
 }
 
-/* Apply animations */
-.animated-heating { animation: animated-heating 2s ease-in-out infinite; }
-.animated-pressure { animation: animated-pressure 2s ease-in-out infinite; }
-.animated-wind { animation: animated-wind 2s ease-in-out infinite; }
-.animated-chemistry { animation: animated-chemistry 2s ease-in-out infinite; }
-.animated-diagnostic { animation: animated-diagnostic 2s ease-in-out infinite; }
-.animated-preparation { animation: animated-preparation 2s ease-in-out infinite; }
-.animated-execution { animation: animated-execution 2s ease-in-out infinite; }
-.animated-startup { animation: animated-startup 2s ease-in-out infinite; }
-.animated-completion { animation: animated-completion 3s ease-in-out infinite; }
-.animated-building { animation: animated-building 2s ease-in-out infinite; }
-.animated-office { animation: animated-office 2s ease-in-out infinite; }
-.animated-factory { animation: animated-factory 2s ease-in-out infinite; }
-.animated-hospital { animation: animated-hospital 2s ease-in-out infinite; }
-.animated-commercial { animation: animated-commercial 2s ease-in-out infinite; }
-.animated-document-ready { animation: animated-document-ready 2s ease-in-out infinite; }
-.animated-hydraulic { animation: animated-hydraulic 2s ease-in-out infinite; }
-.animated-cleaning { animation: animated-cleaning 2s ease-in-out infinite; }
-.animated-temperature { animation: animated-temperature 2s ease-in-out infinite; }
-.animated-scheme { animation: animated-scheme 2s ease-in-out infinite; }
-.animated-moek { animation: animated-moek 2s ease-in-out infinite; }
-.animated-document { animation: animated-document 2s ease-in-out infinite; }
-.animated-download { animation: animated-download 2s ease-in-out infinite; }
+/* Apply animations — зацикленные эффекты отключены (задача 10) */
+.animated-heating,
+.animated-pressure,
+.animated-wind,
+.animated-chemistry,
+.animated-diagnostic,
+.animated-preparation,
+.animated-execution,
+.animated-startup,
+.animated-completion,
+.animated-building,
+.animated-office,
+.animated-factory,
+.animated-hospital,
+.animated-commercial,
+.animated-document-ready,
+.animated-hydraulic,
+.animated-cleaning,
+.animated-temperature,
+.animated-scheme,
+.animated-moek,
+.animated-document,
+.animated-download {
+    animation: none !important;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -1688,6 +1688,15 @@ html body .modern-service-page section.works-gallery-modern {
         padding-top: 60px !important;
         padding-bottom: 60px !important;
     }
+}
+
+/* Задача 10: отключение зацикленных декоративных анимаций hero/CTA */
+.hero-gradient,
+.hero-particles,
+.scroll-indicator,
+.scroll-wheel,
+.heating-icon {
+    animation: none !important;
 }
 </style>
 

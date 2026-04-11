@@ -56,7 +56,7 @@ class ServiceApplication(models.Model):
         ('phone_call', 'Позвонить сейчас'),
     ]
     
-    full_name = models.CharField("ФИО", max_length=200)
+    full_name = models.CharField("ФИО", max_length=200, blank=True, default="")
     phone = models.CharField("Телефон", max_length=20)
     organization = models.CharField("Организация", max_length=200, blank=True, null=True)
     message = models.TextField("Сообщение", blank=True, null=True)
@@ -72,7 +72,8 @@ class ServiceApplication(models.Model):
         ordering = ['-created_at']
     
     def __str__(self):
-        return f"{self.full_name} - {self.get_service_type_display()}"
+        label = (self.full_name or "").strip() or self.phone
+        return f"{label} — {self.get_service_type_display()}"
 
 
 class CallbackRequest(ServiceApplication):
@@ -86,7 +87,7 @@ class CallbackRequest(ServiceApplication):
 
 class TenderInvitation(models.Model):
     """Приглашения в тендер"""
-    full_name = models.CharField("ФИО", max_length=200)
+    full_name = models.CharField("ФИО", max_length=200, blank=True, default="")
     phone = models.CharField("Телефон для связи", max_length=20)
     company_name = models.CharField("Название компании", max_length=200, blank=True)
     technical_task = models.FileField("Техническое задание", upload_to='tender_tasks/', blank=True, null=True)
@@ -100,7 +101,9 @@ class TenderInvitation(models.Model):
         ordering = ['-created_at']
     
     def __str__(self):
-        return f"{self.full_name} - {self.company_name}"
+        label = (self.full_name or "").strip() or self.phone
+        company = (self.company_name or "").strip()
+        return f"{label} — {company}" if company else label
 
 
 class Photo(models.Model):

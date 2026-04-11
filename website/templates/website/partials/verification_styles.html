@@ -77,7 +77,6 @@
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -98,7 +97,6 @@
 
 .badge-icon {
     font-size: 20px;
-    animation: scaleBalance 2.5s ease-in-out infinite;
 }
 
 @keyframes scaleBalance {
@@ -475,24 +473,12 @@
     50% { transform: scale(1.1) rotate(5deg); }
 }
 
-.animate-scale {
-    animation: animate-scale 2.5s ease-in-out infinite;
-}
-
-.animate-spin {
-    animation: animate-spin 3s ease-in-out infinite;
-}
-
-.animate-list {
-    animation: animate-list 2s ease-in-out infinite;
-}
-
-.animate-truck {
-    animation: animate-truck 2.5s ease-in-out infinite;
-}
-
+.animate-scale,
+.animate-spin,
+.animate-list,
+.animate-truck,
 .animate-check {
-    animation: animate-check 2s ease-in-out infinite;
+    animation: none !important;
 }
 
 /* Unique Capabilities */
@@ -963,12 +949,14 @@
 }
 
 .offer-content li::before {
-    content: '✓';
+    content: '';
     position: absolute;
-    left: 0;
-    color: white;
-    font-weight: bold;
-    font-size: 1.2rem;
+    left: 4px;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
 }
 
 /* Advantages Grid */
@@ -1381,6 +1369,22 @@
     .special-offer {
         padding: 18px 20px;
     }
+}
+
+/* Задача 10: отключение зацикленных декоративных анимаций */
+.hero-gradient,
+.hero-particles,
+.title-accent,
+.scroll-indicator,
+.scroll-wheel,
+.zone-icon,
+.city-emoji,
+.feature-icon,
+.timeline-icon,
+.special-offer::before,
+.cta-bg-pattern,
+.cta-icon {
+    animation: none !important;
 }
 </style>
 

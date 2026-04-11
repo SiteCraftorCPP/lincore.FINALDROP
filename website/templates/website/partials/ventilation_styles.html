@@ -74,7 +74,6 @@
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -95,7 +94,6 @@
 
 .badge-icon {
     font-size: 20px;
-    animation: airFlow 2s ease-in-out infinite;
 }
 
 @keyframes airFlow {
@@ -1438,11 +1436,14 @@
 }
 
 .control-card li::before {
-    content: '✓';
+    content: '';
     position: absolute;
-    left: 0;
-    color: #1e88e5;
-    font-weight: bold;
+    left: 4px;
+    top: 0.55em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #1e88e5;
 }
 
 /* Advantages Grid */
@@ -1877,22 +1878,24 @@
     50% { transform: scale(1.1) rotate(5deg); }
 }
 
-/* Apply animations */
-.animated-maintenance { animation: animated-maintenance 2s ease-in-out infinite; }
-.animated-season { animation: animated-season 2s ease-in-out infinite; }
-.animated-repair { animation: animated-repair 2s ease-in-out infinite; }
-.animated-control { animation: animated-control 2s ease-in-out infinite; }
-.animated-emergency { animation: animated-emergency 2s ease-in-out infinite; }
-.animated-monitoring { animation: animated-monitoring 2s ease-in-out infinite; }
-.animated-testing { animation: animated-testing 2s ease-in-out infinite; }
-.animated-specialist { animation: animated-specialist 2s ease-in-out infinite; }
-.animated-equipment { animation: animated-equipment 2s ease-in-out infinite; }
-.animated-support { animation: animated-support 2s ease-in-out infinite; }
-.animated-guarantee { animation: animated-guarantee 2s ease-in-out infinite; }
-.animated-price { animation: animated-price 2s ease-in-out infinite; }
-.animated-ventilation-pulse { animation: animated-ventilation-pulse 2s ease-in-out infinite; }
-.animated-document { animation: animated-document 2s ease-in-out infinite; }
-.animated-phone { animation: animated-phone 2s ease-in-out infinite; }
+/* Apply animations — зацикленные эффекты отключены (задача 10) */
+.animated-maintenance,
+.animated-season,
+.animated-repair,
+.animated-control,
+.animated-emergency,
+.animated-monitoring,
+.animated-testing,
+.animated-specialist,
+.animated-equipment,
+.animated-support,
+.animated-guarantee,
+.animated-price,
+.animated-ventilation-pulse,
+.animated-document,
+.animated-phone {
+    animation: none !important;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -2320,5 +2323,25 @@
     .team-card {
         border-radius: 15px;
     }
+}
+
+/* Задача 10: отключение прочих зацикленных декоративных анимаций */
+.hero-gradient,
+.hero-particles,
+.title-guarantee,
+.scroll-indicator,
+.scroll-wheel,
+.control-card-glow,
+.control-particles-bg,
+.icon-orbit,
+.gear-small,
+.gear-medium,
+.gear-large,
+.feature-indicator,
+.data-pulse,
+.data-stats::before,
+.progress-fill-ring,
+.ventilation-icon {
+    animation: none !important;
 }
 </style>

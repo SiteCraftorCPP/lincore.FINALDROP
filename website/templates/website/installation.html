@@ -12,7 +12,7 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                    <span class="badge-icon">🛠</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' svg_class='badge-icon-svg' w=22 h=22 %}
                     <span>Монтаж «под ключ»</span>
                 </div>
                 
@@ -43,11 +43,11 @@
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                     <button class="btn-modern btn-primary" onclick="openApplicationModal()">
                         <span class="btn-text">Оставить заявку</span>
-                        <span class="btn-icon">🛠</span>
+                        {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     </button>
                     <button class="btn-modern btn-secondary" onclick="openCallbackModal()">
                         <span class="btn-text">Заказать звонок специалиста</span>
-                        <span class="btn-icon">📞</span>
+                        {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
                     </button>
                 </div>
             </div>
@@ -67,19 +67,19 @@
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
                 <button class="pill-btn" data-target="about-section">
-                    <span class="pill-icon">🔧</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>О наших услугах</span>
                 </button>
                 <button class="pill-btn" data-target="services-section">
-                    <span class="pill-icon">🛠</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Направления работ</span>
                 </button>
                 <button class="pill-btn" data-target="process-section">
-                    <span class="pill-icon">🏗</span>
+                    {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
                     <span>Принцип работы</span>
                 </button>
                 <button class="pill-btn" data-target="advantages-section">
-                    <span class="pill-icon">✅</span>
+                    {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
                     <span>Преимущества</span>
                 </button>
             </div>
@@ -95,7 +95,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-tools">🔧</span>
+                        <span class="icon animate-tools">{% include 'website/partials/ui_icon.html' with name='wrench' w=40 h=40 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">О наших услугах</h2>
@@ -116,7 +116,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-hammer">🛠</span>
+                        <span class="icon animate-hammer">{% include 'website/partials/ui_icon.html' with name='building-2' w=40 h=40 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Основные направления монтажных работ</h2>
@@ -127,7 +127,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-exchange">🔄</span>
+                            <span class="icon-emoji animate-exchange">{% include 'website/partials/ui_icon.html' with name='refresh-cw' w=28 h=28 %}</span>
                         </div>
                         <h3 class="card-title">Установка и замена теплообменников</h3>
                     </div>
@@ -144,7 +144,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-chart">📊</span>
+                            <span class="icon-emoji animate-chart">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=28 h=28 %}</span>
                         </div>
                         <h3 class="card-title">Монтаж узлов учета</h3>
                     </div>
@@ -161,7 +161,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-water">💧</span>
+                            <span class="icon-emoji animate-water">{% include 'website/partials/ui_icon.html' with name='droplets' w=28 h=28 %}</span>
                         </div>
                         <h3 class="card-title">Системы водоснабжения и водоотведения</h3>
                     </div>
@@ -178,7 +178,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-electric">⚡</span>
+                            <span class="icon-emoji animate-electric">{% include 'website/partials/ui_icon.html' with name='zap' w=28 h=28 %}</span>
                         </div>
                         <h3 class="card-title">Сопутствующие работы</h3>
                     </div>
@@ -201,7 +201,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-construction">🏗</span>
+                        <span class="icon animate-construction">{% include 'website/partials/ui_icon.html' with name='wrench' w=40 h=40 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Принцип организации работ</h2>
@@ -272,7 +272,7 @@
             <div class="process-section-cta" data-aos="fade-up" data-aos-delay="300">
                 <button type="button" class="btn-modern btn-primary" onclick="openApplicationModal()">
                     <span class="btn-text">Оставить заявку</span>
-                    <span class="btn-icon">🛠</span>
+                    <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
                 </button>
             </div>
         </div>
@@ -284,7 +284,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-star">⭐</span>
+                        <span class="icon animate-star">{% include 'website/partials/ui_icon.html' with name='circle-check' w=40 h=40 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Наши преимущества</h2>
@@ -294,7 +294,7 @@
             <div class="advantages-grid">
                 <div class="advantage-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-icon">
-                        <span class="icon-emoji animate-target">🎯</span>
+                        <span class="icon-emoji animate-target">{% include 'website/partials/ui_icon.html' with name='users' w=28 h=28 %}</span>
                     </div>
                     <h4>Опытные специалисты</h4>
                     <p>Средний стаж работы монтажников 7+ лет</p>
@@ -302,7 +302,7 @@
 
                 <div class="advantage-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-icon">
-                        <span class="icon-emoji animate-document">📝</span>
+                        <span class="icon-emoji animate-document">{% include 'website/partials/ui_icon.html' with name='file-text' w=28 h=28 %}</span>
                     </div>
                     <h4>Полный комплект документов</h4>
                     <p>Проектная и исполнительная документация</p>
@@ -310,7 +310,7 @@
 
                 <div class="advantage-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-icon">
-                        <span class="icon-emoji animate-wrench">🔧</span>
+                        <span class="icon-emoji animate-wrench">{% include 'website/partials/ui_icon.html' with name='wrench' w=28 h=28 %}</span>
                     </div>
                     <h4>Собственный инструмент</h4>
                     <p>Современная техническая база и оборудование</p>
@@ -318,7 +318,7 @@
 
                 <div class="advantage-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="card-icon">
-                        <span class="icon-emoji animate-clock">⏱</span>
+                        <span class="icon-emoji animate-clock">{% include 'website/partials/ui_icon.html' with name='clock' w=28 h=28 %}</span>
                     </div>
                     <h4>Соблюдение сроков</h4>
                     <p>Работаем по четкому плану графика</p>
@@ -326,7 +326,7 @@
 
                 <div class="advantage-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="card-icon">
-                        <span class="icon-emoji animate-money">💰</span>
+                        <span class="icon-emoji animate-money">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=28 h=28 %}</span>
                     </div>
                     <h4>Фиксированная стоимость</h4>
                     <p>Цена не меняется в процессе работ</p>
@@ -334,7 +334,7 @@
 
                 <div class="advantage-card" data-aos="fade-up" data-aos-delay="600">
                     <div class="card-icon">
-                        <span class="icon-emoji animate-trophy">🏆</span>
+                        <span class="icon-emoji animate-trophy">{% include 'website/partials/ui_icon.html' with name='circle-check' w=28 h=28 %}</span>
                     </div>
                     <h4>Гарантия до 3 лет</h4>
                     <p>На все виды монтажных работ</p>
@@ -349,7 +349,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-phone">📞</span>
+                        <span class="icon animate-phone">{% include 'website/partials/ui_icon.html' with name='phone' w=40 h=40 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Как начать сотрудничество?</h2>
@@ -423,9 +423,6 @@
             <form class="modal-form" id="applicationForm">
                 {% csrf_token %}
                 <div class="form-group">
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                </div>
-                <div class="form-group">
                     <input type="tel" name="phone" placeholder="Телефон" required>
                 </div>
                 <input type="hidden" name="service_type" value="installation_service">
@@ -447,11 +444,7 @@
         </div>
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
-            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
-            <div class="form-group">
-                <label for="callbackName">ФИО *</label>
-                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
-            </div>
+            <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
@@ -467,17 +460,17 @@
 {% block footer_contact_lead %}
 <div class="cta-content" data-aos="fade-up">
     <div class="cta-icon">
-        <span class="installation-icon">🛠</span>
+        <span class="installation-icon">{% include 'website/partials/ui_icon.html' with name='building-2' w=36 h=36 %}</span>
     </div>
     <h3 class="cta-title">Готовы начать проект? Получите бесплатную консультацию и расчет стоимости!</h3>
     <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
         <button class="btn-cta-primary" onclick="openApplicationModal()">
             <span class="btn-text">Оставить заявку</span>
-            <span class="btn-icon">🛠</span>
+            <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
         </button>
         <button class="btn-cta-secondary" onclick="openCallbackModal()">
             <span class="btn-text">Заказать звонок специалиста</span>
-            <span class="btn-icon">📞</span>
+            <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
         </button>
     </div>
 </div>

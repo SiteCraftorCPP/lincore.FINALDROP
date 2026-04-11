@@ -19,7 +19,6 @@
     bottom: 0;
     background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(196, 181, 253, 0.3) 0%, transparent 50%);
-    animation: gradientShift 8s ease-in-out infinite;
 }
 
 @keyframes gradientShift {
@@ -40,7 +39,6 @@
         radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.3), transparent);
     background-repeat: repeat;
     background-size: 150px 100px;
-    animation: particleFloat 20s linear infinite;
 }
 
 @keyframes particleFloat {
@@ -74,7 +72,6 @@
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -95,7 +92,6 @@
 
 .badge-icon {
     font-size: 20px;
-    animation: toolRotate 3s ease-in-out infinite;
 }
 
 @keyframes toolRotate {
@@ -256,7 +252,6 @@
     color: rgba(255, 255, 255, 0.7);
     text-align: center;
     font-size: 14px;
-    animation: bounce 2s infinite;
 }
 
 @keyframes bounce {
@@ -283,7 +278,6 @@
     top: 8px;
     left: 50%;
     transform: translateX(-50%);
-    animation: scroll 1.5s infinite;
 }
 
 @keyframes scroll {
@@ -516,11 +510,14 @@
 }
 
 .card-content li::before {
-    content: '✓';
+    content: '';
     position: absolute;
-    left: 0;
-    color: #8b5cf6;
-    font-weight: bold;
+    left: 4px;
+    top: 0.65em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #8b5cf6;
 }
 
 /* Process Section */
@@ -807,7 +804,6 @@
 
 .installation-icon {
     font-size: 64px;
-    animation: toolPulse 2s ease-in-out infinite;
     color: white;
 }
 
@@ -990,26 +986,28 @@
     50% { transform: scale(1.1) rotate(-10deg); }
 }
 
-.animate-tools { animation: animate-tools 2s ease-in-out infinite; }
-.animate-hammer { animation: animate-hammer 2s ease-in-out infinite; }
-.animate-exchange { animation: animate-exchange 3s ease-in-out infinite; }
-.animate-chart { animation: animate-chart 2s ease-in-out infinite; }
-.animate-water { animation: animate-water 2.5s ease-in-out infinite; }
-.animate-electric { animation: animate-electric 2s ease-in-out infinite; }
-.animate-construction { animation: animate-construction 2s ease-in-out infinite; }
-.animate-visit { animation: animate-visit 2s ease-in-out infinite; }
-.animate-blueprint { animation: animate-blueprint 2.5s ease-in-out infinite; }
-.animate-calculator { animation: animate-calculator 2s ease-in-out infinite; }
-.animate-work { animation: animate-work 2s ease-in-out infinite; }
-.animate-check { animation: animate-check 2s ease-in-out infinite; }
-.animate-star { animation: animate-star 3s ease-in-out infinite; }
-.animate-target { animation: animate-target 2s ease-in-out infinite; }
-.animate-document { animation: animate-document 2s ease-in-out infinite; }
-.animate-wrench { animation: animate-wrench 2s ease-in-out infinite; }
-.animate-clock { animation: animate-clock 1.5s ease-in-out infinite; }
-.animate-money { animation: animate-money 2s ease-in-out infinite; }
-.animate-trophy { animation: animate-trophy 2s ease-in-out infinite; }
-.animate-phone { animation: animate-phone 2s ease-in-out infinite; }
+.animate-tools,
+.animate-hammer,
+.animate-exchange,
+.animate-chart,
+.animate-water,
+.animate-electric,
+.animate-construction,
+.animate-visit,
+.animate-blueprint,
+.animate-calculator,
+.animate-work,
+.animate-check,
+.animate-star,
+.animate-target,
+.animate-document,
+.animate-wrench,
+.animate-clock,
+.animate-money,
+.animate-trophy,
+.animate-phone {
+    animation: none !important;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {

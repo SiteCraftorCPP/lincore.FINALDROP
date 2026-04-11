@@ -12,7 +12,7 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                    <span class="badge-icon">🏭</span>
+                    <span class="badge-icon">{% include 'website/partials/ui_icon.html' with name='factory' svg_class='badge-icon-svg' w=22 h=22 %}</span>
                     <span>Комплексное обслуживание под ключ</span>
                 </div>
                 
@@ -44,11 +44,11 @@
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                     <button class="btn-modern btn-primary" onclick="openApplicationModal()">
                         <span class="btn-text">Оставить заявку</span>
-                        <span class="btn-icon">📝</span>
+                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
                     </button>
                     <button class="btn-modern btn-secondary" onclick="openCallbackModal()">
                         <span class="btn-text">Заказать звонок специалиста</span>
-                        <span class="btn-icon">📞</span>
+                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
                     </button>
                 </div>
             </div>
@@ -66,16 +66,12 @@
     <section class="nav-pills-section">
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
-                <button class="pill-btn" data-target="about-company">
-                    <span class="pill-icon">🏭</span>
-                    <span>О компании</span>
-                </button>
                 <button class="pill-btn" data-target="technical-service">
-                    <span class="pill-icon">🛠</span>
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}</span>
                     <span>Полный комплекс услуг</span>
                 </button>
                 <button class="pill-btn" data-target="advantages-section">
-                    <span class="pill-icon">🏢</span>
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='building-2' w=20 h=20 %}</span>
                     <span>Наше конкурентное преимущество</span>
                 </button>
             </div>
@@ -85,37 +81,95 @@
         </div>
     </section>
 
-    <!-- About Services Section -->
-    <section class="about-services-section" id="about-company">
+    <!-- Advantages: сразу после навигации — ключевое УТП читают раньше -->
+    <section class="advantages-section" id="advantages-section">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Профессиональное обслуживание тепловых пунктов</h2>
-            </div>
-
-            <div class="about-content" data-aos="fade-up" data-aos-delay="200">
-                <div class="content-text">
-                    <p>Наша компания обеспечивает полный цикл услуг по техническому обслуживанию, ремонту и коммерческому учету энергоресурсов в индивидуальных и центральных тепловых пунктах. Мы объединяем в одной команде инженеров-теплотехников и собственный аккредитованный метрологический центр. Это позволяет нам гарантировать максимальную оперативность, качество и ваш полный контроль над всеми процессами.</p>
+                <div class="section-title-wrapper">
+                    <div class="section-icon animate-flash">{% include 'website/partials/ui_icon.html' with name='building-2' w=48 h=48 %}</div>
+                    <h2 class="section-title">Наше ключевое конкурентное преимущество</h2>
                 </div>
             </div>
-            
-            <div class="team-section" data-aos="fade-up" data-aos-delay="400">
-                <div class="team-gallery-section">
-                    <div class="team-gallery">
-                        {% if photos.heating_professional_1 %}
-                            <div class="team-photo-item">
-                                <div class="photo-frame">
-                                    <img src="{{ photos.heating_professional_1.image.url }}" alt="{{ photos.heating_professional_1.alt_text|default:'Профессиональное обслуживание тепловых пунктов - Специалист 1' }}" loading="lazy">
+
+            <div class="advantages-philosophy-lead" data-aos="fade-up" data-aos-delay="100">
+                <p class="advantages-philosophy-text">Наша философия: <strong>Ваш тепловой пункт — наша зона ответственности. Полностью.</strong></p>
+                <p class="advantages-philosophy-sub">Обеспечим надёжную работу вашего ИТП/ЦТП с максимальной оперативностью и качеством</p>
+            </div>
+
+            <!-- Unique Combination -->
+            <div class="unique-combination" data-aos="fade-up" data-aos-delay="200">
+                <h3>Уникальное сочетание мощностей:</h3>
+                <div class="combination-grid">
+                    <div class="combination-item">
+                        <div class="combination-icon">{% include 'website/partials/ui_icon.html' with name='scale' w=40 h=40 %}</div>
+                        <h4>Собственная аккредитованная метрологическая лаборатория</h4>
+                    </div>
+                    <div class="combination-item combination-item--plain-emoji">
+                        <div class="combination-icon combination-icon--plain" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='wrench' w=40 h=40 %}</div>
+                        <h4>Сертифицированный сервисный центр по ремонту приборов учета</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Benefits Grid -->
+            <div class="benefits-section" id="repair-service" data-aos="fade-up" data-aos-delay="300">
+                <h3>Что это дает вам?</h3>
+                <div class="benefits-grid-modern">
+                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="benefit-header">
+                            <div class="benefit-icon-wrapper">
+                                <div class="benefit-icon-circle">
+                                    <span class="benefit-icon-emoji">{% include 'website/partials/ui_icon.html' with name='zap' w=28 h=28 %}</span>
                                 </div>
                             </div>
-                        {% endif %}
-                        
-                        {% if photos.heating_professional_2 %}
-                            <div class="team-photo-item">
-                                <div class="photo-frame">
-                                    <img src="{{ photos.heating_professional_2.image.url }}" alt="{{ photos.heating_professional_2.alt_text|default:'Профессиональное обслуживание тепловых пунктов - Специалист 2' }}" loading="lazy">
+                            <div class="benefit-tag">СКОРОСТЬ</div>
+                        </div>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">Максимальная оперативность</h4>
+                            <p class="benefit-description">Все работы — от поверки счетчика до ремонта насоса — выполняются силами одной компании. Никаких задержек из-за третьих лиц.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="benefit-header">
+                            <div class="benefit-icon-wrapper">
+                                <div class="benefit-icon-circle">
+                                    <span class="benefit-icon-emoji">{% include 'website/partials/ui_icon.html' with name='shield' w=28 h=28 %}</span>
                                 </div>
                             </div>
-                        {% endif %}
+                            <div class="benefit-tag">ГАРАНТИЯ</div>
+                        </div>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">Единая гарантия и ответственность</h4>
+                            <p class="benefit-description">Мы несем полную ответственность за весь комплекс работ — и за механическую часть ИТП, и за корректность работы узлов учета.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="benefit-header">
+                            <div class="benefit-icon-wrapper">
+                                <div class="benefit-icon-circle">
+                                    <span class="benefit-icon-emoji">{% include 'website/partials/ui_icon.html' with name='file-text' w=28 h=28 %}</span>
+                                </div>
+                            </div>
+                            <div class="benefit-tag">КОНТРОЛЬ</div>
+                        </div>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">Прозрачность и контроль</h4>
+                            <p class="benefit-description">Вы получаете единого надежного партнера, который обеспечивает и тепловой комфорт, и точный расчет с ресурсоснабжающими организациями.</p>
+                        </div>
+                    </div>
+                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="benefit-header">
+                            <div class="benefit-icon-wrapper">
+                                <div class="benefit-icon-circle">
+                                    <span class="benefit-icon-emoji">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=28 h=28 %}</span>
+                                </div>
+                            </div>
+                            <div class="benefit-tag">ЭКОНОМИЯ</div>
+                        </div>
+                        <div class="benefit-content">
+                            <h4 class="benefit-title">Прямая экономия</h4>
+                            <p class="benefit-description">Снижаем ваши затраты на содержание ИТП/ЦТП за счет исключения посредников и оптимизации процессов.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -127,7 +181,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="section-title-wrapper">
-                    <div class="section-icon animate-wrench">🛠</div>
+                    <div class="section-icon animate-wrench">{% include 'website/partials/ui_icon.html' with name='wrench' w=48 h=48 %}</div>
                     <h2 class="section-title">Полный комплекс услуг для ИТП/ЦТП</h2>
                 </div>
             </div>
@@ -138,7 +192,7 @@
                     <div class="category-header">
                         <div class="category-icon-wrapper">
                             <div class="category-icon-bg"></div>
-                            <div class="category-icon">🔧</div>
+                            <div class="category-icon">{% include 'website/partials/ui_icon.html' with name='wrench' w=40 h=40 %}</div>
                         </div>
                         <h3 class="category-title">Техническое обслуживание и ремонт инженерных систем</h3>
                     </div>
@@ -163,7 +217,7 @@
                     <div class="category-header">
                         <div class="category-icon-wrapper">
                             <div class="category-icon-bg"></div>
-                            <div class="category-icon">📊</div>
+                            <div class="category-icon">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=40 h=40 %}</div>
                         </div>
                         <h3 class="category-title">Обслуживание и ремонт узлов учета (приборы учета)</h3>
                     </div>
@@ -193,98 +247,8 @@
             <div class="services-grid-cta" data-aos="fade-up" data-aos-delay="250">
                 <button type="button" class="btn-modern btn-primary" onclick="openApplicationModal()">
                     <span class="btn-text">Оставить заявку</span>
-                    <span class="btn-icon">📝</span>
+                    <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
                 </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Advantages Section -->
-    <section class="advantages-section" id="advantages-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="section-title-wrapper">
-                    <div class="section-icon animate-flash">🏢</div>
-                    <h2 class="section-title">Наше ключевое конкурентное преимущество</h2>
-                </div>
-            </div>
-
-            <!-- Unique Combination -->
-            <div class="unique-combination" data-aos="fade-up" data-aos-delay="200">
-                <h3>Уникальное сочетание мощностей:</h3>
-                <div class="combination-grid">
-                    <div class="combination-item">
-                        <div class="combination-icon">🔬</div>
-                        <h4>Собственная аккредитованная метрологическая лаборатория</h4>
-                    </div>
-                    <div class="combination-item combination-item--plain-emoji">
-                        <div class="combination-icon combination-icon--plain" aria-hidden="true">🛠️</div>
-                        <h4>Сертифицированный сервисный центр по ремонту приборов учета</h4>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Benefits Grid -->
-            <div class="benefits-section" id="repair-service" data-aos="fade-up" data-aos-delay="300">
-                <h3>Что это дает вам?</h3>
-                <div class="benefits-grid-modern">
-                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="benefit-header">
-                            <div class="benefit-icon-wrapper">
-                                <div class="benefit-icon-circle">
-                                    <span class="benefit-icon-emoji">⚡</span>
-                                </div>
-                            </div>
-                            <div class="benefit-tag">СКОРОСТЬ</div>
-                        </div>
-                        <div class="benefit-content">
-                            <h4 class="benefit-title">Максимальная оперативность</h4>
-                            <p class="benefit-description">Все работы — от поверки счетчика до ремонта насоса — выполняются силами одной компании. Никаких задержек из-за третьих лиц.</p>
-                        </div>
-                    </div>
-                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="benefit-header">
-                            <div class="benefit-icon-wrapper">
-                                <div class="benefit-icon-circle">
-                                    <span class="benefit-icon-emoji">🛡</span>
-                                </div>
-                            </div>
-                            <div class="benefit-tag">ГАРАНТИЯ</div>
-                        </div>
-                        <div class="benefit-content">
-                            <h4 class="benefit-title">Единая гарантия и ответственность</h4>
-                            <p class="benefit-description">Мы несем полную ответственность за весь комплекс работ — и за механическую часть ИТП, и за корректность работы узлов учета.</p>
-                        </div>
-                    </div>
-                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="benefit-header">
-                            <div class="benefit-icon-wrapper">
-                                <div class="benefit-icon-circle">
-                                    <span class="benefit-icon-emoji">👁</span>
-                                </div>
-                            </div>
-                            <div class="benefit-tag">КОНТРОЛЬ</div>
-                        </div>
-                        <div class="benefit-content">
-                            <h4 class="benefit-title">Прозрачность и контроль</h4>
-                            <p class="benefit-description">Вы получаете единого надежного партнера, который обеспечивает и тепловой комфорт, и точный расчет с ресурсоснабжающими организациями.</p>
-                        </div>
-                    </div>
-                    <div class="benefit-card-modern" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="benefit-header">
-                            <div class="benefit-icon-wrapper">
-                                <div class="benefit-icon-circle">
-                                    <span class="benefit-icon-emoji">💰</span>
-                                </div>
-                            </div>
-                            <div class="benefit-tag">ЭКОНОМИЯ</div>
-                        </div>
-                        <div class="benefit-content">
-                            <h4 class="benefit-title">Прямая экономия</h4>
-                            <p class="benefit-description">Снижаем ваши затраты на содержание ИТП/ЦТП за счет исключения посредников и оптимизации процессов.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -406,10 +370,6 @@
         <form id="applicationForm" class="modal-form">
             {% csrf_token %}
             <div class="form-group">
-                <label for="applicationName">ФИО *</label>
-                <input type="text" id="applicationName" name="name" required>
-            </div>
-            <div class="form-group">
                 <label for="applicationPhone">Телефон *</label>
                 <input type="tel" id="applicationPhone" name="phone" required>
             </div>
@@ -431,11 +391,7 @@
         </div>
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
-            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
-            <div class="form-group">
-                <label for="callbackName">ФИО *</label>
-                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
-            </div>
+            <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
@@ -455,17 +411,17 @@
 {% block footer_contact_lead %}
 <div class="cta-content" data-aos="fade-up">
     <div class="cta-header">
-        <h3>Наша философия: Ваш тепловой пункт — наша зона ответственности. Полностью.</h3>
-        <p>Обеспечим надежную работу вашего ИТП/ЦТП с максимальной оперативностью и качеством</p>
+        <h3>Готовы обсудить обслуживание вашего ИТП/ЦТП?</h3>
+        <p>Оставьте заявку или закажите звонок — ответим в рабочее время и подскажем по срокам и стоимости</p>
     </div>
     <div class="cta-actions">
         <button class="btn-cta btn-cta-primary" onclick="openApplicationModal()">
             <span class="btn-text">Оставить заявку</span>
-            <span class="btn-icon">📝</span>
+            <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
         </button>
         <button class="btn-cta btn-cta-secondary" onclick="openCallbackModal()">
             <span class="btn-text">Заказать звонок специалиста</span>
-            <span class="btn-icon">📞</span>
+            <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
         </button>
     </div>
 </div>

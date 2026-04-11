@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: 800,
             easing: 'ease-out-cubic',
             once: true,
-            offset: 100
+            offset: 100,
+            disable: function () {
+                return window.matchMedia('(max-width: 768px)').matches;
+            }
         });
     }
 
@@ -272,20 +275,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Close modal when clicking outside
-    window.addEventListener('click', function(event) {
-        const applicationModal = document.getElementById('applicationModal');
-        const callbackModal = document.getElementById('callbackModal');
-        
-        if (event.target === applicationModal) {
-            closeApplicationModal();
-        }
-        
-        if (event.target === callbackModal) {
-            closeCallbackModal();
-        }
-    });
-
     // Form submissions
     const applicationForm = document.getElementById('applicationForm');
     const callbackForm = document.getElementById('callbackForm');
@@ -356,19 +345,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Tool pulse effect for installation buttons
-    const installationButtons = document.querySelectorAll('.btn-cta-primary');
-    
-    installationButtons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.animation = 'toolPulse 0.5s ease-in-out infinite';
-        });
-        
-        button.addEventListener('mouseleave', function() {
-            this.style.animation = '';
-        });
-    });
-
     // Special tool icon effects
     const installationIcon = document.querySelector('.installation-icon');
     
@@ -380,7 +356,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.filter = 'brightness(2) drop-shadow(0 0 20px #8b5cf6)';
             
             setTimeout(() => {
-                this.style.animation = 'toolPulse 2s ease-in-out infinite';
+                this.style.animation = '';
                 this.style.transform = '';
                 this.style.filter = '';
             }, 1000);
@@ -398,7 +374,7 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.filter = 'brightness(2) drop-shadow(0 0 20px #8b5cf6)';
             
             setTimeout(() => {
-                this.style.animation = 'toolRotate 3s ease-in-out infinite';
+                this.style.animation = '';
                 this.style.transform = '';
                 this.style.filter = '';
             }, 1500);
@@ -478,46 +454,78 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+function installationToastOutAnim() {
+    return window.matchMedia('(max-width: 768px)').matches
+        ? 'pageToastMobOut 0.45s ease-out forwards'
+        : 'slideOutRight 0.5s ease-out';
+}
+
 // Notification system
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
     notification.innerHTML = `
         <div class="notification-content">
-            <span class="notification-icon">${type === 'success' ? '✅' : 'ℹ️'}</span>
+            <span class="notification-icon" aria-hidden="true">${type === 'success' ? 'OK' : '!'}</span>
             <span class="notification-text">${message}</span>
             <span class="notification-close">&times;</span>
         </div>
     `;
-    
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? 'linear-gradient(135deg, #10b981, #059669)' : 'linear-gradient(135deg, #8b5cf6, #5b21b6)'};
-        color: white;
-        padding: 15px 20px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        z-index: 1001;
-        animation: slideInRight 0.5s ease-out;
-        cursor: pointer;
-        max-width: 350px;
-    `;
-    
+
+    const bg = type === 'success'
+        ? 'linear-gradient(135deg, #10b981, #059669)'
+        : 'linear-gradient(135deg, #8b5cf6, #5b21b6)';
+    const narrow = window.matchMedia('(max-width: 768px)').matches;
+
+    if (narrow) {
+        notification.style.cssText = `
+            position: fixed;
+            top: max(88px, calc(env(safe-area-inset-top, 0px) + 72px));
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            width: min(420px, calc(100vw - 24px));
+            max-width: calc(100vw - 24px);
+            box-sizing: border-box;
+            background: ${bg};
+            color: white;
+            padding: 14px 18px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            animation: pageToastMobIn 0.45s ease-out forwards;
+            cursor: pointer;
+        `;
+    } else {
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${bg};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            animation: slideInRight 0.5s ease-out;
+            cursor: pointer;
+            max-width: 350px;
+        `;
+    }
+
     document.body.appendChild(notification);
-    
+
     // Auto-remove after 5 seconds
     setTimeout(() => {
         if (notification.parentNode) {
-            notification.style.animation = 'slideOutRight 0.5s ease-out';
+            notification.style.animation = installationToastOutAnim();
             setTimeout(() => notification.remove(), 500);
         }
     }, 5000);
-    
+
     // Remove on click
     notification.addEventListener('click', () => {
-        notification.style.animation = 'slideOutRight 0.5s ease-out';
+        notification.style.animation = installationToastOutAnim();
         setTimeout(() => notification.remove(), 500);
     });
 }
@@ -544,6 +552,28 @@ style.textContent = `
         to {
             transform: translateX(100%);
             opacity: 0;
+        }
+    }
+
+    @keyframes pageToastMobIn {
+        from {
+            opacity: 0;
+            transform: translate(-50%, -18px);
+        }
+        to {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    }
+
+    @keyframes pageToastMobOut {
+        from {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+        to {
+            opacity: 0;
+            transform: translate(-50%, -18px);
         }
     }
     

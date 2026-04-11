@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: 800,
             easing: 'ease-out-cubic',
             once: true,
-            offset: 100
+            offset: 100,
+            disable: function () {
+                return window.matchMedia('(max-width: 768px)').matches;
+            }
         });
     }
 
@@ -139,87 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         timelineObserver.observe(item);
     });
 
-    // Add floating effect to advantage cards
-    const advantageCards = document.querySelectorAll('.advantage-card');
-    advantageCards.forEach((card, index) => {
-        setTimeout(() => {
-            card.style.animation = `floatingCard ${3 + index * 0.5}s ease-in-out infinite`;
-        }, index * 200);
-    });
-
-    // Add CSS for floating animation if not already defined
-    if (!document.querySelector('#floating-animation-styles')) {
-        const floatingStyles = document.createElement('style');
-        floatingStyles.id = 'floating-animation-styles';
-        floatingStyles.textContent = `
-            @keyframes floatingCard {
-                0%, 100% { transform: translateY(0px); }
-                50% { transform: translateY(-3px); }
-            }
-        `;
-        document.head.appendChild(floatingStyles);
-    }
-
-    // Special offer animation on scroll
-    const specialOffer = document.querySelector('.special-offer');
-    if (specialOffer) {
-        const offerObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'offerPulse 2s ease-in-out infinite';
-                }
-            });
-        });
-        
-        offerObserver.observe(specialOffer);
-        
-        // Add CSS for offer animation
-        if (!document.querySelector('#offer-animation-styles')) {
-            const offerStyles = document.createElement('style');
-            offerStyles.id = 'offer-animation-styles';
-            offerStyles.textContent = `
-                @keyframes offerPulse {
-                    0%, 100% { box-shadow: 0 20px 60px rgba(39, 174, 96, 0.3); }
-                    50% { box-shadow: 0 25px 70px rgba(39, 174, 96, 0.5); }
-                }
-            `;
-            document.head.appendChild(offerStyles);
-        }
-    }
-
-    // Enhanced CTA section animation
-    const ctaSection = document.querySelector('.cta-section-modern');
-    if (ctaSection) {
-        const ctaObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const ctaIcon = entry.target.querySelector('.cta-icon');
-                    if (ctaIcon) {
-                        ctaIcon.style.animation = 'ctaIconSpin 1s ease-in-out';
-                        setTimeout(() => {
-                            ctaIcon.style.animation = 'ctaIconGlow 3s ease-in-out infinite';
-                        }, 1000);
-                    }
-                }
-            });
-        });
-        
-        ctaObserver.observe(ctaSection);
-        
-        // Add CSS for CTA animation
-        if (!document.querySelector('#cta-animation-styles')) {
-            const ctaStyles = document.createElement('style');
-            ctaStyles.id = 'cta-animation-styles';
-            ctaStyles.textContent = `
-                @keyframes ctaIconSpin {
-                    0% { transform: scale(1) rotate(0deg); }
-                    50% { transform: scale(1.2) rotate(180deg); }
-                    100% { transform: scale(1) rotate(360deg); }
-                }
-            `;
-            document.head.appendChild(ctaStyles);
-        }
-    }
+    // Зацикленные анимации карточек/CTA отключены (задача 10 — остаётся AOS)
 });
 
 // Modal functions
@@ -242,19 +165,6 @@ function closeCallbackModal() {
     document.getElementById('callbackModal').style.display = 'none';
     document.body.style.overflow = 'auto';
 }
-
-// Close modal when clicking outside
-window.addEventListener('click', function(event) {
-    const applicationModal = document.getElementById('applicationModal');
-    const callbackModal = document.getElementById('callbackModal');
-    
-    if (event.target === applicationModal) {
-        closeApplicationModal();
-    }
-    if (event.target === callbackModal) {
-        closeCallbackModal();
-    }
-});
 
 // Form submissions
 document.getElementById('applicationForm').addEventListener('submit', function(e) {

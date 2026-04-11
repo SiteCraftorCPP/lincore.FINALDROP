@@ -247,7 +247,7 @@ html body .modern-heating-page section.modern-hero-section .scroll-indicator,
 html body .modern-verification-page section.modern-hero-section .scroll-indicator,
 html body section.modern-hero-section-home .scroll-indicator {
     bottom: 28px !important;
-    /* Центр без translateX(-50%): иначе AOS (fade-up) и inline transform сдвигают блок */
+    /* Центр через margin auto; сбрасываем translateX(-50%) из inline/partials — иначе блок и текст уезжают */
     left: 0 !important;
     right: 0 !important;
     width: fit-content !important;
@@ -258,7 +258,40 @@ html body section.modern-hero-section-home .scroll-indicator {
     padding-right: 16px !important;
     box-sizing: border-box !important;
     text-align: center !important;
-    animation: heroScrollHintFloat 3s ease-in-out infinite !important;
+    transform: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    animation: none !important;
+}
+
+/* Задача 10: без зацикленных анимаций hero-слоя (перебивает inline/partials, кроме AOS) */
+html body .modern-service-page section.modern-hero-section .hero-gradient,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-gradient,
+html body .modern-heating-page section.modern-hero-section .hero-gradient,
+html body .modern-verification-page section.modern-hero-section .hero-gradient,
+html body section.modern-hero-section-home .hero-gradient,
+html body .modern-service-page section.modern-hero-section .hero-particles,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-particles,
+html body .modern-heating-page section.modern-hero-section .hero-particles,
+html body .modern-verification-page section.modern-hero-section .hero-particles,
+html body section.modern-hero-section-home .hero-particles,
+html body .modern-service-page section.modern-hero-section .hero-badge,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-badge,
+html body .modern-heating-page section.modern-hero-section .hero-badge,
+html body .modern-verification-page section.modern-hero-section .hero-badge,
+html body section.modern-hero-section-home .hero-badge,
+html body .modern-service-page section.modern-hero-section .badge-icon,
+html body .modern-service-page section.modern-hero-section.heating-hero .badge-icon,
+html body .modern-heating-page section.modern-hero-section .badge-icon,
+html body .modern-verification-page section.modern-hero-section .badge-icon,
+html body section.modern-hero-section-home .badge-icon,
+html body .modern-service-page section.modern-hero-section .scroll-wheel,
+html body .modern-service-page section.modern-hero-section.heating-hero .scroll-wheel,
+html body .modern-heating-page section.modern-hero-section .scroll-wheel,
+html body .modern-verification-page section.modern-hero-section .scroll-wheel,
+html body section.modern-hero-section-home .scroll-wheel {
+    animation: none !important;
 }
 
 @keyframes heroScrollHintFloat {
@@ -282,12 +315,16 @@ html body .modern-verification-page section.modern-hero-section .hero-title .tit
 
 @media (max-width: 768px) {
 
+    /* Не на весь экран: остаётся ~28% высоты под следующий блок */
     html body .modern-service-page section.modern-hero-section,
     html body .modern-service-page section.modern-hero-section.heating-hero,
     html body .modern-heating-page section.modern-hero-section,
     html body .modern-verification-page section.modern-hero-section,
     html body section.modern-hero-section-home {
-        padding-bottom: 90px !important;
+        min-height: calc(72vh - var(--header-offset, 72px)) !important;
+        min-height: calc(72dvh - var(--header-offset, 72px)) !important;
+        min-height: calc(72svh - var(--header-offset, 72px)) !important;
+        padding-bottom: 72px !important;
     }
 
     html body .modern-service-page section.modern-hero-section .hero-stats,
@@ -394,6 +431,10 @@ html body .modern-verification-page section.modern-hero-section .hero-title .tit
     html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-badge .badge-icon {
         flex-shrink: 0 !important;
     }
+
+    html body main.main-content {
+        min-height: 0 !important;
+    }
 }
 
 @media (max-width: 480px) {
@@ -403,7 +444,10 @@ html body .modern-verification-page section.modern-hero-section .hero-title .tit
     html body .modern-heating-page section.modern-hero-section,
     html body .modern-verification-page section.modern-hero-section,
     html body section.modern-hero-section-home {
-        padding-bottom: 72px !important;
+        min-height: calc(66vh - var(--header-offset, 72px)) !important;
+        min-height: calc(66dvh - var(--header-offset, 72px)) !important;
+        min-height: calc(66svh - var(--header-offset, 72px)) !important;
+        padding-bottom: 64px !important;
         padding-top: calc(12px + var(--services-panel-slot, 0px)) !important;
     }
 

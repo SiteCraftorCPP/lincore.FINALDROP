@@ -196,19 +196,6 @@ function closeCallbackModal() {
     }
 }
 
-// Close modals when clicking outside
-window.onclick = function(event) {
-    const applicationModal = document.getElementById('applicationModal');
-    const callbackModal = document.getElementById('callbackModal');
-    
-    if (event.target === applicationModal) {
-        closeApplicationModal();
-    }
-    if (event.target === callbackModal) {
-        closeCallbackModal();
-    }
-}
-
 // Form submission handlers
 document.addEventListener('DOMContentLoaded', function() {
     // Application form handler

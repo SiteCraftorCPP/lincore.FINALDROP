@@ -74,7 +74,6 @@
     margin-bottom: 40px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    animation: badgePulse 3s ease-in-out infinite;
 }
 
 @keyframes badgePulse {
@@ -95,7 +94,6 @@
 
 .badge-icon {
     font-size: 20px;
-    animation: searchPulse 2s ease-in-out infinite;
 }
 
 @keyframes searchPulse {
@@ -1427,29 +1425,31 @@
     50% { transform: scale(1.2) rotate(-10deg); }
 }
 
-/* Apply animations */
-.animate-search { animation: animate-search 2s ease-in-out infinite; }
-.animate-tools { animation: animate-tools 2s ease-in-out infinite; }
-.animate-folder { animation: animate-folder 3s ease-in-out infinite; }
-.animate-star { animation: animate-star 3s ease-in-out infinite; }
-.animate-car { animation: animate-car 3s ease-in-out infinite; }
-.animate-clipboard { animation: animate-clipboard 2s ease-in-out infinite; }
-.animate-money { animation: animate-money 2s ease-in-out infinite; }
-.animate-document { animation: animate-document 2s ease-in-out infinite; }
-.animate-law { animation: animate-law 2s ease-in-out infinite; }
-.animate-wrench { animation: animate-wrench 2s ease-in-out infinite; }
-.animate-specialist { animation: animate-specialist 2s ease-in-out infinite; }
-.animate-clock { animation: animate-clock 1.5s ease-in-out infinite; }
-.animate-documents { animation: animate-documents 2s ease-in-out infinite; }
-.animate-check-doc { animation: animate-check-doc 3s ease-in-out infinite; }
-.animate-report { animation: animate-report 3s ease-in-out infinite; }
-.animate-chart { animation: animate-chart 3s ease-in-out infinite; }
-.animate-calendar { animation: animate-calendar 2s ease-in-out infinite; }
-.animate-task { animation: animate-task 2s ease-in-out infinite; }
-.animate-speed { animation: animate-speed 1.5s ease-in-out infinite; }
-.animate-savings { animation: animate-savings 2s ease-in-out infinite; }
-.animate-compliance { animation: animate-compliance 2s ease-in-out infinite; }
-.animate-medal { animation: animate-medal 2s ease-in-out infinite; }
+/* Apply animations — зацикленные эффекты отключены (задача 10) */
+.animate-search,
+.animate-tools,
+.animate-folder,
+.animate-star,
+.animate-car,
+.animate-clipboard,
+.animate-money,
+.animate-document,
+.animate-law,
+.animate-wrench,
+.animate-specialist,
+.animate-clock,
+.animate-documents,
+.animate-check-doc,
+.animate-report,
+.animate-chart,
+.animate-calendar,
+.animate-task,
+.animate-speed,
+.animate-savings,
+.animate-compliance,
+.animate-medal {
+    animation: none !important;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -2285,5 +2285,18 @@
         opacity: 0;
         transform: translateX(-50%) translateY(-6px);
     }
+}
+
+/* Задача 10: отключение прочих зацикленных декоративных анимаций */
+.hero-gradient,
+.hero-particles,
+.scroll-indicator,
+.scroll-wheel,
+.icon-particles,
+.floating-dot,
+.indicator-bar::before,
+.audit-icon,
+.interactive-why-card:hover .why-glow-effect {
+    animation: none !important;
 }
 </style>

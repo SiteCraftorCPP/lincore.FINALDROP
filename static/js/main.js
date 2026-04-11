@@ -368,26 +368,55 @@ function initModals() {
         callModalClose.addEventListener('click', () => closeModal(callModal));
     }
 
-    // Закрытие модалов по клику на фон
-    document.querySelectorAll('.modal').forEach(modal => {
-        modal.addEventListener('click', function (e) {
-            if (e.target === this) {
-                closeModal(this);
-            }
-        });
-    });
-
-    // Закрытие модалов по Escape
-    document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.modal.show').forEach(modal => {
-                closeModal(modal);
-            });
-        }
-    });
+    document.addEventListener('click', onModalBackdropClick, false);
+    document.addEventListener('keydown', onModalEscapeKey, false);
 }
 
 // Функции для работы с модалами
+function isModalVisible(modal) {
+    if (!modal) return false;
+    if (modal.classList.contains('show')) return true;
+    const inline = modal.style.display;
+    if (inline === 'block' || inline === 'flex') return true;
+    return window.getComputedStyle(modal).display !== 'none';
+}
+
+function closeAnyModal(modal) {
+    if (!modal) return;
+    const id = modal.id;
+    const w = window;
+    if (id === 'callbackModal' && typeof w.closeCallbackModal === 'function') {
+        w.closeCallbackModal();
+        return;
+    }
+    if (id === 'applicationModal' && typeof w.closeApplicationModal === 'function') {
+        w.closeApplicationModal();
+        return;
+    }
+    if (id === 'quoteModal' && typeof w.closeQuoteModal === 'function') {
+        w.closeQuoteModal();
+        return;
+    }
+    closeModal(modal);
+}
+
+function onModalBackdropClick(e) {
+    document.querySelectorAll('.modal').forEach(modal => {
+        if (!isModalVisible(modal)) return;
+        if (!modal.contains(e.target)) return;
+        const panel = modal.querySelector('.modal-content');
+        if (panel && panel.contains(e.target)) return;
+        closeAnyModal(modal);
+    });
+}
+
+function onModalEscapeKey(e) {
+    if (e.key !== 'Escape') return;
+    document.querySelectorAll('.modal').forEach(modal => {
+        if (isModalVisible(modal)) closeAnyModal(modal);
+    });
+}
+
 function openModal(modal) {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
@@ -498,8 +527,8 @@ async function handleServiceSubmit(e) {
     try {
         const formData = new FormData(form);
         const data = {
-            full_name: formData.get('full_name'),
-            phone: formData.get('phone'),
+            full_name: (formData.get('full_name') || '').trim(),
+            phone: (formData.get('phone') || '').trim(),
             service_type: formData.get('service_type')
         };
 
@@ -565,7 +594,11 @@ function showNotification(message, type = 'info') {
     // Автоматическое удаление через 5 секунд
     setTimeout(() => {
         if (notification.parentElement) {
-            notification.style.animation = 'fadeInRight 0.3s ease reverse';
+            const out =
+                window.matchMedia('(max-width: 768px)').matches
+                    ? 'fadeInUp 0.3s ease reverse'
+                    : 'fadeInRight 0.3s ease reverse';
+            notification.style.animation = out;
             setTimeout(() => notification.remove(), 300);
         }
     }, 5000);
@@ -841,8 +874,8 @@ function initModernFeatures() {
 
             const formData = new FormData(this);
             const data = {
-                full_name: formData.get('full_name'),
-                phone: formData.get('phone'),
+                full_name: (formData.get('full_name') || '').trim(),
+                phone: (formData.get('phone') || '').trim(),
                 service_type: 'main_page',
                 request_type: 'callback'
             };

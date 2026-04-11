@@ -1,0 +1,168 @@
+{# Блок отзывов — подключается из base.html на всех страницах #}
+<section class="site-reviews" aria-labelledby="site-reviews-heading">
+    <div class="container site-reviews__inner">
+        <header class="site-reviews__header">
+            <div class="site-reviews__badge">
+                {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Средняя оценка: 5 из 5" %}
+                <span class="site-reviews__badge-score">4,9</span>
+                <span class="site-reviews__badge-label">средняя оценка</span>
+            </div>
+            <h2 class="site-reviews__title" id="site-reviews-heading">Отзывы клиентов</h2>
+            <p class="site-reviews__lead">Реальные заказчики о сроках, качестве работ и взаимодействии с нашей командой.</p>
+        </header>
+        <ul class="site-reviews__grid">
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Оценка 5 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>Заключили договор на обслуживание инженерных систем в бизнес-центре. График обходов прозрачный, акты без задержек, замечания по узлам учли уже при первом выезде.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar" data-initials="АП" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Анна Петрова</p>
+                            <p class="site-reviews__meta">БЦ «Скайлайн», САО Москвы</p>
+                            <p class="site-reviews__date"><time datetime="2024-09-18">18 сентября 2024</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Оценка 5 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>ИТП после модернизации вели «в ручном режиме». Подключили вашу службу — теперь журналы, алармы и пуски сезона под контролем, УК довольна отчётностью.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar" data-initials="ДК" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Дмитрий Ковалёв</p>
+                            <p class="site-reviews__meta">ООО «УК Северный квартал»</p>
+                            <p class="site-reviews__date"><time datetime="2024-11-05">5 ноября 2024</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Оценка 5 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>Поверку счётчиков и замену вышедших из строя сделали в оговорённые дни, без срыва подачи показаний. Специалисты аккуратные, документы передали в день работ.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar" data-initials="ЕС" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Елена Смирнова</p>
+                            <p class="site-reviews__meta">ТСЖ «Речной», Зеленоград</p>
+                            <p class="site-reviews__date"><time datetime="2025-01-22">22 января 2025</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Оценка 5 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>Ночью прорвало участок. Бригада приехала быстро, локализовали протечку, утром уже согласовали план постоянного ремонта. Спасибо за связь на линии.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar" data-initials="ИМ" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Игорь Николаевич Морозов</p>
+                            <p class="site-reviews__meta">ЖК «Парковые аллеи», Новая Москва</p>
+                            <p class="site-reviews__date"><time datetime="2024-12-14">14 декабря 2024</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=4 aria_label="Оценка 4 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>Монтаж трубопроводов и врезки на складе в Люберцах — работы согласованы с охраной и графиком отгрузок. Подрядчик дисциплинированный, ПНР прошёл с первого раза.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar" data-initials="СВ" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Сергей Волков</p>
+                            <p class="site-reviews__meta">Логистический терминал, Люберцы</p>
+                            <p class="site-reviews__date"><time datetime="2025-03-03">3 марта 2025</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Оценка 5 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>Аудит вентиляции и тепловых узлов выявил то, что не видели годами в эксплуатации. Отчёт структурированный, приоритеты по вложениям понятны совету собственников.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar" data-initials="ОМ" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Ольга Михайлова</p>
+                            <p class="site-reviews__meta">УК «Доминанта», ЮЗАО</p>
+                            <p class="site-reviews__date"><time datetime="2024-10-30">30 октября 2024</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Оценка 5 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>Подготовку к отопительному сезону прошли без авралов: опрессовка, задвижки, автоматика — всё по чек-листу с фотоотчётом. Рекомендуем как ответственного партнёра.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar site-reviews__avatar--alt" data-initials="АП" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Андрей Платонов</p>
+                            <p class="site-reviews__meta">Жилой квартал, Мытищи</p>
+                            <p class="site-reviews__date"><time datetime="2025-04-28">28 апреля 2025</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+            <li>
+                <article class="site-reviews__card">
+                    <div class="site-reviews__card-head">
+                        {% include 'website/partials/reviews_stars.html' with full=5 aria_label="Оценка 5 из 5" %}
+                        <span class="site-reviews__verified">Проверенный отзыв</span>
+                    </div>
+                    <blockquote class="site-reviews__text">
+                        <p>Замена приточных установок в офисном блоке — шум минимальный, работали в нерабочее время. Воздухобмен по замерам соответствует проекту, претензий нет.</p>
+                    </blockquote>
+                    <footer class="site-reviews__footer">
+                        <div class="site-reviews__avatar" data-initials="МК" aria-hidden="true"></div>
+                        <div class="site-reviews__footer-text">
+                            <p class="site-reviews__author">Марина Кузнецова</p>
+                            <p class="site-reviews__meta">ООО «Офис-инжиниринг», Химки</p>
+                            <p class="site-reviews__date"><time datetime="2025-02-11">11 февраля 2025</time></p>
+                        </div>
+                    </footer>
+                </article>
+            </li>
+        </ul>
+    </div>
+</section>

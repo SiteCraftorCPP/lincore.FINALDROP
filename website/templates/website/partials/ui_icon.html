@@ -1,0 +1,5 @@
+{% load static %}
+{# name: sprite symbol id without "icon-" prefix, e.g. phone, wrench #}
+<svg class="ui-icon {{ svg_class }}" width="{{ w|default:'20' }}" height="{{ h|default:'20' }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+  <use href="{% static 'images/site-icons.svg' %}#icon-{{ name }}"/>
+</svg>

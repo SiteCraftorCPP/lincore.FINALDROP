@@ -6,7 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: 800,
             easing: 'ease-out-cubic',
             once: true,
-            offset: 100
+            offset: 100,
+            disable: function () {
+                return window.matchMedia('(max-width: 768px)').matches;
+            }
         });
     }
 
@@ -234,20 +237,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
-    // Close modal when clicking outside
-    window.addEventListener('click', function(event) {
-        const applicationModal = document.getElementById('applicationModal');
-        const callbackModal = document.getElementById('callbackModal');
-        
-        if (event.target === applicationModal) {
-            closeApplicationModal();
-        }
-        
-        if (event.target === callbackModal) {
-            closeCallbackModal();
-        }
-    });
-
     // Form submissions
     const applicationForm = document.getElementById('applicationForm');
     const callbackForm = document.getElementById('callbackForm');
@@ -318,49 +307,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Emergency pulse effect for CTA button
-    const emergencyButtons = document.querySelectorAll('.btn-cta-primary');
-    
-    emergencyButtons.forEach(button => {
-        button.addEventListener('mouseenter', function() {
-            this.style.animation = 'emergencyPulse 0.5s ease-in-out infinite';
-        });
-        
-        button.addEventListener('mouseleave', function() {
-            this.style.animation = '';
-        });
-    });
-
-    // Add urgent shake effect to emergency icon
-    const emergencyIcon = document.querySelector('.emergency-icon');
-    
-    if (emergencyIcon) {
-        setInterval(() => {
-            emergencyIcon.style.animation = 'none';
-            setTimeout(() => {
-                emergencyIcon.style.animation = 'emergencyPulse 2s ease-in-out infinite';
-            }, 100);
-        }, 10000); // Shake every 10 seconds
-    }
-
-    // Badge icon special effects
-    const badgeIcon = document.querySelector('.badge-icon');
-    
-    if (badgeIcon) {
-        badgeIcon.addEventListener('click', function() {
-            // Special siren effect on click
-            this.style.animation = 'none';
-            this.style.transform = 'scale(1.5) rotate(360deg)';
-            this.style.filter = 'brightness(2) drop-shadow(0 0 20px #dc2626)';
-            
-            setTimeout(() => {
-                this.style.animation = 'sirenPulse 2s ease-in-out infinite';
-                this.style.transform = '';
-                this.style.filter = '';
-            }, 1000);
-        });
-    }
-
     // Add scroll-based animations for service cards
     const serviceCardsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -405,7 +351,7 @@ function showUrgentAlert() {
     const icon = document.createElement('span');
     icon.className = 'alert-icon';
     icon.setAttribute('aria-hidden', 'true');
-    icon.textContent = '🚨';
+    icon.textContent = '';
 
     const text = document.createElement('span');
     text.className = 'alert-text';
@@ -495,9 +441,12 @@ style.textContent = `
     }
     
     .urgent-alert .alert-icon {
-        font-size: 20px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
         flex-shrink: 0;
-        animation: sirenPulse 1s ease-in-out infinite;
     }
 
     .urgent-alert .alert-text {

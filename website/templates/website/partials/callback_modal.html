@@ -10,11 +10,7 @@
         </div>
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
-            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
-            <div class="form-group">
-                <label for="callbackName">ФИО *</label>
-                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
-            </div>
+            <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">

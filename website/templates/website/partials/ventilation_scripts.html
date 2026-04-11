@@ -15,7 +15,7 @@ function getCookie(name) {
     return cookieValue;
 }
 const csrftoken = getCookie('csrftoken');
-console.log('🔐 CSRF token:', csrftoken);
+console.log(' CSRF token:', csrftoken);
 
 // Initialize AOS (if available)
 if (typeof AOS !== 'undefined') {
@@ -23,10 +23,13 @@ if (typeof AOS !== 'undefined') {
         duration: 1000,
         once: true,
         offset: 100,
-        delay: 100
+        delay: 100,
+        disable: function () {
+            return window.matchMedia('(max-width: 768px)').matches;
+        }
     });
 } else {
-    console.log('⚠️ AOS not loaded, skipping animation initialization');
+    console.log(' AOS not loaded, skipping animation initialization');
 }
 
 // Initialize counter animations
@@ -298,26 +301,26 @@ function initGallery() {
 
 // Modal functionality
 function openApplicationModal() {
-    console.log('🔓 Opening application modal...');
+    console.log(' Opening application modal...');
     const modal = document.getElementById('applicationModal');
-    console.log('📱 Application modal found:', modal);
+    console.log(' Application modal found:', modal);
     
     if (modal) {
         const serviceTypeInput = modal.querySelector('input[name="service_type"]');
-        console.log('🎯 Service type input found:', serviceTypeInput);
+        console.log(' Service type input found:', serviceTypeInput);
         
         if (serviceTypeInput) {
             serviceTypeInput.value = 'ventilation_service';
-            console.log('✅ Service type set to:', serviceTypeInput.value);
+            console.log(' Service type set to:', serviceTypeInput.value);
         }
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        console.log('✅ Application modal opened');
+        console.log(' Application modal opened');
         
         // Re-initialize forms when modal opens
         setTimeout(initForms, 50);
     } else {
-        console.error('❌ Application modal not found!');
+        console.error(' Application modal not found!');
     }
 }
 
@@ -330,26 +333,26 @@ function closeApplicationModal() {
 }
 
 function openCallbackModal() {
-    console.log('📞 Opening callback modal...');
+    console.log(' Opening callback modal...');
     const modal = document.getElementById('callbackModal');
-    console.log('📱 Callback modal found:', modal);
+    console.log(' Callback modal found:', modal);
     
     if (modal) {
         const serviceTypeInput = modal.querySelector('input[name="service_type"]');
-        console.log('🎯 Service type input found:', serviceTypeInput);
+        console.log(' Service type input found:', serviceTypeInput);
         
         if (serviceTypeInput) {
             serviceTypeInput.value = 'ventilation_service';
-            console.log('✅ Service type set to:', serviceTypeInput.value);
+            console.log(' Service type set to:', serviceTypeInput.value);
         }
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
-        console.log('✅ Callback modal opened');
+        console.log(' Callback modal opened');
         
         // Re-initialize forms when modal opens
         setTimeout(initForms, 50);
     } else {
-        console.error('❌ Callback modal not found!');
+        console.error(' Callback modal not found!');
     }
 }
 
@@ -477,10 +480,13 @@ function createExplosionEffect(element) {
     
     for (let i = 0; i < 12; i++) {
         const particle = document.createElement('div');
-        particle.textContent = '💨';
+        particle.textContent = '';
         particle.style.cssText = `
             position: fixed;
-            font-size: 20px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(99, 102, 241, 0.9);
             pointer-events: none;
             z-index: 1000;
             left: ${centerX}px;
@@ -501,38 +507,67 @@ function createExplosionEffect(element) {
     }
 }
 
-// Enhanced notification system
+// Enhanced notification system (на мобилке — по центру экрана, не от right + slideInRight)
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.textContent = message;
-    
+
     const bgColors = {
         'success': 'linear-gradient(135deg, #10b981, #059669)',
         'error': 'linear-gradient(135deg, #ef4444, #dc2626)',
         'info': 'linear-gradient(135deg, #1e88e5, #0d47a1)',
         'warning': 'linear-gradient(135deg, #f59e0b, #d97706)'
     };
-    
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${bgColors[type]};
-        color: white;
-        padding: 16px 24px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        z-index: 10000;
-        font-weight: 600;
-        min-width: 250px;
-        text-align: center;
-        animation: slideInRight 0.3s ease-out;
-    `;
-    
+    const bg = bgColors[type] || bgColors.info;
+    const narrow = window.matchMedia('(max-width: 768px)').matches;
+
+    if (narrow) {
+        notification.style.cssText = `
+            position: fixed;
+            top: max(88px, calc(env(safe-area-inset-top, 0px) + 72px));
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            width: min(420px, calc(100vw - 24px));
+            max-width: calc(100vw - 24px);
+            box-sizing: border-box;
+            background: ${bg};
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            font-weight: 600;
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.35;
+            animation: pageToastMobIn 0.35s ease-out forwards;
+        `;
+    } else {
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${bg};
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            font-weight: 600;
+            min-width: 250px;
+            text-align: center;
+            animation: slideInRight 0.3s ease-out;
+        `;
+    }
+
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
-        notification.style.animation = 'slideOutRight 0.3s ease-in forwards';
+        const out = narrow
+            ? 'pageToastMobOut 0.3s ease-in forwards'
+            : 'slideOutRight 0.3s ease-in forwards';
+        notification.style.animation = out;
         setTimeout(() => {
             notification.remove();
         }, 300);
@@ -550,17 +585,6 @@ function initScrollEffects() {
         parallaxElements.forEach(element => {
             const speed = element.classList.contains('hero-particles') ? 0.5 : 0.3;
             element.style.transform = `translateY(${scrolled * speed}px)`;
-        });
-        
-        // Animate section icons based on scroll
-        const sectionIcons = document.querySelectorAll('.icon-wrapper .icon');
-        sectionIcons.forEach(icon => {
-            const rect = icon.getBoundingClientRect();
-            if (rect.top < window.innerHeight && rect.bottom > 0) {
-                icon.style.animation = 'none';
-                icon.offsetHeight; // Trigger reflow
-                icon.style.animation = 'airFlow 2s ease-in-out infinite';
-            }
         });
         
         ticking = false;
@@ -601,27 +625,22 @@ function initPageLoadAnimation() {
             }, 100 + (index * 150));
         }
     });
-    
-    // Show welcome notification
-    setTimeout(() => {
-        showNotification('Добро пожаловать! Обслуживание вентиляции и кондиционирования', 'success');
-    }, 1000);
 }
 
 function handleFormSubmit(form, successMessage, errorMessage) {
-    console.log('📤 handleFormSubmit called for form:', form);
+    console.log(' handleFormSubmit called for form:', form);
     const formData = new FormData(form);
     
     // Log form data for debugging
-    console.log('📋 Form data:');
+    console.log(' Form data:');
     for (let [key, value] of formData.entries()) {
         console.log(`  ${key}: ${value}`);
     }
 
     showNotification('Отправка...', 'info');
     
-    console.log('🌐 Starting fetch request to /submit-request/');
-    console.log('🔑 Using CSRF token:', csrftoken);
+    console.log(' Starting fetch request to /submit-request/');
+    console.log(' Using CSRF token:', csrftoken);
 
     fetch('/submit-request/', {
         method: 'POST',
@@ -739,15 +758,15 @@ function initUltraControlCards() {
 
 // Initialize everything when DOM is loaded
 function initForms() {
-    console.log('🔧 === INITIALIZING FORMS ===');
+    console.log(' === INITIALIZING FORMS ===');
     
     // Service application form submission
-    console.log('🔍 Looking for serviceApplicationForm...');
+    console.log(' Looking for serviceApplicationForm...');
     const serviceApplicationForm = document.getElementById('serviceApplicationForm');
-    console.log('📝 serviceApplicationForm found:', serviceApplicationForm);
+    console.log(' serviceApplicationForm found:', serviceApplicationForm);
     
     if (serviceApplicationForm) {
-        console.log('✅ Setting up serviceApplicationForm event listener');
+        console.log(' Setting up serviceApplicationForm event listener');
         // Remove any existing event listeners by cloning the node
         const newForm = serviceApplicationForm.cloneNode(true);
         serviceApplicationForm.parentNode.replaceChild(newForm, serviceApplicationForm);
@@ -773,26 +792,26 @@ function initForms() {
         serviceTypeInput.value = 'ventilation_service';
 
         newForm.addEventListener('submit', function(e) {
-            console.log('🚀 Application form submitted!');
+            console.log(' Application form submitted!');
             e.preventDefault();
             e.stopPropagation();
-            console.log('🛑 Default action prevented');
+            console.log(' Default action prevented');
             handleFormSubmit(this, 'Заявка успешно отправлена!', 'Ошибка при отправке заявки: ');
             return false;
         });
         
-        console.log('✅ Application form initialized');
+        console.log(' Application form initialized');
     } else {
-        console.error('❌ serviceApplicationForm not found!');
+        console.error(' serviceApplicationForm not found!');
     }
     
     // Callback form submission
-    console.log('🔍 Looking for callbackForm...');
+    console.log(' Looking for callbackForm...');
     const callbackForm = document.getElementById('callbackForm');
-    console.log('📞 callbackForm found:', callbackForm);
+    console.log(' callbackForm found:', callbackForm);
     
     if (callbackForm) {
-        console.log('✅ Setting up callbackForm event listener');
+        console.log(' Setting up callbackForm event listener');
         // Remove any existing event listeners by cloning the node
         const newCallbackForm = callbackForm.cloneNode(true);
         callbackForm.parentNode.replaceChild(newCallbackForm, callbackForm);
@@ -818,24 +837,24 @@ function initForms() {
         serviceTypeInput.value = 'ventilation_service';
 
         newCallbackForm.addEventListener('submit', function(e) {
-            console.log('📞 Callback form submitted!');
+            console.log(' Callback form submitted!');
             e.preventDefault();
             e.stopPropagation();
-            console.log('🛑 Default action prevented');
+            console.log(' Default action prevented');
             handleFormSubmit(this, 'Запрос на обратный звонок отправлен!', 'Ошибка при отправке запроса: ');
             return false;
         });
         
-        console.log('✅ Callback form initialized');
+        console.log(' Callback form initialized');
     } else {
-        console.error('❌ callbackForm not found!');
+        console.error(' callbackForm not found!');
     }
     
-    console.log('🔧 === FORMS INITIALIZATION COMPLETE ===');
+    console.log(' === FORMS INITIALIZATION COMPLETE ===');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Ventilation page JavaScript loaded');
+    console.log(' Ventilation page JavaScript loaded');
     
     // Initialize all functionality
     animateCounters();
@@ -850,35 +869,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize forms with delay to ensure modal elements are loaded
     setTimeout(initForms, 100);
-    
-    // Modal event listeners
-    const applicationModal = document.getElementById('applicationModal');
-    const callbackModal = document.getElementById('callbackModal');
-    
-    if (applicationModal) {
-        applicationModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeApplicationModal();
-            }
-        });
-    }
-    
-    if (callbackModal) {
-        callbackModal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeCallbackModal();
-            }
-        });
-    }
-    
-    
-    // Enhanced keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            closeApplicationModal();
-            closeCallbackModal();
-        }
-    });
     
     // Enhanced smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -939,6 +929,28 @@ const additionalCSS = `
     to {
         transform: translateX(100%);
         opacity: 0;
+    }
+}
+
+@keyframes pageToastMobIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -18px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes pageToastMobOut {
+    from {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -18px);
     }
 }
 

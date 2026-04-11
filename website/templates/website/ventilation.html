@@ -12,7 +12,7 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                    <span class="badge-icon animated-maintenance">🌬️</span>
+                    <span class="badge-icon animated-maintenance">{% include 'website/partials/ui_icon.html' with name='wind' svg_class='badge-icon-svg' w=22 h=22 %}</span>
                     <span>Обслуживание систем вентиляции и кондиционирования</span>
                 </div>
                 
@@ -43,11 +43,11 @@
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                     <button class="btn-modern btn-primary" onclick="openApplicationModal()">
                         <span class="btn-text">Оставить заявку</span>
-                        <span class="btn-icon animated-document">📋</span>
+                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
                     </button>
                     <button class="btn-modern btn-secondary" onclick="openCallbackModal()">
                         <span class="btn-text">Заказать звонок специалиста</span>
-                        <span class="btn-icon animated-phone">📞</span>
+                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
                     </button>
                 </div>
             </div>
@@ -67,19 +67,19 @@
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
                 <a href="#services" class="pill-btn">
-                    <span class="pill-icon">🔧</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Регламентные работы</span>
                 </a>
                 <a href="#repair" class="pill-btn">
-                    <span class="pill-icon">⚡</span>
+                    {% include 'website/partials/ui_icon.html' with name='zap' w=20 h=20 %}
                     <span>Ремонт</span>
                 </a>
                 <a href="#control" class="pill-btn">
-                    <span class="pill-icon">📊</span>
+                    {% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=20 h=20 %}
                     <span>Контроль</span>
                 </a>
                 <a href="#advantages" class="pill-btn">
-                    <span class="pill-icon">✅</span>
+                    {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
                     <span>Преимущества</span>
                 </a>
             </div>
@@ -94,7 +94,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="icon-wrapper">
-                    <span class="icon animated-maintenance">🔧</span>
+                    <span class="icon animated-maintenance">{% include 'website/partials/ui_icon.html' with name='wrench' w=40 h=40 %}</span>
                 </div>
                 <h2 class="section-title">Регламентные и сезонные работы</h2>
                 <p class="section-subtitle">Полный спектр работ для поддержания климатических систем</p>
@@ -105,7 +105,7 @@
                     <div class="mega-card-background"></div>
                     <div class="mega-service-header">
                         <div class="mega-icon-container">
-                            <span class="mega-service-icon animated-maintenance">📅</span>
+                            <span class="mega-service-icon animated-maintenance">{% include 'website/partials/ui_icon.html' with name='calendar' w=36 h=36 %}</span>
                             <div class="icon-glow-effect"></div>
                         </div>
                         <div class="mega-header-content">
@@ -115,23 +115,23 @@
                     </div>
                     <div class="mega-service-features">
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">👀</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Внешний осмотр систем и оборудования</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🌡️</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Контроль параметров воздуха (температура, давление)</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">⚡</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Проверка электрических соединений</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🧹</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Чистка фильтров и воздухораспределительных решеток</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">💧</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Проверка дренажной системы</span>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                     <div class="mega-card-background"></div>
                     <div class="mega-service-header">
                         <div class="mega-icon-container">
-                            <span class="mega-service-icon animated-season">🔄</span>
+                            <span class="mega-service-icon animated-season">{% include 'website/partials/ui_icon.html' with name='calendar' w=36 h=36 %}</span>
                             <div class="icon-glow-effect"></div>
                         </div>
                         <div class="mega-header-content">
@@ -152,19 +152,19 @@
                     </div>
                     <div class="mega-service-features">
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🔗</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Проверка и натяжение ременных передач</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">⚙️</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Контроль состояния подшипников и смазка</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🔍</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Проверка теплообменников на герметичность</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🧽</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Чистка теплообменников и камер вентиляционных установок</span>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                     <div class="mega-card-background"></div>
                     <div class="mega-service-header">
                         <div class="mega-icon-container">
-                            <span class="mega-service-icon animated-season">☀️</span>
+                            <span class="mega-service-icon animated-season">{% include 'website/partials/ui_icon.html' with name='sun' w=36 h=36 %}</span>
                             <div class="icon-glow-effect"></div>
                         </div>
                         <div class="mega-header-content">
@@ -185,23 +185,23 @@
                     </div>
                     <div class="mega-service-features">
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🚿</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Промывка теплообменников</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🧊</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Чистка конденсаторов и испарителей</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">❄️</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Проверка холодильного контура</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">⚗️</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Дозаправка хладагентом</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">⚙️</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Настройка режимов работы</span>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                     <div class="mega-card-background"></div>
                     <div class="mega-service-header">
                         <div class="mega-icon-container">
-                            <span class="mega-service-icon animated-season">❄️</span>
+                            <span class="mega-service-icon animated-season">{% include 'website/partials/ui_icon.html' with name='thermometer' w=36 h=36 %}</span>
                             <div class="icon-glow-effect"></div>
                         </div>
                         <div class="mega-header-content">
@@ -222,19 +222,19 @@
                     </div>
                     <div class="mega-service-features">
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🔥</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Проверка калориферов и обогревателей</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🧯</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Контроль изоляции трубопроводов</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">💡</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Проверка противобактериальных ламп</span>
                         </div>
                         <div class="mega-feature-point">
-                            <span class="mega-feature-emoji">🎛️</span>
+                            <span class="mega-feature-marker" aria-hidden="true"></span>
                             <span>Настройка зимних режимов работы</span>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="icon-wrapper">
-                    <span class="icon animated-repair">⚡</span>
+                    <span class="icon animated-repair">{% include 'website/partials/ui_icon.html' with name='zap' w=40 h=40 %}</span>
                 </div>
                 <h2 class="section-title">Ремонтные работы</h2>
                 <p class="section-subtitle">Оперативное устранение неисправностей и аварийное обслуживание</p>
@@ -256,7 +256,7 @@
             <div class="timeline-container">
                 <div class="timeline-item" data-aos="fade-right">
                     <div class="timeline-number">1</div>
-                    <div class="timeline-icon animated-repair">🔧</div>
+                    <div class="timeline-icon animated-repair">{% include 'website/partials/ui_icon.html' with name='alert-circle' w=32 h=32 %}</div>
                     <div class="timeline-content">
                         <h3>Оперативный ремонт</h3>
                         <ul>
@@ -270,7 +270,7 @@
                 </div>
                 <div class="timeline-item" data-aos="fade-left">
                     <div class="timeline-number">2</div>
-                    <div class="timeline-icon animated-emergency">🚨</div>
+                    <div class="timeline-icon animated-emergency">{% include 'website/partials/ui_icon.html' with name='alert-circle' w=32 h=32 %}</div>
                     <div class="timeline-content">
                         <h3>Аварийное обслуживание</h3>
                         <ul>
@@ -290,7 +290,7 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="icon-wrapper">
-                    <span class="icon animated-control">📊</span>
+                    <span class="icon animated-control">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=40 h=40 %}</span>
                 </div>
                 <h2 class="section-title">Контрольные операции</h2>
                 <p class="section-subtitle">Высокотехнологичный мониторинг и испытания систем вентиляции</p>
@@ -302,7 +302,7 @@
                     <div class="control-particles-bg"></div>
                     <div class="ultra-control-header">
                         <div class="ultra-icon-complex">
-                            <span class="ultra-control-icon animated-monitoring">📊</span>
+                            <span class="ultra-control-icon animated-monitoring">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=32 h=32 %}</span>
                             <div class="icon-orbit">
                                 <div class="orbit-dot"></div>
                                 <div class="orbit-dot"></div>
@@ -315,27 +315,22 @@
                     <div class="ultra-control-features">
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">🌡️</span>
                             <span>Замеры давления и температуры</span>
                         </div>
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">⚡</span>
                             <span>Контроль потребляемой мощности</span>
                         </div>
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">🔊</span>
                             <span>Проверка виброакустических характеристик</span>
                         </div>
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">🤖</span>
                             <span>Тестирование систем автоматики</span>
                         </div>
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">📝</span>
                             <span>Ведение журналов эксплуатации</span>
                         </div>
                     </div>
@@ -355,7 +350,7 @@
                     <div class="control-particles-bg"></div>
                     <div class="ultra-control-header">
                         <div class="ultra-icon-complex">
-                            <span class="ultra-control-icon animated-testing">⚙️</span>
+                            <span class="ultra-control-icon animated-testing">{% include 'website/partials/ui_icon.html' with name='cog' w=32 h=32 %}</span>
                             <div class="icon-gear-system">
                                 <div class="gear-small"></div>
                                 <div class="gear-medium"></div>
@@ -368,22 +363,18 @@
                     <div class="ultra-control-features">
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">💨</span>
                             <span>Балансировка воздушных потоков</span>
                         </div>
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">🎛️</span>
                             <span>Настройка автоматических регуляторов</span>
                         </div>
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">🛡️</span>
                             <span>Проверка защиты и блокировок</span>
                         </div>
                         <div class="ultra-feature-item">
                             <div class="feature-indicator active"></div>
-                            <span class="feature-emoji">🔬</span>
                             <span>Испытания на различных режимах работы</span>
                         </div>
                     </div>
@@ -410,38 +401,38 @@
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <div class="icon-wrapper">
-                    <span class="icon animated-specialist">✅</span>
+                    <span class="icon animated-specialist">{% include 'website/partials/ui_icon.html' with name='circle-check' w=40 h=40 %}</span>
                 </div>
                 <h2 class="section-title">Наши преимущества</h2>
                 <p class="section-subtitle">Почему стоит выбрать нашу компанию для обслуживания климатических систем</p>
             </div>
             <div class="advantages-interactive-grid">
                 <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="100">
-                    <span class="advantage-icon-modern animated-specialist">🎯</span>
+                    <span class="advantage-icon-modern animated-specialist">{% include 'website/partials/ui_icon.html' with name='target' w=28 h=28 %}</span>
                     <h3>Опытные специалисты с допусками</h3>
                     <p>Квалифицированные инженеры с многолетним опытом</p>
                 </div>
                 
                 <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="advantage-icon-modern animated-equipment">🔧</span>
+                    <span class="advantage-icon-modern animated-equipment">{% include 'website/partials/ui_icon.html' with name='wrench' w=28 h=28 %}</span>
                     <h3>Современное диагностическое оборудование</h3>
                     <p>Новейшие приборы для точной диагностики</p>
                 </div>
                 
                 <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="300">
-                    <span class="advantage-icon-modern animated-support">⏱</span>
+                    <span class="advantage-icon-modern animated-support">{% include 'website/partials/ui_icon.html' with name='clock' w=28 h=28 %}</span>
                     <h3>Круглосуточная техническая поддержка</h3>
                     <p>Поддержка и консультации 24/7</p>
                 </div>
                 
                 <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="400">
-                    <span class="advantage-icon-modern animated-guarantee">📋</span>
+                    <span class="advantage-icon-modern animated-guarantee">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=28 h=28 %}</span>
                     <h3>Гарантия на все виды работ</h3>
                     <p>Официальная гарантия на выполненные работы</p>
                 </div>
                 
                 <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="500">
-                    <span class="advantage-icon-modern animated-price">💰</span>
+                    <span class="advantage-icon-modern animated-price">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=28 h=28 %}</span>
                     <h3>Фиксированные цены в договоре</h3>
                     <p>Прозрачное ценообразование без скрытых доплат</p>
                 </div>
@@ -455,7 +446,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-team">👨‍🔧</span>
+                        <span class="icon animate-team">{% include 'website/partials/ui_icon.html' with name='users' w=40 h=40 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Команда специалистов по вентиляции</h2>
@@ -522,16 +513,16 @@
 
 {% block footer_contact_lead %}
 <div class="cta-content" data-aos="fade-up">
-    <span class="cta-icon ventilation-icon animated-ventilation-pulse">🌬️</span>
+    <span class="cta-icon ventilation-icon animated-ventilation-pulse">{% include 'website/partials/ui_icon.html' with name='wind' w=36 h=36 %}</span>
     <h2 class="cta-title">Закажите бесплатный осмотр вашей системы и получите коммерческое предложение</h2>
     <div class="cta-buttons">
         <button class="btn-modern btn-primary" onclick="openApplicationModal()">
             <span class="btn-text">Оставить заявку</span>
-            <span class="btn-icon animated-document">📋</span>
+            <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
         </button>
         <button class="btn-modern btn-secondary" onclick="openCallbackModal()">
             <span class="btn-text">Заказать звонок специалиста</span>
-            <span class="btn-icon animated-phone">📞</span>
+            <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
         </button>
     </div>
 </div>

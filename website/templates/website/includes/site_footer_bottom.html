@@ -1,0 +1,32 @@
+{# Нижняя полоса подвала: реквизиты, контакты, услуги, политика — на всех страницах через base.html #}
+<div class="site-footer-bottom" role="contentinfo" aria-label="Реквизиты, контакты и ссылки">
+    <div class="container site-footer-bottom__inner">
+        <div class="site-footer-bottom__company">
+            <p class="site-footer-bottom__name">{{ contact_info.legal_name|default:"ООО «Линкор»" }}</p>
+            <p class="site-footer-bottom__meta">ИНН {{ contact_info.inn|default:"7708424070" }}</p>
+            <p class="site-footer-bottom__addr">{{ contact_info.address|default:"г. Москва, шоссе Энтузиастов, 31с38, оф. 430" }}</p>
+            <p class="site-footer-bottom__contacts">
+                <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="site-footer-bottom__link">{{ contact_info.phone_main|default:"+7 (952) 064-09-55" }}</a>
+                <span class="site-footer-bottom__sep" aria-hidden="true">·</span>
+                <a href="mailto:{{ contact_info.email_main|default:'service@lin-cor.ru' }}" class="site-footer-bottom__link">{{ contact_info.email_main|default:"service@lin-cor.ru" }}</a>
+            </p>
+        </div>
+        <nav class="site-footer-bottom__nav" aria-label="Страницы услуг">
+            <h2 class="site-footer-bottom__nav-title">Услуги</h2>
+            <ul class="site-footer-bottom__list">
+                <li><a href="{% url 'website:complex_service' %}" class="site-footer-bottom__nav-link">Комплексное обслуживание инженерных систем</a></li>
+                <li><a href="{% url 'website:heating_service' %}" class="site-footer-bottom__nav-link">Обслуживание систем отопления (ИТП)</a></li>
+                <li><a href="{% url 'website:verification' %}" class="site-footer-bottom__nav-link">Поверка приборов учёта</a></li>
+                <li><a href="{% url 'website:emergency' %}" class="site-footer-bottom__nav-link">Аварийная служба</a></li>
+                <li><a href="{% url 'website:installation' %}" class="site-footer-bottom__nav-link">Монтаж инженерных коммуникаций</a></li>
+                <li><a href="{% url 'website:audit' %}" class="site-footer-bottom__nav-link">Аудит инженерных систем</a></li>
+                <li><a href="{% url 'website:heating_preparation' %}" class="site-footer-bottom__nav-link">Подготовка к отопительному сезону</a></li>
+                <li><a href="{% url 'website:ventilation' %}" class="site-footer-bottom__nav-link">Вентиляция</a></li>
+            </ul>
+        </nav>
+        <div class="site-footer-bottom__aside">
+            <a href="{% url 'website:personal_data_policy' %}" class="site-footer-bottom__policy">Политика конфиденциальности</a>
+            <p class="site-footer-bottom__copy">© {% now "Y" %} {{ contact_info.legal_name|default:"ООО «Линкор»" }}</p>
+        </div>
+    </div>
+</div>

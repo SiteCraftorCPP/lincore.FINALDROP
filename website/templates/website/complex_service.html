@@ -12,9 +12,9 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                    <span class="badge-icon">🔧</span>
+                    <span class="badge-icon">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                     <span>Профессиональное обслуживание</span>
-        </div>
+                </div>
                 
                 <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
                     <span class="title-main">Комплексное обслуживание</span>
@@ -39,16 +39,16 @@
                         <div class="stat-number" data-count="100">0</div>
                         <div class="stat-label">% надежности</div>
                     </div>
-        </div>
+                </div>
 
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                     <button class="btn-modern btn-primary" onclick="openApplicationModal()">
                         <span class="btn-text">Оставить заявку</span>
-                        <span class="btn-icon">📝</span>
+                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
                     </button>
                     <button class="btn-modern btn-secondary" onclick="openCallbackModal()">
                         <span class="btn-text">Заказать звонок специалиста</span>
-                        <span class="btn-icon">📞</span>
+                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
                     </button>
                 </div>
             </div>
@@ -68,19 +68,19 @@
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
                 <button class="pill-btn" data-target="water-systems">
-                    <span class="pill-icon">🔧</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Водоснабжение</span>
                 </button>
                 <button class="pill-btn" data-target="sewage-systems">
-                    <span class="pill-icon">🚽</span>
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</span>
                     <span>Канализация</span>
                 </button>
                 <button class="pill-btn" data-target="ventilation-systems">
-                    <span class="pill-icon">🌬</span>
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='wind' w=24 h=24 %}</span>
                     <span>Вентиляция</span>
                 </button>
                 <button class="pill-btn" data-target="electrical-systems">
-                    <span class="pill-icon">⚡</span>
+                    {% include 'website/partials/ui_icon.html' with name='zap' w=20 h=20 %}
                     <span>Электроснабжение</span>
                 </button>
             </div>
@@ -99,7 +99,7 @@
                 <summary class="system-accordion-summary">
                     <span class="system-accordion-summary-main">
                         <div class="system-header">
-                            <div class="system-icon animate-wrench">🔧</div>
+                            <div class="system-icon animate-wrench">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</div>
                             <div class="system-title-wrapper">
                                 <h2 class="system-title">Системы водоснабжения</h2>
                                 <p class="system-subtitle">Полный цикл обслуживания ХВС и ГВС</p>
@@ -190,7 +190,7 @@
                 <summary class="system-accordion-summary">
                     <span class="system-accordion-summary-main">
                         <div class="system-header">
-                            <div class="system-icon animate-bounce">🚽</div>
+                            <div class="system-icon animate-bounce">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</div>
                             <div class="system-title-wrapper">
                                 <h2 class="system-title">Системы канализации и водоотведения</h2>
                                 <p class="system-subtitle">Поддержание систем в идеальном состоянии</p>
@@ -231,7 +231,7 @@
                 <summary class="system-accordion-summary">
                     <span class="system-accordion-summary-main">
                         <div class="system-header">
-                            <div class="system-icon animate-sway">🌬</div>
+                            <div class="system-icon animate-sway">{% include 'website/partials/ui_icon.html' with name='wind' w=24 h=24 %}</div>
                             <div class="system-title-wrapper">
                                 <h2 class="system-title">Системы вентиляции и кондиционирования</h2>
                                 <p class="system-subtitle">Поддержание идеального микроклимата</p>
@@ -272,7 +272,7 @@
                 <summary class="system-accordion-summary">
                     <span class="system-accordion-summary-main">
                         <div class="system-header">
-                            <div class="system-icon animate-flash">⚡</div>
+                            <div class="system-icon animate-flash">{% include 'website/partials/ui_icon.html' with name='zap' w=24 h=24 %}</div>
                             <div class="system-title-wrapper">
                                 <h2 class="system-title">Электроснабжение и электрооборудование</h2>
                                 <p class="system-subtitle">Безопасность и надежность электрохозяйства</p>
@@ -324,7 +324,7 @@
             <div class="section-header" data-aos="fade-up">
                 <h2 class="section-title-modern">
                     <span class="title-accent">Почему выбирают именно нас</span>
-            </h2>
+                </h2>
             </div>
             
             <div class="advantages-grid" data-aos="fade-up" data-aos-delay="200">
@@ -332,7 +332,7 @@
                     <div class="advantage-header">
                         <div class="advantage-icon">
                             <div class="icon-circle">
-                                <span class="icon-emoji">🏢</span>
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
                             </div>
                         </div>
                         <div class="advantage-tag">Все системы</div>
@@ -347,7 +347,7 @@
                     <div class="advantage-header">
                         <div class="advantage-icon">
                             <div class="icon-circle specialists">
-                                <span class="icon-emoji">👨‍🔧</span>
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
                             </div>
                         </div>
                         <div class="advantage-tag">5+ лет</div>
@@ -362,7 +362,7 @@
                     <div class="advantage-header">
                         <div class="advantage-icon">
                             <div class="icon-circle quality">
-                                <span class="icon-emoji">✅</span>
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
                             </div>
                         </div>
                         <div class="advantage-tag">Профи</div>
@@ -377,7 +377,7 @@
                     <div class="advantage-header">
                         <div class="advantage-icon">
                             <div class="icon-circle documentation">
-                                <span class="icon-emoji">📋</span>
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
                             </div>
                         </div>
                         <div class="advantage-tag">Отчеты</div>
@@ -389,7 +389,7 @@
                 </div>
             </div>
             
-            <!-- 📸 ИНТЕРАКТИВНАЯ ГАЛЕРЕЯ ЭЛЕКТРОХОЗЯЙСТВА -->
+            <!-- Интерактивная галерея электрохозяйства -->
             <div class="works-gallery-modern" data-aos="fade-up" data-aos-delay="300">
                 <div class="gallery-header animate-on-scroll">
                     <h2 class="gallery-title">Живые фотографии с объектов</h2>
@@ -509,10 +509,6 @@
         <form id="applicationForm" class="modal-form">
             {% csrf_token %}
             <div class="form-group">
-                <label for="applicationName">ФИО *</label>
-                <input type="text" id="applicationName" name="name" required>
-            </div>
-            <div class="form-group">
                 <label for="applicationPhone">Телефон *</label>
                 <input type="tel" id="applicationPhone" name="phone" required>
             </div>
@@ -534,11 +530,7 @@
         </div>
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
-            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
-            <div class="form-group">
-                <label for="callbackName">ФИО *</label>
-                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
-            </div>
+            <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
@@ -591,7 +583,6 @@
     bottom: 0;
     background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(220, 38, 127, 0.2) 0%, transparent 50%);
-    animation: gradientShift 8s ease-in-out infinite;
 }
 
 @keyframes gradientShift {
@@ -612,7 +603,6 @@
         radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.3), transparent);
     background-repeat: repeat;
     background-size: 150px 100px;
-    animation: particleFloat 20s linear infinite;
 }
 
 @keyframes particleFloat {
@@ -675,7 +665,6 @@
     margin-bottom: 32px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all var(--transition-normal);
-    animation: badgePulse 3s ease-in-out infinite;
 }
 
 .hero-badge:hover {
@@ -685,7 +674,6 @@
 
 .badge-icon {
     font-size: 20px;
-    animation: sparkleIntense 2s ease-in-out infinite;
 }
 
 .modern-hero-section .hero-title {
@@ -1627,6 +1615,21 @@ details.system-accordion[open] .system-accordion-chevron::after {
     z-index: 1;
 }
 
+.icon-circle .icon-emoji {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    line-height: 0;
+    font-size: 0;
+}
+
+.icon-circle .icon-emoji .ui-icon {
+    display: block;
+    flex-shrink: 0;
+}
+
 .advantage-content {
     text-align: left;
 }
@@ -2035,6 +2038,10 @@ details.system-accordion[open] .system-accordion-chevron::after {
     .icon-circle {
         width: 60px;
         height: 60px;
+    }
+
+    .icon-circle .icon-emoji {
+        font-size: 0;
     }
     
     .icon-emoji {
@@ -2641,40 +2648,11 @@ document.addEventListener('DOMContentLoaded', function() {
     AOS.init({
         duration: 800,
         once: true,
-        offset: 50
+        offset: 50,
+        disable: function () {
+            return window.matchMedia('(max-width: 768px)').matches;
+        }
     });
-    
-    // Принудительное отображение на мобильных устройствах
-    if (window.innerWidth <= 768) {
-        // Отключаем AOS на мобильных
-        AOS.refresh();
-        
-        // Принудительно показываем все элементы
-        document.querySelectorAll('[data-aos]').forEach(function(element) {
-            element.style.opacity = '1';
-            element.style.transform = 'none';
-            element.classList.add('aos-animate');
-        });
-        
-        // Специально для блока "Почему выбирают именно нас"
-        const advantagesSection = document.querySelector('.advantages-modern');
-        if (advantagesSection) {
-            advantagesSection.style.opacity = '1';
-            advantagesSection.style.transform = 'none';
-        }
-        
-        const advantagesGrid = document.querySelector('.advantages-grid');
-        if (advantagesGrid) {
-            advantagesGrid.style.opacity = '1';
-            advantagesGrid.style.transform = 'none';
-        }
-        
-        const advantageCards = document.querySelectorAll('.advantage-card');
-        advantageCards.forEach(function(card) {
-            card.style.opacity = '1';
-            card.style.transform = 'none';
-        });
-    }
 
     // Animated counters
     function animateCounters() {
@@ -2898,19 +2876,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.closeCallbackModal = function() {
         document.getElementById('callbackModal').style.display = 'none';
         document.body.style.overflow = 'auto';
-    };
-    
-    // Закрытие модальных окон по клику вне их
-    window.onclick = function(event) {
-        const applicationModal = document.getElementById('applicationModal');
-        const callbackModal = document.getElementById('callbackModal');
-        
-        if (event.target === applicationModal) {
-            closeApplicationModal();
-        }
-        if (event.target === callbackModal) {
-            closeCallbackModal();
-        }
     };
     
     // Обработка форм

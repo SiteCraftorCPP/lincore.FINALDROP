@@ -13,7 +13,7 @@
     <div class="container">
         <div class="hero-content-wrapper">
             <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                <span class="badge-icon">⚡</span>
+                <span class="badge-icon">{% include 'website/partials/ui_icon.html' with name='zap' svg_class='badge-icon-svg' w=22 h=22 %}</span>
                 <span>Профессиональные инженерные решения</span>
             </div>
             
@@ -45,7 +45,7 @@
             <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                 <button class="btn-modern btn-secondary" id="heroCallBtn">
                     <span class="btn-text">Заказать звонок</span>
-                    <span class="btn-icon">📞</span>
+                    <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
                 </button>
             </div>
         </div>
@@ -65,7 +65,7 @@
     <div class="container">
         <div class="services-header animate-on-scroll">
             <h2 class="section-title">
-                <span class="title-icon animated-gear">⚙️</span>
+                <span class="title-icon animated-gear">{% include 'website/partials/ui_icon.html' with name='cog' w=28 h=28 %}</span>
                 Наши услуги
             </h2>
             <p class="section-subtitle">Выберите интересующее направление для получения подробной информации</p>
@@ -76,7 +76,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg">
-                            <span class="icon-symbol animated-tools">🔧</span>
+                            <span class="icon-symbol animated-tools">{% include 'website/partials/ui_icon.html' with name='wrench' w=32 h=32 %}</span>
                         </div>
                     </div>
                     <div class="card-badge">Популярное</div>
@@ -101,7 +101,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg orange">
-                            <span class="icon-symbol animated-factory">🏭</span>
+                            <span class="icon-symbol animated-factory">{% include 'website/partials/ui_icon.html' with name='factory' w=32 h=32 %}</span>
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg green">
-                            <span class="icon-symbol animated-scale">⚖️</span>
+                            <span class="icon-symbol animated-scale">{% include 'website/partials/ui_icon.html' with name='scale' w=32 h=32 %}</span>
                         </div>
                     </div>
                 </div>
@@ -149,7 +149,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg red">
-                            <span class="icon-symbol animated-alarm">🚨</span>
+                            <span class="icon-symbol animated-alarm">{% include 'website/partials/ui_icon.html' with name='alert-circle' w=32 h=32 %}</span>
                         </div>
                     </div>
                     <div class="card-badge emergency">24/7</div>
@@ -174,7 +174,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg purple">
-                            <span class="icon-symbol animated-hammer">🔨</span>
+                            <span class="icon-symbol animated-install">{% include 'website/partials/ui_icon.html' with name='building-2' w=32 h=32 %}</span>
                         </div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg blue">
-                            <span class="icon-symbol animated-clipboard">📋</span>
+                            <span class="icon-symbol animated-clipboard">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=32 h=32 %}</span>
                         </div>
                     </div>
                     <div class="card-badge government">Госзаказ</div>
@@ -223,7 +223,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg cyan">
-                            <span class="icon-symbol animated-snowflake">❄️</span>
+                            <span class="icon-symbol animated-thermometer">{% include 'website/partials/ui_icon.html' with name='thermometer' w=32 h=32 %}</span>
                         </div>
                     </div>
                 </div>
@@ -248,7 +248,7 @@
                 <div class="card-header">
                     <div class="service-icon">
                         <div class="icon-bg teal">
-                            <span class="icon-symbol animated-tornado">🌪️</span>
+                            <span class="icon-symbol animated-tornado">{% include 'website/partials/ui_icon.html' with name='wind' w=32 h=32 %}</span>
                         </div>
                     </div>
                 </div>
@@ -379,7 +379,7 @@
     </div>
 </section>
 
-<!-- 🚀 СОВРЕМЕННАЯ СЕКЦИЯ ПРЕИМУЩЕСТВ -->
+<!-- Секция преимуществ -->
 <section class="advantages-modern">
     <div class="container">
         <div class="section-header animate-on-scroll">
@@ -394,7 +394,7 @@
                 <div class="advantage-header">
                     <div class="advantage-icon">
                         <div class="icon-circle specialists">
-                            <span class="icon-emoji">🔧</span>
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='wrench' w=26 h=26 %}</span>
                         </div>
                     </div>
                     <div class="advantage-badge">ОПЫТ</div>
@@ -409,7 +409,7 @@
                 <div class="advantage-header">
                     <div class="advantage-icon">
                         <div class="icon-circle availability">
-                            <span class="icon-emoji">🕒</span>
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='clock' w=26 h=26 %}</span>
                         </div>
                     </div>
                     <div class="advantage-badge">24/7</div>
@@ -424,7 +424,7 @@
                 <div class="advantage-header">
                     <div class="advantage-icon">
                         <div class="icon-circle quality">
-                            <span class="icon-emoji">🛡️</span>
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='shield' w=26 h=26 %}</span>
                         </div>
                     </div>
                     <div class="advantage-badge">ГАРАНТИЯ</div>
@@ -439,7 +439,7 @@
                 <div class="advantage-header">
                     <div class="advantage-icon">
                         <div class="icon-circle documentation">
-                            <span class="icon-emoji">📄</span>
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='file-text' w=26 h=26 %}</span>
                         </div>
                     </div>
                     <div class="advantage-badge">ОТЧЕТЫ</div>
@@ -453,7 +453,7 @@
     </div>
 </section>
 
-<!-- 📸 ИНТЕРАКТИВНАЯ ГАЛЕРЕЯ РАБОТ -->
+<!-- Интерактивная галерея работ -->
 <section class="works-gallery-modern">
     <div class="container">
         <div class="gallery-header animate-on-scroll">
@@ -632,19 +632,6 @@
 /* Анимация смайликов */
 .animate-emoji {
     display: inline-block;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-10px);
-    }
-    60% {
-        transform: translateY(-5px);
-    }
 }
 
 /* УБРАЛИ КОНФЛИКТУЮЩИЕ СТИЛИ ДЛЯ .service-card */
@@ -860,12 +847,6 @@ div.service-card-modern:hover,
     bottom: 0;
     background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 70% 80%, rgba(220, 38, 127, 0.2) 0%, transparent 50%);
-    animation: gradientShift 8s ease-in-out infinite;
-}
-
-@keyframes gradientShift {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.8; transform: scale(1.1); }
 }
 
 .hero-particles {
@@ -881,12 +862,6 @@ div.service-card-modern:hover,
         radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.3), transparent);
     background-repeat: repeat;
     background-size: 150px 100px;
-    animation: particleFloat 20s linear infinite;
-}
-
-@keyframes particleFloat {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-100px); }
 }
 
 .hero-content-wrapper {
@@ -915,18 +890,6 @@ div.service-card-modern:hover,
     margin-bottom: 32px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    animation: badgePulse 3s ease-in-out infinite;
-}
-
-@keyframes badgePulse {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 12px 40px rgba(99, 102, 241, 0.3);
-    }
 }
 
 .hero-badge:hover {
@@ -936,26 +899,6 @@ div.service-card-modern:hover,
 
 .badge-icon {
     font-size: 20px;
-    animation: lightningPulse 2s ease-in-out infinite;
-}
-
-@keyframes lightningPulse {
-    0%, 100% {
-        transform: scale(1) rotate(0deg);
-        filter: brightness(1);
-    }
-    25% {
-        transform: scale(1.1) rotate(-2deg);
-        filter: brightness(1.3);
-    }
-    50% {
-        transform: scale(1.2) rotate(0deg);
-        filter: brightness(1.5);
-    }
-    75% {
-        transform: scale(1.1) rotate(2deg);
-        filter: brightness(1.2);
-    }
 }
 
 .hero-title {
@@ -1102,13 +1045,6 @@ div.service-card-modern:hover,
     color: rgba(255, 255, 255, 0.7);
     text-align: center;
     font-size: 14px;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-    40% { transform: translateX(-50%) translateY(-10px); }
-    60% { transform: translateX(-50%) translateY(-5px); }
 }
 
 .scroll-mouse {
@@ -1129,12 +1065,6 @@ div.service-card-modern:hover,
     top: 8px;
     left: 50%;
     transform: translateX(-50%);
-    animation: scroll 1.5s infinite;
-}
-
-@keyframes scroll {
-    0% { opacity: 1; top: 8px; }
-    100% { opacity: 0; top: 24px; }
 }
 
 .services-modern {
@@ -1285,14 +1215,9 @@ div.service-card-modern:hover,
     width: 200%;
     height: 200%;
     background: conic-gradient(from 0deg, transparent, rgba(30, 26, 107, 0.1), transparent, rgba(220, 38, 127, 0.1), transparent);
-    animation: rotate 10s linear infinite;
     z-index: -1;
     opacity: 0.3;
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    transition: opacity 0.3s ease;
 }
 
 .team-intro-content:hover {
@@ -1305,7 +1230,6 @@ div.service-card-modern:hover,
 
 .team-intro-content:hover::after {
     opacity: 0.5;
-    animation-duration: 5s;
 }
 
 .team-intro-title {
@@ -1742,7 +1666,10 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: 800,
             easing: 'ease-out-cubic',
             once: true,
-            offset: 100
+            offset: 100,
+            disable: function () {
+                return window.matchMedia('(max-width: 768px)').matches;
+            }
         });
     }
 

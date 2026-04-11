@@ -1,0 +1,228 @@
+/* Stroke SVG icons (currentColor); replaces emoji in UI */
+.ui-icon {
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    color: inherit;
+    box-sizing: content-box;
+}
+
+.ui-icon use {
+    pointer-events: none;
+}
+
+/* Pills: icon may be direct child without .pill-icon wrapper */
+.pill-btn > .ui-icon {
+    flex-shrink: 0;
+}
+
+/* Header / phone ring animation targets SVG */
+.phone-icon.ui-icon,
+.phone-link .ui-icon.phone-icon {
+    position: relative;
+    z-index: 1;
+}
+
+/* Section / card decorative icons */
+.section-title-wrapper .ui-icon.section-icon-svg,
+.section-icon > .ui-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.category-icon > .ui-icon,
+.combination-icon > .ui-icon {
+    width: 40px;
+    height: 40px;
+}
+
+.benefit-icon-circle > .ui-icon,
+.benefit-icon-wrapper .ui-icon {
+    width: 28px;
+    height: 28px;
+}
+
+/* Compact list / feature marker (replaces decorative emoji grids) */
+.ui-feature-marker {
+    display: inline-flex;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3d5ba5, #1e1a6b);
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+.mega-feature-row .ui-feature-marker,
+.mega-feature-emoji.ui-feature-marker {
+    margin-right: 10px;
+}
+
+.mega-feature-marker {
+    display: inline-flex;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #3d5ba5, #1e1a6b);
+    flex-shrink: 0;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.city-marker {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #3d5ba5;
+    margin-right: 8px;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.timeline-icon > .ui-icon,
+.installation-process .timeline-icon > .ui-icon {
+    width: 36px;
+    height: 36px;
+}
+
+/* =============================================================================
+   Центрирование stroke-иконок: убираем сдвиг от font-size / inline-block / emoji-метрик
+   ============================================================================= */
+
+/* Прямой дочерний .ui-icon в блоке */
+.timeline-icon:has(> .ui-icon),
+.combination-icon:has(> .ui-icon),
+.category-icon:has(> .ui-icon),
+.card-icon:has(> .ui-icon),
+.installation-process .timeline-icon:has(> .ui-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    font-size: 0;
+}
+
+.mega-icon-circle:has(> .mega-icon > .ui-icon),
+.why-icon-bg:has(> .why-icon > .ui-icon) {
+    line-height: 0;
+    font-size: 0;
+}
+
+.mega-icon-container,
+.ultra-icon-complex {
+    line-height: 0;
+}
+
+/* Обёртки span с одной svg внутри */
+.mega-service-icon:has(> .ui-icon),
+.ultra-control-icon:has(> .ui-icon),
+.advantage-icon-modern:has(> .ui-icon),
+.zone-icon:has(> .ui-icon),
+.feature-icon:has(> .ui-icon),
+.icon-emoji:has(> .ui-icon),
+.benefit-icon-emoji:has(> .ui-icon),
+.title-icon:has(> .ui-icon),
+.badge-icon:has(> .ui-icon),
+.nav-icon:has(> .ui-icon),
+.pill-icon:has(> .ui-icon),
+.btn-icon:has(> .ui-icon),
+.gallery-icon:has(> .ui-icon),
+.callback-fab__icon:has(> .ui-icon),
+.header-mobile-phone-tap__icon:has(> .ui-icon),
+.header-email-copy__btn-icon:has(> .ui-icon),
+.mobile-menu-quick__icon:has(> .ui-icon),
+.file-upload__icon:has(> .ui-icon),
+.site-footer-contacts__chip-icon:has(> .ui-icon),
+.site-footer-contacts__address-icon:has(> .ui-icon),
+.cta-icon:has(> .ui-icon),
+.installation-icon:has(> .ui-icon),
+.emergency-icon:has(> .ui-icon),
+.doc-icon-modern:has(> .ui-icon),
+.object-icon:has(> .ui-icon),
+.mega-icon:has(> .ui-icon),
+.mega-emoji:has(> .ui-icon),
+.why-icon:has(> .ui-icon),
+span.icon:has(> .ui-icon),
+.advantage-icon:has(> .ui-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    font-size: 0;
+}
+
+.service-icon-wrapper .service-icon:has(> .ui-icon),
+.heating-service-card .service-icon:has(> .ui-icon) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    font-size: 0;
+}
+
+/* Hero / секции: градиент «как текст» ломает currentColor у SVG */
+.section-icon:has(> .ui-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    line-height: 0;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+    -webkit-text-fill-color: unset;
+    color: #1e1a6b;
+    filter: none;
+}
+
+/* Заголовок секции: круг с .icon-wrapper внутри */
+.section-icon:has(> .icon-wrapper) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Обёртка круга вентиляции/монтажа: span.icon на всю площадь */
+.icon-wrapper .icon:has(> .ui-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    line-height: 0;
+}
+
+/* Карточка с иконкой внутри .icon-emoji */
+.card-icon:has(.icon-emoji > .ui-icon) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Во flex-центрах svg как блочный — без baseline-зазора */
+:where(
+    .icon-circle,
+    .icon-bg,
+    .benefit-icon-circle,
+    .mega-icon-container,
+    .mega-icon-circle,
+    .why-icon-bg,
+    .ultra-icon-complex,
+    .timeline-icon,
+    .card-icon,
+    .combination-icon,
+    .category-icon,
+    .icon-wrapper
+) .ui-icon {
+    display: block;
+    flex-shrink: 0;
+}
+
+.section-icon > .ui-icon {
+    display: block;
+    flex-shrink: 0;
+    color: #1e1a6b;
+}

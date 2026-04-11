@@ -59,7 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
             duration: 800,
             easing: 'ease-out-cubic',
             once: true,
-            offset: 100
+            offset: 100,
+            disable: function () {
+                return window.matchMedia('(max-width: 768px)').matches;
+            }
         });
     }
 
@@ -158,7 +161,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (particles) {
                 particles.style.opacity = '1';
-                particles.style.animation = 'rotate 5s linear infinite';
             }
             
             if (glow) {
@@ -184,6 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (particles) {
                 particles.style.opacity = '0';
+                particles.style.animation = '';
             }
             
             if (glow) {
@@ -272,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentDoc = docNumber;
         
         const docTitle = activeCard ? activeCard.querySelector('h4').textContent : 'Документ';
-        showFloatingMessage(`📄 ${docTitle}`, activeCard);
+        showFloatingMessage(`Документ: ${docTitle}`, activeCard);
     }
     
     navDots.forEach(dot => {
@@ -416,7 +419,7 @@ document.addEventListener('DOMContentLoaded', function() {
             createExplosionEffect(this);
             
             setTimeout(() => {
-                this.style.animation = 'auditPulse 2s ease-in-out infinite';
+                this.style.animation = '';
                 this.style.transform = '';
                 this.style.filter = '';
             }, 2000);
@@ -432,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             this.style.animation = 'phoneRing 0.5s ease-in-out 3';
             
-            showEnhancedNotification('📞 Соединяем с отделом госзаказчиков...', 'info');
+            showEnhancedNotification('Соединяем с отделом госзаказчиков…', 'info');
             
             setTimeout(() => {
                 this.style.animation = '';
@@ -584,6 +587,7 @@ function ensureAuditEnhancedNotificationStyles() {
                 width: auto;
                 padding: 14px 16px;
                 top: max(92px, calc(env(safe-area-inset-top, 0px) + 80px));
+                animation: auditNotifMobIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
             }
         }
         @media (max-width: 480px) {
@@ -659,6 +663,14 @@ function ensureAuditEnhancedNotificationStyles() {
             from { transform: translateX(0); opacity: 1; }
             to { transform: translateX(calc(100% + 24px)); opacity: 0; }
         }
+        @keyframes auditNotifMobIn {
+            from { opacity: 0; transform: translateY(-14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes auditNotifMobOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-12px); }
+        }
         @keyframes auditNotifIconBounce {
             0%, 20%, 50%, 80%, 100% { transform: scale(1); }
             40% { transform: scale(1.15); }
@@ -680,10 +692,10 @@ function showEnhancedNotification(message, type = 'info') {
     notification.className = 'enhanced-notification notification-' + type;
 
     const icons = {
-        'success': '✅',
-        'info': 'ℹ️',
-        'warning': '⚠️',
-        'error': '❌'
+        'success': 'OK',
+        'info': 'i',
+        'warning': '!',
+        'error': '×'
     };
 
     const colors = {
@@ -712,7 +724,10 @@ function showEnhancedNotification(message, type = 'info') {
     
     function removeNotification() {
         clearTimeout(autoRemoveTimeout);
-        notification.style.animation = 'auditNotifSlideOut 0.45s ease-out forwards';
+        const out = window.matchMedia('(max-width: 768px)').matches
+            ? 'auditNotifMobOut 0.45s ease-out forwards'
+            : 'auditNotifSlideOut 0.45s ease-out forwards';
+        notification.style.animation = out;
         setTimeout(function() {
             if (notification.parentNode) {
                 notification.remove();
@@ -743,18 +758,18 @@ function showEnhancedNotification(message, type = 'info') {
 
 // Government-specific functions
 function downloadForm(docType) {
-    showEnhancedNotification('📋 Подготавливаем форму заявки...', 'info');
+    showEnhancedNotification('Подготавливаем форму заявки…', 'info');
     
     setTimeout(() => {
-        showEnhancedNotification('⬇️ Форма заявки успешно скачана!', 'success');
+        showEnhancedNotification('Форма заявки успешно скачана.', 'success');
     }, 1500);
 }
 
 function requestQuote() {
-    showEnhancedNotification('📨 Отправляем запрос коммерческого предложения...', 'info');
+    showEnhancedNotification('Отправляем запрос коммерческого предложения…', 'info');
     
     setTimeout(() => {
-        showEnhancedNotification('✅ Запрос КП отправлен! Мы свяжемся с вами в течение 2 часов.', 'success');
+        showEnhancedNotification('Запрос КП отправлен. Мы свяжемся с вами в течение 2 часов.', 'success');
     }, 2000);
 }
 
@@ -789,10 +804,6 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
-    
-    setTimeout(() => {
-        showEnhancedNotification('🏛️ Добро пожаловать! Специальные условия для госзаказчиков.', 'info');
-    }, 2000);
 });
 // Функции для модального окна запроса КП
 function requestQuote() {
@@ -803,14 +814,6 @@ function requestQuote() {
 function closeQuoteModal() {
     document.getElementById('quoteModal').style.display = 'none';
     document.body.style.overflow = 'auto';
-}
-
-// Закрытие модального окна при клике вне его
-window.onclick = function(event) {
-    const modal = document.getElementById('quoteModal');
-    if (event.target === modal) {
-        closeQuoteModal();
-    }
 }
 
 // Обработка отправки формы

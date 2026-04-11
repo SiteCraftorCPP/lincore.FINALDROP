@@ -12,7 +12,7 @@
         <div class="container">
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
-                    <span class="badge-icon">🚨</span>
+                    {% include 'website/partials/ui_icon.html' with name='alert-circle' svg_class='badge-icon-svg' w=22 h=22 %}
                     <span>Круглосуточная служба 24/7</span>
                 </div>
                 
@@ -42,11 +42,11 @@
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
                     <button class="btn-modern btn-primary" onclick="openApplicationModal()">
                         <span class="btn-text">Вызвать аварийную службу</span>
-                        <span class="btn-icon">🚨</span>
+                        {% include 'website/partials/ui_icon.html' with name='alert-circle' w=20 h=20 %}
                     </button>
                     <a href="tel:{{ contact_info.phone_main }}" class="btn-modern btn-secondary">
                         <span class="btn-text">Позвонить сейчас</span>
-                        <span class="btn-icon">📞</span>
+                        {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
                     </a>
                 </div>
             </div>
@@ -66,19 +66,19 @@
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
                 <button class="pill-btn" data-target="intro-section">
-                    <span class="pill-icon">ℹ️</span>
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='info' w=20 h=20 %}</span>
                     <span>О службе</span>
                 </button>
                 <button class="pill-btn" data-target="services-section">
-                    <span class="pill-icon">🔧</span>
+                    {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Виды работ</span>
                 </button>
                 <button class="pill-btn" data-target="process-section">
-                    <span class="pill-icon">⏱</span>
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='clock' w=20 h=20 %}</span>
                     <span>Как мы работаем</span>
                 </button>
                 <button class="pill-btn" data-target="team-section">
-                    <span class="pill-icon">👨‍🔧</span>
+                    {% include 'website/partials/ui_icon.html' with name='users' w=20 h=20 %}
                     <span>Команда</span>
                 </button>
             </div>
@@ -94,7 +94,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-pulse">💡</span>
+                        <span class="icon animate-pulse">{% include 'website/partials/ui_icon.html' with name='alert-circle' w=24 h=24 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Почему стоит вызвать именно нашу аварийную службу?</h2>
@@ -115,7 +115,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-tools">🔧</span>
+                        <span class="icon animate-tools">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Основные виды аварийных работ</h2>
@@ -126,7 +126,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-water">🔧</span>
+                            <span class="icon-emoji animate-water">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</span>
                         </div>
                         <h3 class="card-title">Сантехника и системы водоснабжения</h3>
                     </div>
@@ -144,7 +144,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-fire">🔥</span>
+                            <span class="icon-emoji animate-fire">{% include 'website/partials/ui_icon.html' with name='flame' w=24 h=24 %}</span>
                         </div>
                         <h3 class="card-title">Системы отопления</h3>
                     </div>
@@ -161,7 +161,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-lightning">⚡</span>
+                            <span class="icon-emoji animate-lightning">{% include 'website/partials/ui_icon.html' with name='zap' w=24 h=24 %}</span>
                         </div>
                         <h3 class="card-title">Электроснабжение</h3>
                     </div>
@@ -178,7 +178,7 @@
                 <div class="service-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-wind">🌬️</span>
+                            <span class="icon-emoji animate-wind">{% include 'website/partials/ui_icon.html' with name='wind' w=24 h=24 %}</span>
                         </div>
                         <h3 class="card-title">Вентиляция и кондиционирование</h3>
                     </div>
@@ -194,7 +194,7 @@
                 <div class="service-card large-card" data-aos="fade-up" data-aos-delay="500">
                     <div class="card-header">
                         <div class="card-icon">
-                            <span class="icon-emoji animate-ambulance">🚑</span>
+                            <span class="icon-emoji animate-ambulance">{% include 'website/partials/ui_icon.html' with name='car' w=24 h=24 %}</span>
                         </div>
                         <h3 class="card-title">Наш автопарк и оснащение</h3>
                     </div>
@@ -218,7 +218,7 @@
             <div class="section-header" data-aos="fade-up">
                 <div class="section-icon">
                     <div class="icon-wrapper">
-                        <span class="icon animate-team">👨‍🔧</span>
+                        <span class="icon animate-team">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
                     </div>
                 </div>
                 <h2 class="section-title">Команда специалистов аварийной службы</h2>
@@ -269,7 +269,7 @@
             <div class="process-timeline" data-aos="fade-up" data-aos-delay="200">
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
                     <div class="timeline-icon">
-                        <span class="icon animate-phone">📞</span>
+                        <span class="icon animate-phone">{% include 'website/partials/ui_icon.html' with name='phone' w=24 h=24 %}</span>
                     </div>
                     <div class="timeline-content">
                         <h4>Горячая линия</h4>
@@ -279,7 +279,7 @@
 
                 <div class="timeline-item" data-aos="fade-left" data-aos-delay="200">
                     <div class="timeline-icon">
-                        <span class="icon animate-car">🚗</span>
+                        <span class="icon animate-car">{% include 'website/partials/ui_icon.html' with name='car' w=24 h=24 %}</span>
                     </div>
                     <div class="timeline-content">
                         <h4>Быстрый выезд</h4>
@@ -289,7 +289,7 @@
 
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="300">
                     <div class="timeline-icon">
-                        <span class="icon animate-search">🔍</span>
+                        <span class="icon animate-search">{% include 'website/partials/ui_icon.html' with name='search' w=24 h=24 %}</span>
                     </div>
                     <div class="timeline-content">
                         <h4>Диагностика</h4>
@@ -299,7 +299,7 @@
 
                 <div class="timeline-item" data-aos="fade-left" data-aos-delay="400">
                     <div class="timeline-icon">
-                        <span class="icon animate-repair">🔧</span>
+                        <span class="icon animate-repair">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                     </div>
                     <div class="timeline-content">
                         <h4>Качественный ремонт</h4>
@@ -309,7 +309,7 @@
 
                 <div class="timeline-item" data-aos="fade-right" data-aos-delay="500">
                     <div class="timeline-icon">
-                        <span class="icon animate-clean">🧹</span>
+                        <span class="icon animate-clean">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
                     </div>
                     <div class="timeline-content">
                         <h4>Уборка</h4>
@@ -319,7 +319,7 @@
 
                 <div class="timeline-item" data-aos="fade-left" data-aos-delay="600">
                     <div class="timeline-icon">
-                        <span class="icon animate-check">✅</span>
+                        <span class="icon animate-check">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
                     </div>
                     <div class="timeline-content">
                         <h4>Гарантия</h4>
@@ -343,9 +343,6 @@
             <form class="modal-form" id="applicationForm">
                 {% csrf_token %}
                 <div class="form-group">
-                    <input type="text" name="name" placeholder="Ваше имя" required>
-                </div>
-                <div class="form-group">
                     <input type="tel" name="phone" placeholder="Телефон" required>
                 </div>
                 <input type="hidden" name="service_type" value="emergency_service">
@@ -367,11 +364,7 @@
         </div>
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
-            <p class="callback-modal-intro">Заполнение занимает меньше минуты. Поля, отмеченные *, обязательны. Номер не передаётся третьим лицам.</p>
-            <div class="form-group">
-                <label for="callbackName">ФИО *</label>
-                <input type="text" id="callbackName" name="name" required placeholder="Например: Иванов Иван Петрович" autocomplete="name">
-            </div>
+            <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
@@ -387,7 +380,7 @@
 {% block footer_contact_lead %}
 <div class="cta-content" data-aos="fade-up">
     <div class="cta-icon">
-        <span class="emergency-icon">🚨</span>
+        <span class="emergency-icon">{% include 'website/partials/ui_icon.html' with name='alert-circle' w=32 h=32 %}</span>
     </div>
     <h3 class="cta-title">Срочно нужна аварийная помощь?</h3>
     <p class="cta-description">
@@ -396,11 +389,11 @@
     <div class="cta-buttons" data-aos="fade-up" data-aos-delay="200">
         <button class="btn-cta-primary" onclick="openApplicationModal()">
             <span class="btn-text">Вызвать аварийную службу</span>
-            <span class="btn-icon">🚨</span>
+            {% include 'website/partials/ui_icon.html' with name='alert-circle' w=20 h=20 %}
         </button>
         <a href="tel:{{ contact_info.phone_main }}" class="btn-cta-secondary">
             <span class="btn-text">Позвонить сейчас</span>
-            <span class="btn-icon">📞</span>
+            {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
         </a>
     </div>
 </div>
