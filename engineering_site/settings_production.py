@@ -9,11 +9,20 @@ from .settings import *  # noqa: F401,F403
 # По умолчанию на проде DEBUG выключен (в .env можно задать DEBUG=True для отладки)
 DEBUG = os.environ.get("DEBUG", "False").strip().lower() in ("1", "true", "yes")
 
-_proxy_ssl = bool(os.environ.get("SECURE_PROXY_SSL_HEADER", "").strip())
+# Убираем пробелы после split(',') в base settings — иначе DisallowedHost / CSRF по « www…».
+ALLOWED_HOSTS = [str(h).strip() for h in ALLOWED_HOSTS if str(h).strip()]  # noqa: F405
 
-# SECURE_SSL_REDIRECT=True без SECURE_PROXY_SSL_HEADER за nginx → редирект-петля, админка «не открывается».
+# Заголовок прокси: только при корректном «имя_заголовка,значение» (две части через запятую).
+_proxy_ssl_configured = False
+if os.environ.get("SECURE_PROXY_SSL_HEADER", "").strip():
+    parts = os.environ["SECURE_PROXY_SSL_HEADER"].split(",")
+    if len(parts) == 2:
+        SECURE_PROXY_SSL_HEADER = (parts[0].strip(), parts[1].strip())
+        _proxy_ssl_configured = True
+
+# Редирект на HTTPS только если заголовок реально настроен (иначе is_secure() ложь → петля / ошибки в админке).
 _want_ssl_redirect = os.environ.get("SECURE_SSL_REDIRECT", "").strip().lower() in ("1", "true", "yes")
-SECURE_SSL_REDIRECT = _want_ssl_redirect and _proxy_ssl
+SECURE_SSL_REDIRECT = _want_ssl_redirect and _proxy_ssl_configured
 
 # CSRF: если в .env пусто — собираем из ALLOWED_HOSTS (уже подтянут из .env в settings.py).
 if not os.environ.get("CSRF_TRUSTED_ORIGINS", "").strip():
@@ -42,12 +51,6 @@ if os.environ.get("DB_NAME", "").strip():
             "PORT": os.environ.get("DB_PORT", "5432"),
         }
     }
-
-# За nginx / HTTPS
-if os.environ.get("SECURE_PROXY_SSL_HEADER", "").strip():
-    parts = os.environ["SECURE_PROXY_SSL_HEADER"].split(",")
-    if len(parts) == 2:
-        SECURE_PROXY_SSL_HEADER = (parts[0].strip(), parts[1].strip())
 
 _csrf = os.environ.get("CSRF_TRUSTED_ORIGINS", "").strip()
 if _csrf:
