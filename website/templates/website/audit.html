@@ -3,14 +3,7 @@
 
 {% block title %}Аудит инженерных систем для госзаказчиков - Инженерно-сервисная компания{% endblock %}
 
-{% block header_actions_extra %}
-<div class="header-email-copy">
-    <a href="mailto:{{ contact_info.email_main|default:'service@lin-cor.ru' }}" class="header-email-copy__link">{{ contact_info.email_main|default:"service@lin-cor.ru" }}</a>
-    <button type="button" class="header-email-copy__btn" data-copy-email="{{ contact_info.email_main|default:'service@lin-cor.ru' }}" title="Копировать e-mail" aria-label="Копировать адрес e-mail в буфер обмена">
-        <span class="header-email-copy__btn-icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=18 h=18 %}</span>
-    </button>
-</div>
-{% endblock %}
+{% block header_actions_extra %}{% endblock %}
 
 {% block mobile_menu_quick_extra %}
 <button type="button" class="mobile-menu-quick__item mobile-menu-quick__item--neutral js-copy-email-mobile" data-copy-email="{{ contact_info.email_main|default:'service@lin-cor.ru' }}">
@@ -23,7 +16,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="modern-service-page">
+<div class="modern-service-page modern-service-page--audit">
     <!-- Modern Hero Section -->
     <section class="modern-hero-section">
         <div class="hero-gradient"></div>
@@ -78,6 +71,13 @@
                         <span class="btn-text">Запросить КП</span>
                         {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
                     </button>
+
+                    <div class="audit-hero-email" data-aos="fade-up" data-aos-delay="560">
+                        <button type="button" class="btn-modern btn-secondary audit-email-btn" data-copy-email="{{ contact_info.email_main|default:'service@lin-cor.ru' }}" title="Копировать e-mail" aria-label="Копировать e-mail в буфер обмена">
+                            <span class="btn-text">{{ contact_info.email_main|default:"service@lin-cor.ru" }}</span>
+                            {% include 'website/partials/ui_icon.html' with name='mail' w=20 h=20 %}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

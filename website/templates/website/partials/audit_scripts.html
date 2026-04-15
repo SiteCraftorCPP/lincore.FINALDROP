@@ -14,9 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }
-            if (ok && typeof window.showNotification === 'function') {
-                window.showNotification('E-mail скопирован', 'success');
-            }
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(email).then(function() { done(true); }).catch(function() { fallback(); });
@@ -41,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    document.querySelectorAll('.header-email-copy__btn[data-copy-email]').forEach(function(btn) {
+    document.querySelectorAll('.header-email-copy__btn[data-copy-email], .audit-email-btn[data-copy-email]').forEach(function(btn) {
         btn.addEventListener('click', function() {
             copyEmailToClipboard(btn.getAttribute('data-copy-email') || '', btn);
         });

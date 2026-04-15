@@ -519,19 +519,18 @@ body.loaded {
     line-height: 1;
 }
 
-/* Десктоп: шапка одной группой по центру контейнера, без «пустой полосы» между услугами и кнопками */
+/* Десктоп: бренд слева, действия справа */
 @media (min-width: 769px) {
     .header-top {
-        justify-content: center;
-        flex-wrap: wrap;
-        row-gap: 10px;
-        column-gap: clamp(16px, 3vw, 40px);
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        gap: clamp(16px, 3vw, 40px);
     }
 
     .header-actions {
         flex: 0 1 auto;
-        margin-left: 0;
-        justify-content: center;
+        margin-left: auto;
+        justify-content: flex-end;
     }
 }
 
