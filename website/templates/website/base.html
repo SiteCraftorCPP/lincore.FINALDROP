@@ -24,7 +24,7 @@
     <meta property="og:type" content="website">
     
     {% block extra_css %}{% endblock %}
-    <link rel="stylesheet" href="{% static 'css/hero-pages.css' %}?v=202604029400">
+    <link rel="stylesheet" href="{% static 'css/hero-pages.css' %}?v=202604152115">
 </head>
 <body class="{% block body_class %}{% endblock %}">
     <!-- Прелоадер -->
@@ -64,13 +64,17 @@
                             <span class="header-label-mobile">В тендер</span>
                         </span>
                     </button>
-                    <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="phone-link">
+                    <a href="tel:89530187799" class="phone-link">
                         {% include 'website/partials/ui_icon.html' with name='phone' svg_class='phone-icon' w=20 h=20 %}
                         <span class="phone-link-text">
-                            <span class="header-label-desktop">{{ contact_info.phone_main|default:"+7 (952) 064-09-55" }}</span>
+                            <span class="header-label-desktop">8-953-018-77-99</span>
                             <span class="header-label-mobile">Позвонить</span>
                         </span>
                     </a>
+                    <div class="header-worktime" aria-label="Часы работы">
+                        <span class="header-worktime__label">Пн–Пт</span>
+                        <span class="header-worktime__time">8:00–18:00</span>
+                    </div>
                     {% block header_actions_extra %}{% endblock %}
                     <a href="#contacts" class="btn-contacts">Контакты</a>
                     <button class="btn-callback js-callback-open" id="callbackBtn" type="button">
@@ -82,7 +86,7 @@
                     </button>
                 </div>
 
-                <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="header-mobile-phone-tap" aria-label="Позвонить: {{ contact_info.phone_main|default:'+7 (952) 064-09-55' }}">
+                <a href="tel:89530187799" class="header-mobile-phone-tap" aria-label="Позвонить: 8-953-018-77-99">
                     <span class="header-mobile-phone-tap__icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='phone' w=22 h=22 %}</span>
                 </a>
                 
@@ -103,11 +107,11 @@
                     </div>
                     <div class="mobile-menu-body">
                     <div class="mobile-menu-quick" aria-label="Быстрые действия">
-                        <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="mobile-menu-quick__item mobile-menu-quick__item--call">
+                        <a href="tel:89530187799" class="mobile-menu-quick__item mobile-menu-quick__item--call">
                             <span class="mobile-menu-quick__icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='phone' w=22 h=22 %}</span>
                             <span class="mobile-menu-quick__body">
                                 <span class="mobile-menu-quick__title">Позвонить</span>
-                                <span class="mobile-menu-quick__sub">{{ contact_info.phone_main|default:'+7 (952) 064-09-55' }}</span>
+                                <span class="mobile-menu-quick__sub">8-953-018-77-99 · Пн–Пт 8:00–18:00</span>
                             </span>
                         </a>
                         <a href="#contacts" class="mobile-menu-quick__item mobile-menu-quick__item--neutral">
@@ -226,7 +230,7 @@
                 <h2 class="footer-contact-lead__title">Готовы обсудить задачу?</h2>
                 <p class="footer-contact-lead__text">Позвоните или напишите — подскажем по срокам, стоимости и формату работ.</p>
                 <div class="footer-contact-lead__actions">
-                    <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="footer-contact-lead__btn footer-contact-lead__btn--primary">Позвонить</a>
+                    <a href="tel:89530187799" class="footer-contact-lead__btn footer-contact-lead__btn--primary">Позвонить</a>
                     <a href="#contacts" class="footer-contact-lead__btn footer-contact-lead__btn--ghost">Контакты и карта</a>
                 </div>
             </div>
@@ -318,11 +322,12 @@
             <div class="modal-header">
                 <div class="call-modal-header-inner">
                     <h3>Заказать звонок</h3>
-                    <p class="call-modal-header-lead">Оставьте телефон — специалист перезвонит в рабочее время и поможет с вопросами по услугам, срокам и стоимости.</p>
+                    <p class="call-modal-header-lead">Оставьте телефон — специалист перезвонит в рабочее время (Пн–Пт 8:00–18:00) и поможет с вопросами по услугам, срокам и стоимости.</p>
                 </div>
                 <button type="button" class="modal-close" id="callModalClose" aria-label="Закрыть">&times;</button>
             </div>
             <div class="modal-body">
+                <p class="call-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
                 <p class="call-modal-body-intro">Обычно отвечаем в течение 30 минут в будни. Номер используем только для связи с вами по заявке.</p>
                 <form id="callForm" class="form">
                     <div class="form-group">

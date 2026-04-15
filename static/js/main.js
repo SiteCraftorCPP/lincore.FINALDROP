@@ -191,6 +191,21 @@ function initServicesDropdown() {
         panel.setAttribute('aria-hidden', 'false');
     }
 
+    const isHoverEnabled = () => {
+        if (window.innerWidth <= 768) return false;
+        return window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    };
+
+    let closeTimer = null;
+    const scheduleClose = () => {
+        if (closeTimer) clearTimeout(closeTimer);
+        closeTimer = setTimeout(() => closeServicesDropdown(), 140);
+    };
+    const cancelScheduledClose = () => {
+        if (closeTimer) clearTimeout(closeTimer);
+        closeTimer = null;
+    };
+
     toggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -199,6 +214,26 @@ function initServicesDropdown() {
         } else {
             openMenu();
         }
+    });
+
+    // Desktop hover open (click still works for accessibility/touch).
+    dropdown.addEventListener('mouseenter', () => {
+        if (!isHoverEnabled()) return;
+        cancelScheduledClose();
+        openMenu();
+    });
+    dropdown.addEventListener('mouseleave', () => {
+        if (!isHoverEnabled()) return;
+        scheduleClose();
+    });
+    panel.addEventListener('mouseenter', () => {
+        if (!isHoverEnabled()) return;
+        cancelScheduledClose();
+        openMenu();
+    });
+    panel.addEventListener('mouseleave', () => {
+        if (!isHoverEnabled()) return;
+        scheduleClose();
     });
 
     panel.querySelectorAll('a[href]').forEach((a) => {

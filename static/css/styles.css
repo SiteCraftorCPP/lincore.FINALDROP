@@ -445,6 +445,39 @@ body.loaded {
     text-overflow: ellipsis;
 }
 
+.header-actions .header-worktime {
+    box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    min-height: 40px;
+    padding: 0 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(61, 91, 165, 0.22);
+    background: rgba(61, 91, 165, 0.10);
+    color: var(--color-navy);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    flex: 0 0 auto;
+}
+
+.header-actions .header-worktime__label {
+    opacity: 0.85;
+}
+
+.header-actions .header-worktime__time {
+    font-weight: 700;
+}
+
+.callback-modal-hours,
+.call-modal-hours {
+    margin: 10px 0 0;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
 /* Полные подписи в шапке на десктопе; на мобильных — короткие (.header-label-mobile) */
 .header-actions .header-label-mobile {
     display: none;
@@ -3037,7 +3070,7 @@ section:not(.site-reviews),
 }
 
 /* Текст и стрелка поверх синей заливки (иначе часть текста «пропадает») */
-.card-link > span:first-of-type {
+.card-link>span:first-of-type {
     position: relative;
     z-index: 1;
 }
@@ -3428,7 +3461,7 @@ section:not(.site-reviews),
 }
 
 /* Единый стиль шапок модальных окон (градиент сайта, читаемый текст) */
-.modal-content > .modal-header {
+.modal-content>.modal-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -3441,28 +3474,28 @@ section:not(.site-reviews),
     border-radius: 0;
 }
 
-.modal-content > .modal-header h1,
-.modal-content > .modal-header h2,
-.modal-content > .modal-header h3 {
+.modal-content>.modal-header h1,
+.modal-content>.modal-header h2,
+.modal-content>.modal-header h3 {
     margin: 0;
     color: #fff;
     font-weight: 600;
     font-size: 24px;
 }
 
-.modal-content > .modal-header p,
-.modal-content > .modal-header .callback-modal-tagline,
-.modal-content > .modal-header .modal-header-tagline {
+.modal-content>.modal-header p,
+.modal-content>.modal-header .callback-modal-tagline,
+.modal-content>.modal-header .modal-header-tagline {
     color: rgba(255, 255, 255, 0.92);
 }
 
-.modal-content > .modal-header .modal-close,
-.modal-content > .modal-header .close {
+.modal-content>.modal-header .modal-close,
+.modal-content>.modal-header .close {
     color: rgba(255, 255, 255, 0.9);
 }
 
-.modal-content > .modal-header .modal-close:hover,
-.modal-content > .modal-header .close:hover {
+.modal-content>.modal-header .modal-close:hover,
+.modal-content>.modal-header .close:hover {
     color: #fff;
     opacity: 1;
 }
@@ -3514,7 +3547,7 @@ section:not(.site-reviews),
     min-height: 0;
 }
 
-.modal-content > .modal-form {
+.modal-content>.modal-form {
     padding: 30px;
     overflow-y: auto;
     flex: 1 1 auto;
@@ -3591,6 +3624,7 @@ section:not(.site-reviews),
         opacity: 0;
         transform: translateY(-50px) scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
@@ -4017,7 +4051,7 @@ section:not(.site-reviews),
     max-width: 100%;
 }
 
-.form-group.tender-consent-group > .tender-consent-label {
+.form-group.tender-consent-group>.tender-consent-label {
     font-weight: 500;
 }
 
@@ -5913,7 +5947,7 @@ div[style*="height: 60px"][style*="background: #ffffff"] {
 }
 
 /* Отступы от кнопок: сверху от текста и снизу до белой панели — на всех страницах */
-.site-footer-contact-bundle .container > :first-child:not(.site-footer-contacts-panel) {
+.site-footer-contact-bundle .container> :first-child:not(.site-footer-contacts-panel) {
     margin-bottom: clamp(2.85rem, 5vw, 4.25rem);
 }
 
@@ -6039,6 +6073,12 @@ div[style*="height: 60px"][style*="background: #ffffff"] {
     border-color: rgba(61, 91, 165, 0.35);
 }
 
+.site-footer-contacts__chip--hours:hover {
+    transform: none;
+    box-shadow: 0 8px 28px rgba(30, 26, 107, 0.08);
+    border-color: rgba(30, 26, 107, 0.12);
+}
+
 .site-footer-contacts__chip-icon {
     font-size: 1.35rem;
     line-height: 1;
@@ -6123,7 +6163,7 @@ div[style*="height: 60px"][style*="background: #ffffff"] {
         padding: 52px 0 64px;
     }
 
-    .site-footer-contact-bundle .container > :first-child:not(.site-footer-contacts-panel) {
+    .site-footer-contact-bundle .container> :first-child:not(.site-footer-contacts-panel) {
         margin-bottom: clamp(2.25rem, 6vw, 3rem);
     }
 
@@ -6339,6 +6379,17 @@ div[style*="height: 60px"][style*="background: #ffffff"] {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+/* В глобальных стилях у всех li рисуется маркер через ::before — для отзывов отключаем. */
+.site-reviews__grid > li {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.site-reviews__grid > li::before {
+    content: none;
+    display: none;
 }
 
 .site-reviews__card {

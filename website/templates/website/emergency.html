@@ -23,6 +23,10 @@
                 <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
                     Круглосуточный оперативный ремонт и устранение аварийных ситуаций. Работаем 24/7 без выходных
                 </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                    Подготовим подробный расчет цены для вас после выезда на объект
+                </p>
                 
                 <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
                     <div class="stat-item">
@@ -44,7 +48,7 @@
                         <span class="btn-text">Вызвать аварийную службу</span>
                         {% include 'website/partials/ui_icon.html' with name='alert-circle' w=20 h=20 %}
                     </button>
-                    <a href="tel:{{ contact_info.phone_main }}" class="btn-modern btn-secondary">
+                    <a href="tel:89530187799" class="btn-modern btn-secondary">
                         <span class="btn-text">Позвонить сейчас</span>
                         {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
                     </a>
@@ -52,13 +56,6 @@
             </div>
         </div>
         
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Прокрутите вниз</span>
-        </div>
     </section>
 
     <!-- Navigation Pills -->
@@ -71,7 +68,7 @@
                 </button>
                 <button class="pill-btn" data-target="services-section">
                     {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
-                    <span>Виды работ</span>
+                    <span>Аварийные работы</span>
                 </button>
                 <button class="pill-btn" data-target="process-section">
                     <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='clock' w=20 h=20 %}</span>
@@ -212,47 +209,6 @@
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="team-section" id="team-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="section-icon">
-                    <div class="icon-wrapper">
-                        <span class="icon animate-team">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
-                    </div>
-                </div>
-                <h2 class="section-title">Команда специалистов аварийной службы</h2>
-                <p class="section-subtitle">Профессионалы, готовые к выезду в любое время</p>
-            </div>
-            
-            <div class="team-gallery" data-aos="fade-up" data-aos-delay="200">
-                {% if photos.emergency_photo_1 %}
-                    <div class="team-card">
-                        <div class="team-photo">
-                            <img src="{{ photos.emergency_photo_1.image.url }}" alt="{{ photos.emergency_photo_1.alt_text|default:'Специалист аварийной службы 1' }}" loading="lazy">
-                            <div class="photo-overlay">
-                                <div class="overlay-content">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-                
-                {% if photos.emergency_photo_2 %}
-                    <div class="team-card">
-                        <div class="team-photo">
-                            <img src="{{ photos.emergency_photo_2.image.url }}" alt="{{ photos.emergency_photo_2.alt_text|default:'Специалист аварийной службы 2' }}" loading="lazy">
-                            <div class="photo-overlay">
-                                <div class="overlay-content">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-    </section>
-
     <!-- Process Section -->
     <section class="process-section" id="process-section">
         <div class="container">
@@ -330,6 +286,47 @@
         </div>
     </section>
 
+    <!-- Team Section -->
+    <section class="team-section" id="team-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-icon">
+                    <div class="icon-wrapper">
+                        <span class="icon animate-team">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
+                    </div>
+                </div>
+                <h2 class="section-title">Команда специалистов аварийной службы</h2>
+                <p class="section-subtitle">Профессионалы, готовые к выезду в любое время</p>
+            </div>
+            
+            <div class="team-gallery" data-aos="fade-up" data-aos-delay="200">
+                {% if photos.emergency_photo_1 %}
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="{{ photos.emergency_photo_1.image.url }}" alt="{{ photos.emergency_photo_1.alt_text|default:'Специалист аварийной службы 1' }}" loading="lazy">
+                            <div class="photo-overlay">
+                                <div class="overlay-content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+                {% if photos.emergency_photo_2 %}
+                    <div class="team-card">
+                        <div class="team-photo">
+                            <img src="{{ photos.emergency_photo_2.image.url }}" alt="{{ photos.emergency_photo_2.alt_text|default:'Специалист аварийной службы 2' }}" loading="lazy">
+                            <div class="photo-overlay">
+                                <div class="overlay-content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
 </div>
 
 <!-- Application Modal -->
@@ -357,7 +354,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <div class="callback-modal-header-text">
-                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время (Пн–Пт 8:00–18:00), уточним задачу и подскажем по услугам, срокам и стоимости.</p>
                 <h3>Заказать обратный звонок</h3>
             </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
@@ -365,6 +362,7 @@
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
             <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
+            <p class="callback-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
@@ -391,7 +389,7 @@
             <span class="btn-text">Вызвать аварийную службу</span>
             {% include 'website/partials/ui_icon.html' with name='alert-circle' w=20 h=20 %}
         </button>
-        <a href="tel:{{ contact_info.phone_main }}" class="btn-cta-secondary">
+        <a href="tel:89530187799" class="btn-cta-secondary">
             <span class="btn-text">Позвонить сейчас</span>
             {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
         </a>

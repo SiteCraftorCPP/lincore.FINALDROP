@@ -25,6 +25,10 @@
                     Гарантируем бесперебойную работу всех инженерных систем вашего объекта. 
                     Профессиональная диагностика, превентивное обслуживание и оперативный ремонт.
                 </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                    Подготовим подробный расчет цены для вас после выезда на объект
+                </p>
                 
                 <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
                     <div class="stat-item">
@@ -54,13 +58,6 @@
             </div>
         </div>
         
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Прокрутите вниз</span>
-        </div>
     </section>
 
     <!-- Navigation Pills -->
@@ -90,7 +87,187 @@
         </div>
     </section>
 
+    <!-- Why Choose Us -->
+    <section class="advantages-modern">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title-modern">
+                    <span class="title-accent">Почему выбирают именно нас</span>
+                </h2>
+            </div>
+            
+            <div class="advantages-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="advantage-card">
+                    <div class="advantage-header">
+                        <div class="advantage-icon">
+                            <div class="icon-circle">
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
+                            </div>
+                        </div>
+                        <div class="advantage-tag">Все системы</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h3 class="advantage-title">Комплексный подход</h3>
+                        <p class="advantage-description">Обслуживаем все инженерные системы</p>
+                    </div>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-header">
+                        <div class="advantage-icon">
+                            <div class="icon-circle specialists">
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
+                            </div>
+                        </div>
+                        <div class="advantage-tag">5+ лет</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h3 class="advantage-title">Квалифицированные специалисты</h3>
+                        <p class="advantage-description">С опытом работы более 5 лет</p>
+                    </div>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-header">
+                        <div class="advantage-icon">
+                            <div class="icon-circle quality">
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
+                            </div>
+                        </div>
+                        <div class="advantage-tag">Профи</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h3 class="advantage-title">Гарантия качества</h3>
+                        <p class="advantage-description">Используем только профессиональное оборудование</p>
+                    </div>
+                </div>
+                
+                <div class="advantage-card">
+                    <div class="advantage-header">
+                        <div class="advantage-icon">
+                            <div class="icon-circle documentation">
+                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
+                            </div>
+                        </div>
+                        <div class="advantage-tag">Отчеты</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h3 class="advantage-title">Полный документооборот</h3>
+                        <p class="advantage-description">Вся необходимая отчетность</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Интерактивная галерея электрохозяйства -->
+            <div class="works-gallery-modern" data-aos="fade-up" data-aos-delay="300">
+                <div class="gallery-header animate-on-scroll">
+                    <h2 class="gallery-title">Живые фотографии с объектов</h2>
+                    <p class="gallery-subtitle">Работа наших специалистов</p>
+                </div>
+                
+                <div class="interactive-gallery animate-on-scroll">
+                    <div class="gallery-container">
+                        <div class="gallery-slider" id="electroGallerySlider">
+                            {% if photos.complex_electro_1 %}
+                                <div class="gallery-slide active">
+                                    <img src="{{ photos.complex_electro_1.image.url }}" alt="{{ photos.complex_electro_1.alt_text|default:'Электрохозяйство 1' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            
+                            {% if photos.complex_electro_2 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_2.image.url }}" alt="{{ photos.complex_electro_2.alt_text|default:'Электрохозяйство 2' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_3 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_3.image.url }}" alt="{{ photos.complex_electro_3.alt_text|default:'Электрохозяйство 3' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_4 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_4.image.url }}" alt="{{ photos.complex_electro_4.alt_text|default:'Электрохозяйство 4' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_5 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_5.image.url }}" alt="{{ photos.complex_electro_5.alt_text|default:'Электрохозяйство 5' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_6 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_6.image.url }}" alt="{{ photos.complex_electro_6.alt_text|default:'Электрохозяйство 6' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_7 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_7.image.url }}" alt="{{ photos.complex_electro_7.alt_text|default:'Электрохозяйство 7' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_8 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_8.image.url }}" alt="{{ photos.complex_electro_8.alt_text|default:'Электрохозяйство 8' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_9 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_9.image.url }}" alt="{{ photos.complex_electro_9.alt_text|default:'Электрохозяйство 9' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_10 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_10.image.url }}" alt="{{ photos.complex_electro_10.alt_text|default:'Электрохозяйство 10' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_11 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_11.image.url }}" alt="{{ photos.complex_electro_11.alt_text|default:'Электрохозяйство 11' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_12 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_12.image.url }}" alt="{{ photos.complex_electro_12.alt_text|default:'Электрохозяйство 12' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_13 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_13.image.url }}" alt="{{ photos.complex_electro_13.alt_text|default:'Электрохозяйство 13' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_14 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_14.image.url }}" alt="{{ photos.complex_electro_14.alt_text|default:'Электрохозяйство 14' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                            {% if photos.complex_electro_15 %}
+                                <div class="gallery-slide">
+                                    <img src="{{ photos.complex_electro_15.image.url }}" alt="{{ photos.complex_electro_15.alt_text|default:'Электрохозяйство 15' }}" loading="lazy">
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="gallery-controls" style="padding: 0 !important;">
+                            <button class="gallery-btn gallery-prev" id="electroGalleryPrev">
+                                <span class="btn-icon">←</span>
+                                <span class="btn-text">Назад</span>
+                            </button>
+                            <button class="gallery-btn gallery-next" id="electroGalleryNext">
+                                <span class="btn-text">Вперед</span>
+                                <span class="btn-icon">→</span>
+                            </button>
+                        </div>
+                        
+                        <div class="gallery-indicators" id="electroGalleryIndicators">
+                            <!-- Индикаторы будут добавлены через JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Service Systems -->
+    <div class="service-systems-gap" aria-hidden="true"></div>
     <section class="service-systems">
         <div class="container">
             
@@ -318,185 +495,6 @@
         </div>
     </section>
 
-    <!-- Why Choose Us -->
-    <section class="advantages-modern">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title-modern">
-                    <span class="title-accent">Почему выбирают именно нас</span>
-                </h2>
-            </div>
-            
-            <div class="advantages-grid" data-aos="fade-up" data-aos-delay="200">
-                <div class="advantage-card">
-                    <div class="advantage-header">
-                        <div class="advantage-icon">
-                            <div class="icon-circle">
-                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
-                            </div>
-                        </div>
-                        <div class="advantage-tag">Все системы</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h3 class="advantage-title">Комплексный подход</h3>
-                        <p class="advantage-description">Обслуживаем все инженерные системы</p>
-                    </div>
-                </div>
-                
-                <div class="advantage-card">
-                    <div class="advantage-header">
-                        <div class="advantage-icon">
-                            <div class="icon-circle specialists">
-                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
-                            </div>
-                        </div>
-                        <div class="advantage-tag">5+ лет</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h3 class="advantage-title">Квалифицированные специалисты</h3>
-                        <p class="advantage-description">С опытом работы более 5 лет</p>
-                    </div>
-                </div>
-                
-                <div class="advantage-card">
-                    <div class="advantage-header">
-                        <div class="advantage-icon">
-                            <div class="icon-circle quality">
-                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
-                            </div>
-                        </div>
-                        <div class="advantage-tag">Профи</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h3 class="advantage-title">Гарантия качества</h3>
-                        <p class="advantage-description">Используем только профессиональное оборудование</p>
-                    </div>
-                </div>
-                
-                <div class="advantage-card">
-                    <div class="advantage-header">
-                        <div class="advantage-icon">
-                            <div class="icon-circle documentation">
-                                <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
-                            </div>
-                        </div>
-                        <div class="advantage-tag">Отчеты</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h3 class="advantage-title">Полный документооборот</h3>
-                        <p class="advantage-description">Вся необходимая отчетность</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Интерактивная галерея электрохозяйства -->
-            <div class="works-gallery-modern" data-aos="fade-up" data-aos-delay="300">
-                <div class="gallery-header animate-on-scroll">
-                    <h2 class="gallery-title">Живые фотографии с объектов</h2>
-                    <p class="gallery-subtitle">Работа наших специалистов</p>
-                </div>
-                
-                <div class="interactive-gallery animate-on-scroll">
-                    <div class="gallery-container">
-                        <div class="gallery-slider" id="electroGallerySlider">
-                            {% if photos.complex_electro_1 %}
-                                <div class="gallery-slide active">
-                                    <img src="{{ photos.complex_electro_1.image.url }}" alt="{{ photos.complex_electro_1.alt_text|default:'Электрохозяйство 1' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            
-                            {% if photos.complex_electro_2 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_2.image.url }}" alt="{{ photos.complex_electro_2.alt_text|default:'Электрохозяйство 2' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_3 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_3.image.url }}" alt="{{ photos.complex_electro_3.alt_text|default:'Электрохозяйство 3' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_4 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_4.image.url }}" alt="{{ photos.complex_electro_4.alt_text|default:'Электрохозяйство 4' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_5 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_5.image.url }}" alt="{{ photos.complex_electro_5.alt_text|default:'Электрохозяйство 5' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_6 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_6.image.url }}" alt="{{ photos.complex_electro_6.alt_text|default:'Электрохозяйство 6' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_7 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_7.image.url }}" alt="{{ photos.complex_electro_7.alt_text|default:'Электрохозяйство 7' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_8 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_8.image.url }}" alt="{{ photos.complex_electro_8.alt_text|default:'Электрохозяйство 8' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_9 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_9.image.url }}" alt="{{ photos.complex_electro_9.alt_text|default:'Электрохозяйство 9' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_10 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_10.image.url }}" alt="{{ photos.complex_electro_10.alt_text|default:'Электрохозяйство 10' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_11 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_11.image.url }}" alt="{{ photos.complex_electro_11.alt_text|default:'Электрохозяйство 11' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_12 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_12.image.url }}" alt="{{ photos.complex_electro_12.alt_text|default:'Электрохозяйство 12' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_13 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_13.image.url }}" alt="{{ photos.complex_electro_13.alt_text|default:'Электрохозяйство 13' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_14 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_14.image.url }}" alt="{{ photos.complex_electro_14.alt_text|default:'Электрохозяйство 14' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                            {% if photos.complex_electro_15 %}
-                                <div class="gallery-slide">
-                                    <img src="{{ photos.complex_electro_15.image.url }}" alt="{{ photos.complex_electro_15.alt_text|default:'Электрохозяйство 15' }}" loading="lazy">
-                                </div>
-                            {% endif %}
-                        </div>
-                        
-                        <div class="gallery-controls" style="padding: 0 !important;">
-                            <button class="gallery-btn gallery-prev" id="electroGalleryPrev">
-                                <span class="btn-icon">←</span>
-                                <span class="btn-text">Назад</span>
-                            </button>
-                            <button class="gallery-btn gallery-next" id="electroGalleryNext">
-                                <span class="btn-text">Вперед</span>
-                                <span class="btn-icon">→</span>
-                            </button>
-                        </div>
-                        
-                        <div class="gallery-indicators" id="electroGalleryIndicators">
-                            <!-- Индикаторы будут добавлены через JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
 </div>
 
 <!-- Модальное окно для заявки -->
@@ -523,7 +521,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <div class="callback-modal-header-text">
-                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время (Пн–Пт 8:00–18:00), уточним задачу и подскажем по услугам, срокам и стоимости.</p>
                 <h3>Заказать обратный звонок</h3>
             </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
@@ -531,6 +529,7 @@
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
             <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
+            <p class="callback-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
@@ -788,10 +787,11 @@
 }
 
 .btn-modern.btn-primary:hover {
-    background: #dc267f;
+    /* В тему навигации страницы (однотонный синий) */
+    background: #1e1a6b;
     color: white;
     transform: translateY(-3px);
-    box-shadow: 0 15px 35px rgba(220, 38, 127, 0.4);
+    box-shadow: 0 15px 35px rgba(30, 26, 107, 0.35);
 }
 
 .btn-modern.btn-secondary {
@@ -861,12 +861,18 @@
 
 /* Navigation Pills */
 .nav-pills-section {
-    background: #f8f9fa;
-    padding: 40px 0;
+    /* Фон полосы навигации = фон синего блока ниже (без белой подложки) */
+    --nav-pills-bg: #3d5ba5;
+    background: var(--nav-pills-bg) !important;
+    padding: 40px 0 0;
     border-bottom: none;
     position: sticky;
     top: 100px;
     z-index: 10;
+    /* Акцент навигации: однотонный, без градиента (перебивает hero-pages.css) */
+    --nav-accent-solid: #1e1a6b;
+    --nav-pill-active-bg: var(--nav-accent-solid);
+    --nav-progress: var(--nav-accent-solid);
 }
 
 .nav-pills {
@@ -897,23 +903,45 @@
     align-items: center;
     gap: 12px;
     padding: 16px 28px;
-    background: #1e1a6b;
-    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 50px;
-    color: white;
+    color: #ffffff;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     min-height: 56px;
+    box-shadow: 0 10px 25px rgba(15, 10, 74, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 .pill-btn:hover,
 .pill-btn.active {
-    background: #0f0a4a;
-    color: white;
+    background: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(30, 26, 107, 0.3);
+    box-shadow: 0 14px 30px rgba(15, 10, 74, 0.22);
+}
+
+/* Активная кнопка должна читаться сильнее */
+.pill-btn.active {
+    background: var(--nav-accent-solid);
+    border-color: color-mix(in srgb, var(--nav-accent-solid) 70%, #ffffff);
+    color: #ffffff;
+}
+
+/* Hover: лёгкое высветление без градиента */
+.nav-pills-section .pill-btn:hover {
+    background: rgba(255, 255, 255, 0.26);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.pill-btn.active .ui-icon,
+.pill-btn.active .pill-icon {
+    color: #ffffff;
 }
 
 .pill-icon {
@@ -932,7 +960,7 @@
 
 .progress-bar {
     height: 4px;
-    background: #e9ecef;
+    background: rgba(255, 255, 255, 0.22);
     border-radius: 2px;
     overflow: hidden;
     max-width: 600px;
@@ -941,7 +969,7 @@
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #1e1a6b, #dc267f);
+    background: var(--nav-accent-solid);
     border-radius: 2px;
     width: 25%;
     transition: width 0.3s ease;
@@ -949,8 +977,41 @@
 
 /* Service Systems */
 .service-systems {
-    padding: 60px 0;
+    /* Белый зазор сверху (не прилипает к синему фону) */
+    margin-top: 0;
+    padding: 72px 0 64px;
     background: #f8f9fa;
+    position: relative;
+}
+
+.service-systems::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: #ffffff;
+    pointer-events: none;
+}
+
+.service-systems-gap {
+    height: 40px;
+    background: #ffffff;
+}
+
+.service-systems > .container {
+    position: relative;
+    z-index: 1;
+}
+
+.service-systems .team-section {
+    margin: 32px 0;
+    padding-top: 24px;
+}
+
+.service-systems .team-intro-section {
+    margin-bottom: 24px;
 }
 
 .system-block {
@@ -1472,7 +1533,7 @@ details.system-accordion[open] .system-accordion-chevron::after {
 /* Advantages Section */
 .advantages-modern {
     background: #3d5ba5;
-    padding: 80px 0;
+    padding: 80px 0 0;
     position: relative;
     overflow: hidden;
 }
@@ -2357,10 +2418,10 @@ details.system-accordion[open] .system-accordion-chevron::after {
 
 /* ===== ИНТЕРАКТИВНАЯ ГАЛЕРЕЯ ЭЛЕКТРОХОЗЯЙСТВА ===== */
 .works-gallery-modern {
-    padding: 40px 0 60px 0;
+    padding: 40px 0 40px 0;
     background: transparent;
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 0;
 }
 
 .gallery-header {
@@ -2469,6 +2530,13 @@ details.system-accordion[open] .system-accordion-chevron::after {
     background: rgba(255, 255, 255, 1);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* FIX: на hover текст/стрелки должны быть видны */
+.gallery-btn:hover,
+.gallery-btn:hover .btn-text,
+.gallery-btn:hover .btn-icon {
+    color: #1e1a6b !important;
 }
 
 .gallery-btn:active {
@@ -2696,6 +2764,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressFill = document.querySelector('.progress-fill');
     let userClicked = false; // Флаг для отслеживания клика пользователя
 
+    function headerScrollOffsetPx() {
+        const header = document.getElementById('header');
+        const headerH = header ? header.getBoundingClientRect().height : 72;
+        return headerH + 8;
+    }
+
+    function scrollToSectionTop(sectionEl) {
+        const offset = headerScrollOffsetPx();
+        const top = sectionEl.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
+
     pillBtns.forEach((btn, index) => {
         btn.addEventListener('click', () => {
             userClicked = true; // Отмечаем, что пользователь кликнул
@@ -2714,10 +2794,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (targetElement.tagName === 'DETAILS') {
                     targetElement.open = true;
                 }
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
+                scrollToSectionTop(targetElement);
             }
         });
     });

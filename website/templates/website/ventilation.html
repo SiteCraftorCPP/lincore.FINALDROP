@@ -4,7 +4,7 @@
 {% block title %}Обслуживание систем вентиляции и кондиционирования - Инженерно-сервисная компания{% endblock %}
 
 {% block content %}
-<div class="modern-service-page">
+<div class="modern-service-page modern-service-page--ventilation">
     <!-- Modern Hero Section -->
     <section class="modern-hero-section ventilation-hero">
         <div class="hero-gradient"></div>
@@ -13,7 +13,7 @@
             <div class="hero-content-wrapper">
                 <div class="hero-badge" data-aos="fade-up" data-aos-delay="100">
                     <span class="badge-icon animated-maintenance">{% include 'website/partials/ui_icon.html' with name='wind' svg_class='badge-icon-svg' w=22 h=22 %}</span>
-                    <span>Обслуживание систем вентиляции и кондиционирования</span>
+                    <span>Профессиональное техническое обслуживание</span>
                 </div>
                 
                 <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
@@ -23,6 +23,14 @@
                 
                 <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
                     Комплексное обслуживание систем вентиляции и кондиционирования. Регламентные работы, сезонное обслуживание, ремонт и контрольные операции от опытных специалистов.
+                </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                    Подготовим для вас полный план работ за 1 день.
+                </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="340">
+                    Подготовим подробный расчет цены для вас после выезда на объект
                 </p>
                 
                 <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
@@ -53,19 +61,16 @@
             </div>
         </div>
         
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Прокрутите вниз</span>
-        </div>
     </section>
 
     <!-- Navigation Pills -->
     <section class="nav-pills-section">
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
+                <a href="#advantages" class="pill-btn">
+                    {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
+                    <span>Преимущества</span>
+                </a>
                 <a href="#services" class="pill-btn">
                     {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Регламентные работы</span>
@@ -78,13 +83,53 @@
                     {% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=20 h=20 %}
                     <span>Контроль</span>
                 </a>
-                <a href="#advantages" class="pill-btn">
-                    {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
-                    <span>Преимущества</span>
-                </a>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Grid Section -->
+    <section class="advantages-grid-section" id="advantages">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="icon-wrapper">
+                    <span class="icon animated-specialist">{% include 'website/partials/ui_icon.html' with name='circle-check' w=40 h=40 %}</span>
+                </div>
+                <h2 class="section-title">Наши преимущества</h2>
+                <p class="section-subtitle">Почему стоит выбрать нашу компанию для обслуживания климатических систем</p>
+            </div>
+            <div class="advantages-interactive-grid">
+                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="100">
+                    <span class="advantage-icon-modern animated-specialist">{% include 'website/partials/ui_icon.html' with name='target' w=28 h=28 %}</span>
+                    <h3>Опытные специалисты с допусками</h3>
+                    <p>Квалифицированные инженеры с многолетним опытом</p>
+                </div>
+                
+                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="200">
+                    <span class="advantage-icon-modern animated-equipment">{% include 'website/partials/ui_icon.html' with name='wrench' w=28 h=28 %}</span>
+                    <h3>Современное диагностическое оборудование</h3>
+                    <p>Новейшие приборы для точной диагностики</p>
+                </div>
+                
+                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="300">
+                    <span class="advantage-icon-modern animated-support">{% include 'website/partials/ui_icon.html' with name='clock' w=28 h=28 %}</span>
+                    <h3>Круглосуточная техническая поддержка</h3>
+                    <p>Поддержка и консультации 24/7</p>
+                </div>
+                
+                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="400">
+                    <span class="advantage-icon-modern animated-guarantee">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=28 h=28 %}</span>
+                    <h3>Гарантия на все виды работ</h3>
+                    <p>Официальная гарантия на выполненные работы</p>
+                </div>
+                
+                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="500">
+                    <span class="advantage-icon-modern animated-price">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=28 h=28 %}</span>
+                    <h3>Фиксированные цены в договоре</h3>
+                    <p>Прозрачное ценообразование без скрытых доплат</p>
+                </div>
             </div>
         </div>
     </section>
@@ -391,50 +436,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Advantages Grid Section -->
-    <section class="advantages-grid-section" id="advantages">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="icon-wrapper">
-                    <span class="icon animated-specialist">{% include 'website/partials/ui_icon.html' with name='circle-check' w=40 h=40 %}</span>
-                </div>
-                <h2 class="section-title">Наши преимущества</h2>
-                <p class="section-subtitle">Почему стоит выбрать нашу компанию для обслуживания климатических систем</p>
-            </div>
-            <div class="advantages-interactive-grid">
-                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="100">
-                    <span class="advantage-icon-modern animated-specialist">{% include 'website/partials/ui_icon.html' with name='target' w=28 h=28 %}</span>
-                    <h3>Опытные специалисты с допусками</h3>
-                    <p>Квалифицированные инженеры с многолетним опытом</p>
-                </div>
-                
-                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="200">
-                    <span class="advantage-icon-modern animated-equipment">{% include 'website/partials/ui_icon.html' with name='wrench' w=28 h=28 %}</span>
-                    <h3>Современное диагностическое оборудование</h3>
-                    <p>Новейшие приборы для точной диагностики</p>
-                </div>
-                
-                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="300">
-                    <span class="advantage-icon-modern animated-support">{% include 'website/partials/ui_icon.html' with name='clock' w=28 h=28 %}</span>
-                    <h3>Круглосуточная техническая поддержка</h3>
-                    <p>Поддержка и консультации 24/7</p>
-                </div>
-                
-                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="400">
-                    <span class="advantage-icon-modern animated-guarantee">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=28 h=28 %}</span>
-                    <h3>Гарантия на все виды работ</h3>
-                    <p>Официальная гарантия на выполненные работы</p>
-                </div>
-                
-                <div class="advantage-modern-card" data-aos="fade-up" data-aos-delay="500">
-                    <span class="advantage-icon-modern animated-price">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=28 h=28 %}</span>
-                    <h3>Фиксированные цены в договоре</h3>
-                    <p>Прозрачное ценообразование без скрытых доплат</p>
                 </div>
             </div>
         </div>

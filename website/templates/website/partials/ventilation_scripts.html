@@ -58,6 +58,18 @@ function animateCounters() {
 function initNavigationPills() {
     const pills = document.querySelectorAll('.pill-btn');
     const progressFill = document.querySelector('.progress-fill');
+
+    function headerScrollOffsetPx() {
+        const header = document.getElementById('header');
+        const headerH = header ? header.getBoundingClientRect().height : 72;
+        return headerH + 8;
+    }
+
+    function scrollToSectionTop(sectionEl) {
+        const offset = headerScrollOffsetPx();
+        const top = sectionEl.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
     
     pills.forEach((pill, index) => {
         pill.addEventListener('click', function(e) {
@@ -78,10 +90,7 @@ function initNavigationPills() {
             const targetSection = document.getElementById(targetId);
             
             if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                scrollToSectionTop(targetSection);
             }
         });
     });
@@ -855,6 +864,18 @@ function initForms() {
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log(' Ventilation page JavaScript loaded');
+
+    function headerScrollOffsetPx() {
+        const header = document.getElementById('header');
+        const headerH = header ? header.getBoundingClientRect().height : 72;
+        return headerH + 8;
+    }
+
+    function scrollToSectionTop(sectionEl) {
+        const offset = headerScrollOffsetPx();
+        const top = sectionEl.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
     
     // Initialize all functionality
     animateCounters();
@@ -878,10 +899,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.getElementById(targetId);
             
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                scrollToSectionTop(targetElement);
             }
         });
     });

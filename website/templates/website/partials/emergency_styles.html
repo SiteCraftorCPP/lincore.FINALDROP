@@ -280,67 +280,20 @@
     100% { opacity: 0; top: 24px; }
 }
 
-/* Navigation Pills */
+/* Navigation Pills (скопировано 1:1 по стилю с страницы "Поверка...") */
 .nav-pills-section {
-    background: #f9fafb;
-    padding: 20px 0 30px 0 !important;
-    box-shadow: none;
-    border: none;
-    position: relative;
-    z-index: 10;
-}
-
-.nav-pills {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 40px;
-    flex-wrap: wrap;
-}
-
-.pill-btn {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border: 2px solid #e5e7eb;
-    border-radius: 50px;
-    background: white;
-    color: #374151;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.pill-btn:hover,
-.pill-btn.active {
-    background: #dc2626;
-    color: white;
-    border-color: #dc2626;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
-}
-
-.pill-icon {
-    font-size: 16px;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 4px;
-    background: #e5e7eb;
-    border-radius: 2px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #dc2626, #991b1b);
-    border-radius: 2px;
-    width: 25%;
-    transition: width 0.5s ease;
+    position: relative !important;
+    top: auto !important;
+    z-index: auto !important;
+    /* Цвета навигации для аварийной страницы */
+    --nav-pills-bg: #f9fafb;
+    --nav-pill-bg: #ffffff;
+    --nav-pill-border: rgba(220, 38, 38, 0.22);
+    --nav-pill-text: #991b1b;
+    --nav-accent: #dc2626;
+    --nav-accent-text: #ffffff;
+    --nav-accent-shadow: rgba(220, 38, 38, 0.28);
+    --nav-progress: linear-gradient(90deg, #dc2626, #991b1b);
 }
 
 /* Section Styles */
@@ -995,6 +948,8 @@
     .intro-text {
         font-size: 1.1rem;
     }
+
+    /* nav-pills sticky: без искусственных отступов */
     
     .cta-title {
         font-size: 2rem;
@@ -1005,15 +960,7 @@
     }
 }
 
-/* Принудительный отступ сверху для nav-pills-section */
-.nav-pills-section {
-    padding-top: 20px !important;
-}
-
-/* Убираем все отступы между секциями */
-.nav-pills-section {
-    margin-bottom: 0 !important;
-}
+/* Сброс старых "принудительных" правок — теперь единый стиль как у "Поверки" */
 
 .intro-section {
     margin-top: 0 !important;

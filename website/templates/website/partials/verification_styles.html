@@ -302,69 +302,22 @@
     100% { opacity: 0; top: 24px; }
 }
 
-/* Navigation Pills */
+/* Navigation Pills: общий стиль в hero-pages.css, тут только тема страницы */
 .nav-pills-section {
-    background: #f8f9fa;
-    padding: 40px 0 0 0;
-    border-bottom: none;
-    position: sticky;
-    top: 100px;
-    z-index: 10;
-}
+    --nav-pills-bg: #f8f9ff;
+    --nav-pill-bg: rgba(255, 255, 255, 0.95);
+    --nav-pill-text: #1e1a6b;
+    --nav-pill-border: rgba(39, 174, 96, 0.22);
+    --nav-accent: #27ae60;
+    --nav-accent-2: #1abc9c;
+    --nav-accent-shadow: rgba(39, 174, 96, 0.26);
+    --nav-progress-track: rgba(39, 174, 96, 0.14);
+    --nav-progress: linear-gradient(90deg, var(--nav-accent), var(--nav-accent-2));
 
-.nav-pills {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    padding: 20px 0;
-}
-
-.pill-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 28px;
-    background: #1e1a6b;
-    border: 2px solid transparent;
-    border-radius: 50px;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    min-height: 56px;
-}
-
-.pill-btn:hover {
-    background: #27ae60;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(39, 174, 96, 0.3);
-}
-
-.pill-icon {
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.progress-bar {
-    height: 4px;
-    background: #e9ecef;
-    border-radius: 2px;
-    overflow: hidden;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #1e1a6b, #27ae60);
-    border-radius: 2px;
-    width: 25%;
-    transition: width 0.3s ease;
+    /* как на остальных страницах: обычный блок, без прилипания */
+    position: relative !important;
+    top: auto !important;
+    z-index: auto !important;
 }
 
 /* Section Styles */

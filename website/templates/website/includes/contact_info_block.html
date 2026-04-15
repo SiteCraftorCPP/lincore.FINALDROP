@@ -10,11 +10,16 @@
 </div>
 
 <div class="site-footer-contacts__chips">
-    <a href="tel:{{ contact_info.phone_main|default:'+79520640955' }}" class="site-footer-contacts__chip site-footer-contacts__chip--phone">
+    <a href="tel:89530187799" class="site-footer-contacts__chip site-footer-contacts__chip--phone">
         <span class="site-footer-contacts__chip-icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='phone' w=18 h=18 %}</span>
         <span class="site-footer-contacts__chip-label">Телефон</span>
-        <span class="site-footer-contacts__chip-value">{{ contact_info.phone_main|default:"+7 (952) 064-09-55" }}</span>
+        <span class="site-footer-contacts__chip-value">8-953-018-77-99</span>
     </a>
+    <div class="site-footer-contacts__chip site-footer-contacts__chip--hours" aria-label="Режим работы">
+        <span class="site-footer-contacts__chip-icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='clock' w=18 h=18 %}</span>
+        <span class="site-footer-contacts__chip-label">Режим работы</span>
+        <span class="site-footer-contacts__chip-value">Пн–Пт 8:00–18:00</span>
+    </div>
     <a href="mailto:{{ contact_info.email_main|default:'service@lin-cor.ru' }}" class="site-footer-contacts__chip site-footer-contacts__chip--email">
         <span class="site-footer-contacts__chip-icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='mail' w=18 h=18 %}</span>
         <span class="site-footer-contacts__chip-label">E-mail</span>

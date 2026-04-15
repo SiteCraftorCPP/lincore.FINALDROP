@@ -24,6 +24,288 @@ html body section.modern-hero-section-home {
     min-height: calc(100svh - var(--header-offset, 72px)) !important;
 }
 
+/* ============================================================
+   Единый стиль кнопок навигации (nav-pills)
+   Оставляем на страницах только текст и цвета (через CSS vars).
+   ============================================================ */
+
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .nav-pills-section {
+    background: var(--nav-pills-bg, #f8f9fa);
+    padding: 24px 0 0 0;
+    border-bottom: none;
+}
+
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .nav-pills {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+    padding: 12px 0;
+}
+
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .pill-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px 28px;
+    background: var(--nav-pill-bg, #fff);
+    border: 2px solid var(--nav-pill-border, rgba(30, 26, 107, 0.18));
+    border-radius: 50px;
+    color: var(--nav-pill-text, #1e1a6b);
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    text-decoration: none;
+    min-height: 56px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .pill-btn:hover,
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .pill-btn.active {
+    background: var(--nav-pill-hover-bg, var(--nav-pill-active-bg, linear-gradient(135deg, var(--nav-accent, #1e1a6b), var(--nav-accent-2, #dc267f))));
+    color: var(--nav-accent-text, #fff);
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--nav-accent, #1e1a6b) 75%, transparent);
+    box-shadow: 0 10px 25px var(--nav-accent-shadow, rgba(30, 26, 107, 0.22));
+}
+
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .pill-icon,
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .pill-btn .ui-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .progress-bar {
+    height: 4px;
+    background: var(--nav-progress-track, color-mix(in srgb, var(--nav-accent, #1e1a6b) 18%, #ffffff));
+    border-radius: 2px;
+    overflow: hidden;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .progress-fill {
+    height: 100%;
+    background: var(--nav-progress, linear-gradient(90deg, var(--nav-accent, #1e1a6b), var(--nav-accent-2, #dc267f)));
+    border-radius: 2px;
+    width: 25%;
+    transition: width 0.5s ease;
+}
+
+/* Десктоп: первый экран ниже 100vh, чтобы читался следующий блок */
+@media (min-width: 769px) {
+    html body .modern-service-page section.modern-hero-section,
+    html body .modern-service-page section.modern-hero-section.heating-hero,
+    html body .modern-heating-page section.modern-hero-section,
+    html body .modern-verification-page section.modern-hero-section,
+    html body section.modern-hero-section-home {
+        min-height: calc(75vh - var(--header-offset, 72px)) !important;
+        min-height: calc(75svh - var(--header-offset, 72px)) !important;
+        height: calc(75vh - var(--header-offset, 72px)) !important;
+        height: calc(75svh - var(--header-offset, 72px)) !important;
+        max-height: calc(75vh - var(--header-offset, 72px)) !important;
+        max-height: calc(75svh - var(--header-offset, 72px)) !important;
+    }
+
+    /* Десктоп: единая «высотка» и плотность первого экрана как на странице
+       «Подготовка к отопительному сезону в Москве». */
+    html body .modern-service-page section.modern-hero-section,
+    html body .modern-service-page section.modern-hero-section.heating-hero,
+    html body .modern-heating-page section.modern-hero-section,
+    html body .modern-verification-page section.modern-hero-section,
+    html body section.modern-hero-section-home {
+        padding-bottom: 84px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-badge,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-badge,
+    html body .modern-heating-page section.modern-hero-section .hero-badge,
+    html body .modern-verification-page section.modern-hero-section .hero-badge,
+    html body section.modern-hero-section-home .hero-badge {
+        margin-bottom: 22px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-description,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-description,
+    html body .modern-heating-page section.modern-hero-section .hero-description,
+    html body .modern-verification-page section.modern-hero-section .hero-description,
+    html body section.modern-hero-section-home .hero-description {
+        margin-bottom: 20px !important;
+        font-size: 1.12rem !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-offer,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-offer,
+    html body .modern-heating-page section.modern-hero-section .hero-offer,
+    html body .modern-verification-page section.modern-hero-section .hero-offer,
+    html body section.modern-hero-section-home .hero-offer {
+        margin-bottom: 14px !important;
+        font-size: 1rem !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-stats,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-stats,
+    html body .modern-heating-page section.modern-hero-section .hero-stats,
+    html body .modern-verification-page section.modern-hero-section .hero-stats,
+    html body section.modern-hero-section-home .hero-stats {
+        margin-bottom: 22px !important;
+        gap: 28px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-stats .stat-number,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-stats .stat-number,
+    html body .modern-heating-page section.modern-hero-section .hero-stats .stat-number,
+    html body .modern-verification-page section.modern-hero-section .hero-stats .stat-number,
+    html body section.modern-hero-section-home .hero-stats .stat-number {
+        font-size: 2.6rem !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-actions,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-actions,
+    html body .modern-heating-page section.modern-hero-section .hero-actions,
+    html body .modern-verification-page section.modern-hero-section .hero-actions,
+    html body section.modern-hero-section-home .hero-actions {
+        margin-bottom: 26px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-actions .btn-modern,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-actions .btn-modern,
+    html body .modern-heating-page section.modern-hero-section .hero-actions .btn-modern,
+    html body .modern-verification-page section.modern-hero-section .hero-actions .btn-modern,
+    html body section.modern-hero-section-home .hero-actions .btn-modern {
+        padding: 14px 28px !important;
+        min-width: 190px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-triggers,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers,
+    html body .modern-heating-page section.modern-hero-section .hero-triggers,
+    html body .modern-verification-page section.modern-hero-section .hero-triggers,
+    html body section.modern-hero-section-home .hero-triggers {
+        margin-top: 10px !important;
+        gap: 10px 12px;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-triggers li,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers li,
+    html body .modern-heating-page section.modern-hero-section .hero-triggers li,
+    html body .modern-verification-page section.modern-hero-section .hero-triggers li,
+    html body section.modern-hero-section-home .hero-triggers li {
+        padding: 10px 12px;
+        font-size: 0.92rem;
+    }
+}
+
+/* Оффер рядом с CTA + триггеры под кнопками (п.6) */
+html body .modern-service-page section.modern-hero-section .hero-offer,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-offer,
+html body .modern-heating-page section.modern-hero-section .hero-offer,
+html body .modern-verification-page section.modern-hero-section .hero-offer,
+html body section.modern-hero-section-home .hero-offer {
+    margin: 0 auto 18px !important;
+    max-width: 720px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 1.05rem;
+    line-height: 1.55;
+}
+
+html body .modern-service-page section.modern-hero-section .hero-triggers,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers,
+html body .modern-heating-page section.modern-hero-section .hero-triggers,
+html body .modern-verification-page section.modern-hero-section .hero-triggers,
+html body section.modern-hero-section-home .hero-triggers {
+    list-style: none !important;
+    margin: 14px auto 0 !important;
+    padding: 0 !important;
+    max-width: 740px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px 14px;
+}
+
+/* Убираем маркеры списка (синие точки) у "плашек" */
+html body .modern-service-page section.modern-hero-section .hero-triggers li::marker,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers li::marker,
+html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-triggers li::marker,
+html body .modern-heating-page section.modern-hero-section .hero-triggers li::marker,
+html body .modern-verification-page section.modern-hero-section .hero-triggers li::marker,
+html body section.modern-hero-section-home .hero-triggers li::marker {
+    content: '' !important;
+}
+
+html body .modern-service-page section.modern-hero-section .hero-triggers li,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers li,
+html body .modern-heating-page section.modern-hero-section .hero-triggers li,
+html body .modern-verification-page section.modern-hero-section .hero-triggers li,
+html body section.modern-hero-section-home .hero-triggers li {
+    background: rgba(255, 255, 255, 0.14);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 14px;
+    padding: 12px 14px;
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* В styles.css задан глобальный маркер через li::before (синяя точка) */
+html body .modern-service-page section.modern-hero-section .hero-triggers li::before,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers li::before,
+html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-triggers li::before,
+html body .modern-heating-page section.modern-hero-section .hero-triggers li::before,
+html body .modern-verification-page section.modern-hero-section .hero-triggers li::before,
+html body section.modern-hero-section-home .hero-triggers li::before {
+    content: none !important;
+    display: none !important;
+}
+
+html body .modern-service-page section.modern-hero-section .hero-triggers li,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers li,
+html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-triggers li,
+html body .modern-heating-page section.modern-hero-section .hero-triggers li,
+html body .modern-verification-page section.modern-hero-section .hero-triggers li,
+html body section.modern-hero-section-home .hero-triggers li {
+    padding-left: 14px !important; /* сбрасываем глобальный padding-left:25px из styles.css */
+    margin-bottom: 0 !important; /* сбрасываем глобальный margin-bottom */
+}
+
+@media (max-width: 768px) {
+    html body .modern-service-page section.modern-hero-section .hero-offer,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-offer,
+    html body .modern-heating-page section.modern-hero-section .hero-offer,
+    html body .modern-verification-page section.modern-hero-section .hero-offer,
+    html body section.modern-hero-section-home .hero-offer {
+        font-size: 0.98rem;
+        margin-bottom: 14px !important;
+        padding: 0 2px;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-triggers,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers,
+    html body .modern-heating-page section.modern-hero-section .hero-triggers,
+    html body .modern-verification-page section.modern-hero-section .hero-triggers,
+    html body section.modern-hero-section-home .hero-triggers {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-top: 12px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section .hero-triggers li,
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers li,
+    html body .modern-heating-page section.modern-hero-section .hero-triggers li,
+    html body .modern-verification-page section.modern-hero-section .hero-triggers li,
+    html body section.modern-hero-section-home .hero-triggers li {
+        font-size: 0.92rem;
+        padding: 12px 14px;
+    }
+}
+
 html body .modern-service-page section.modern-hero-section .hero-content-wrapper,
 html body .modern-service-page section.modern-hero-section.heating-hero .hero-content-wrapper,
 html body .modern-heating-page section.modern-hero-section .hero-content-wrapper,
@@ -265,6 +547,22 @@ html body section.modern-hero-section-home .scroll-indicator {
     animation: none !important;
 }
 
+/* Скролл-индикатор удалён с сайта */
+html body .scroll-indicator {
+    display: none !important;
+}
+
+/* ИТП/ЦТП: индикатор остаётся внизу hero, а следующий блок не должен к нему прилипать */
+@media (min-width: 769px) {
+    html body .modern-heating-page section.modern-hero-section {
+        padding-bottom: 132px !important; /* место под индикатор, чтобы он не налезал на секцию ниже */
+    }
+
+    html body .modern-heating-page section.modern-hero-section .scroll-indicator {
+        bottom: 26px !important;
+    }
+}
+
 /* Задача 10: без зацикленных анимаций hero-слоя (перебивает inline/partials, кроме AOS) */
 html body .modern-service-page section.modern-hero-section .hero-gradient,
 html body .modern-service-page section.modern-hero-section.heating-hero .hero-gradient,
@@ -315,15 +613,12 @@ html body .modern-verification-page section.modern-hero-section .hero-title .tit
 
 @media (max-width: 768px) {
 
-    /* Не на весь экран: остаётся ~28% высоты под следующий блок */
+    /* Мобилка: hero НЕ ограничиваем по высоте (как есть), только адаптируем типографику/отступы */
     html body .modern-service-page section.modern-hero-section,
     html body .modern-service-page section.modern-hero-section.heating-hero,
     html body .modern-heating-page section.modern-hero-section,
     html body .modern-verification-page section.modern-hero-section,
     html body section.modern-hero-section-home {
-        min-height: calc(72vh - var(--header-offset, 72px)) !important;
-        min-height: calc(72dvh - var(--header-offset, 72px)) !important;
-        min-height: calc(72svh - var(--header-offset, 72px)) !important;
         padding-bottom: 72px !important;
     }
 
@@ -444,9 +739,6 @@ html body .modern-verification-page section.modern-hero-section .hero-title .tit
     html body .modern-heating-page section.modern-hero-section,
     html body .modern-verification-page section.modern-hero-section,
     html body section.modern-hero-section-home {
-        min-height: calc(66vh - var(--header-offset, 72px)) !important;
-        min-height: calc(66dvh - var(--header-offset, 72px)) !important;
-        min-height: calc(66svh - var(--header-offset, 72px)) !important;
         padding-bottom: 64px !important;
         padding-top: calc(12px + var(--services-panel-slot, 0px)) !important;
     }
@@ -562,4 +854,98 @@ html body main.main-content:has(.modern-heating-page),
 html body main.main-content:has(.modern-verification-page),
 html body main.main-content:has(> .modern-hero-section-home) {
     min-height: unset;
+}
+
+/* ============================================================
+   FIX: фиксированная высота hero + разное наполнение.
+   Уплотняем контент, чтобы не было обреза (2 страницы):
+   - Подготовка к отопительному сезону (heating-hero)
+   - Обслуживание вентиляции (ventilation-hero)
+   ============================================================ */
+
+@media (min-width: 769px) {
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-title,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-title {
+        font-size: clamp(2.15rem, 4.6vw, 3.55rem) !important;
+        line-height: 1.18 !important;
+        margin-bottom: 12px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-description,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-description {
+        font-size: 1.06rem !important;
+        line-height: 1.5 !important;
+        margin-bottom: 14px !important;
+        max-width: 760px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-offer,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-offer {
+        font-size: 0.98rem !important;
+        line-height: 1.45 !important;
+        margin-bottom: 10px !important;
+        max-width: 760px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-stats,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-stats {
+        gap: 22px !important;
+        margin-bottom: 16px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-stats .stat-number,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-stats .stat-number {
+        font-size: 2.25rem !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-actions,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-actions {
+        margin-bottom: 14px !important;
+    }
+
+    /* Триггеры: не “плитка”, а компактные чипсы */
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-triggers {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        gap: 8px 10px !important;
+        margin-top: 8px !important;
+        max-width: 860px !important;
+    }
+
+    html body .modern-service-page section.modern-hero-section.heating-hero .hero-triggers li,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-triggers li {
+        padding: 8px 12px !important;
+        font-size: 0.86rem !important;
+        line-height: 1.25 !important;
+        border-radius: 999px !important;
+        width: auto !important;
+    }
+
+    /* На десктопе скролл-индикатор не критичен, но и не прячем (для единообразия) */
+}
+
+/* Мобилка: скролл-индикатор всегда видим и выше нижних элементов */
+@media (max-width: 768px) {
+    html body .modern-service-page section.modern-hero-section .scroll-indicator,
+    html body .modern-service-page section.modern-hero-section.heating-hero .scroll-indicator,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .scroll-indicator,
+    html body .modern-heating-page section.modern-hero-section .scroll-indicator,
+    html body .modern-verification-page section.modern-hero-section .scroll-indicator,
+    html body section.modern-hero-section-home .scroll-indicator {
+        display: flex !important;
+        bottom: 12px !important;
+        z-index: 6 !important;
+        pointer-events: none;
+    }
+
+    html body .modern-service-page section.modern-hero-section .scroll-mouse,
+    html body .modern-service-page section.modern-hero-section.heating-hero .scroll-mouse,
+    html body .modern-service-page section.modern-hero-section.ventilation-hero .scroll-mouse,
+    html body .modern-heating-page section.modern-hero-section .scroll-mouse,
+    html body .modern-verification-page section.modern-hero-section .scroll-mouse,
+    html body section.modern-hero-section-home .scroll-mouse {
+        opacity: 0.9;
+    }
 }

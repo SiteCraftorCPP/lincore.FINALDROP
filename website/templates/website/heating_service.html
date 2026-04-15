@@ -25,6 +25,14 @@
                     Включая узлы учета. Бесперебойная работа, точный расчет и экономия ресурсов. 
                     Полный цикл обслуживания от собственной аккредитованной лаборатории.
                 </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                    Подготовим для вас полный план работ за 1 день.
+                </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="340">
+                    Подготовим подробный расчет цены для вас после выезда на объект
+                </p>
                 
                 <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
                     <div class="stat-item">
@@ -54,25 +62,27 @@
             </div>
         </div>
         
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Прокрутите вниз</span>
-        </div>
     </section>
 
     <!-- Navigation Pills -->
     <section class="nav-pills-section">
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
+                <button class="pill-btn" data-target="advantages-section">
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='building-2' w=20 h=20 %}</span>
+                    <span>Наше конкурентное преимущество</span>
+                </button>
                 <button class="pill-btn" data-target="technical-service">
                     <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}</span>
                     <span>Полный комплекс услуг</span>
                 </button>
-                <button class="pill-btn" data-target="advantages-section">
-                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='building-2' w=20 h=20 %}</span>
-                    <span>Наше конкурентное преимущество</span>
+                <button class="pill-btn" data-target="repair-service">
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='shield' w=20 h=20 %}</span>
+                    <span>Что это дает вам</span>
+                </button>
+                <button class="pill-btn" data-target="works-gallery">
+                    <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='image' w=20 h=20 %}</span>
+                    <span>Фотографии</span>
                 </button>
             </div>
             <div class="progress-bar">
@@ -254,7 +264,7 @@
     </section>
 
     <!-- Works Gallery Section -->
-    <section class="works-gallery-modern" data-aos="fade-up" data-aos-delay="200">
+    <section class="works-gallery-modern" id="works-gallery" data-aos="fade-up" data-aos-delay="200">
         <div class="gallery-header">
             <h2 class="gallery-title">Фотографии с объектов</h2>
             <p class="gallery-subtitle">Работа наших специалистов</p>
@@ -384,7 +394,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <div class="callback-modal-header-text">
-                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время (Пн–Пт 8:00–18:00), уточним задачу и подскажем по услугам, срокам и стоимости.</p>
                 <h3>Заказать обратный звонок</h3>
             </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
@@ -392,6 +402,7 @@
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
             <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
+            <p class="callback-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
@@ -412,7 +423,7 @@
 <div class="cta-content" data-aos="fade-up">
     <div class="cta-header">
         <h3>Готовы обсудить обслуживание вашего ИТП/ЦТП?</h3>
-        <p>Оставьте заявку или закажите звонок — ответим в рабочее время и подскажем по срокам и стоимости</p>
+        <p>Оставьте заявку или закажите звонок — ответим в рабочее время (Пн–Пт 8:00–18:00) и подскажем по срокам и стоимости</p>
     </div>
     <div class="cta-actions">
         <button class="btn-cta btn-cta-primary" onclick="openApplicationModal()">

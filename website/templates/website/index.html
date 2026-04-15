@@ -26,6 +26,10 @@
                 Комплексное обслуживание и ремонт инженерных систем любой сложности. 
                 Работаем круглосуточно, гарантируем качество и надёжность.
             </p>
+
+            <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                Подготовим подробный расчет цены для вас после выезда на объект
+            </p>
             
             <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
                 <div class="stat-item">
@@ -51,12 +55,79 @@
         </div>
     </div>
     
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator">
-        <div class="scroll-mouse">
-            <div class="scroll-wheel"></div>
+</section>
+
+<!-- Секция преимуществ -->
+<section class="advantages-modern">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <h2 class="section-title-modern">
+                <span class="title-accent">Почему выбирают именно нас</span>
+            </h2>
+            <p class="section-subtitle-modern">Профессиональный подход и гарантированное качество</p>
         </div>
-        <span>Прокрутите вниз</span>
+        
+        <div class="advantages-grid">
+            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="0">
+                <div class="advantage-header">
+                    <div class="advantage-icon">
+                        <div class="icon-circle specialists">
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='wrench' w=26 h=26 %}</span>
+                        </div>
+                    </div>
+                    <div class="advantage-badge">ОПЫТ</div>
+                </div>
+                <div class="advantage-content">
+                    <h3 class="advantage-title">Опытные специалисты</h3>
+                    <p class="advantage-description">Средний стаж работы наших инженеров более 5 лет. Постоянное повышение квалификации.</p>
+                </div>
+            </div>
+            
+            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="100">
+                <div class="advantage-header">
+                    <div class="advantage-icon">
+                        <div class="icon-circle availability">
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='clock' w=26 h=26 %}</span>
+                        </div>
+                    </div>
+                    <div class="advantage-badge">24/7</div>
+                </div>
+                <div class="advantage-content">
+                    <h3 class="advantage-title">Круглосуточно</h3>
+                    <p class="advantage-description">Аварийная служба работает без выходных и перерывов. Быстрое реагирование в любое время.</p>
+                </div>
+            </div>
+            
+            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="200">
+                <div class="advantage-header">
+                    <div class="advantage-icon">
+                        <div class="icon-circle quality">
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='shield' w=26 h=26 %}</span>
+                        </div>
+                    </div>
+                    <div class="advantage-badge">ГАРАНТИЯ</div>
+                </div>
+                <div class="advantage-content">
+                    <h3 class="advantage-title">Гарантия качества</h3>
+                    <p class="advantage-description">Официальная гарантия на все виды выполненных работ. Ответственность за результат.</p>
+                </div>
+            </div>
+            
+            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="300">
+                <div class="advantage-header">
+                    <div class="advantage-icon">
+                        <div class="icon-circle documentation">
+                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='file-text' w=26 h=26 %}</span>
+                        </div>
+                    </div>
+                    <div class="advantage-badge">ОТЧЕТЫ</div>
+                </div>
+                <div class="advantage-content">
+                    <h3 class="advantage-title">Полная отчетность</h3>
+                    <p class="advantage-description">Ведем всю необходимую техническую документацию и предоставляем детальные отчеты.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -272,7 +343,7 @@
     </div>
 </section>
 
-<!-- Команда: после блока услуг, затем преимущества и галерея объектов -->
+<!-- Команда -->
 <section class="team-block-home" aria-label="Наша команда">
     <div class="container">
         <div class="team-intro-section animate-on-scroll animate-fade-in-up">
@@ -373,80 +444,6 @@
                         </button>
                     </div>
                     <div class="gallery-indicators team-gallery-indicators" id="teamGalleryIndicators" aria-hidden="true"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Секция преимуществ -->
-<section class="advantages-modern">
-    <div class="container">
-        <div class="section-header animate-on-scroll">
-            <h2 class="section-title-modern">
-                <span class="title-accent">Почему выбирают именно нас</span>
-            </h2>
-            <p class="section-subtitle-modern">Профессиональный подход и гарантированное качество</p>
-        </div>
-        
-        <div class="advantages-grid">
-            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="0">
-                <div class="advantage-header">
-                    <div class="advantage-icon">
-                        <div class="icon-circle specialists">
-                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='wrench' w=26 h=26 %}</span>
-                        </div>
-                    </div>
-                    <div class="advantage-badge">ОПЫТ</div>
-                </div>
-                <div class="advantage-content">
-                    <h3 class="advantage-title">Опытные специалисты</h3>
-                    <p class="advantage-description">Средний стаж работы наших инженеров более 5 лет. Постоянное повышение квалификации.</p>
-                </div>
-            </div>
-            
-            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="100">
-                <div class="advantage-header">
-                    <div class="advantage-icon">
-                        <div class="icon-circle availability">
-                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='clock' w=26 h=26 %}</span>
-                        </div>
-                    </div>
-                    <div class="advantage-badge">24/7</div>
-                </div>
-                <div class="advantage-content">
-                    <h3 class="advantage-title">Круглосуточно</h3>
-                    <p class="advantage-description">Аварийная служба работает без выходных и перерывов. Быстрое реагирование в любое время.</p>
-                </div>
-            </div>
-            
-            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="200">
-                <div class="advantage-header">
-                    <div class="advantage-icon">
-                        <div class="icon-circle quality">
-                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='shield' w=26 h=26 %}</span>
-                        </div>
-                    </div>
-                    <div class="advantage-badge">ГАРАНТИЯ</div>
-                </div>
-                <div class="advantage-content">
-                    <h3 class="advantage-title">Гарантия качества</h3>
-                    <p class="advantage-description">Официальная гарантия на все виды выполненных работ. Ответственность за результат.</p>
-                </div>
-            </div>
-            
-            <div class="advantage-card animate-on-scroll animate-fade-in-up" data-delay="300">
-                <div class="advantage-header">
-                    <div class="advantage-icon">
-                        <div class="icon-circle documentation">
-                            <span class="icon-emoji">{% include 'website/partials/ui_icon.html' with name='file-text' w=26 h=26 %}</span>
-                        </div>
-                    </div>
-                    <div class="advantage-badge">ОТЧЕТЫ</div>
-                </div>
-                <div class="advantage-content">
-                    <h3 class="advantage-title">Полная отчетность</h3>
-                    <p class="advantage-description">Ведем всю необходимую техническую документацию и предоставляем детальные отчеты.</p>
                 </div>
             </div>
         </div>

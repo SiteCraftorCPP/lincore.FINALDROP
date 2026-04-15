@@ -3,7 +3,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <div class="callback-modal-header-text">
-                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время (Пн–Пт 8:00–18:00), уточним задачу и подскажем по услугам, срокам и стоимости.</p>
                 <h3>Заказать обратный звонок</h3>
             </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
@@ -11,6 +11,7 @@
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
             <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
+            <p class="callback-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">

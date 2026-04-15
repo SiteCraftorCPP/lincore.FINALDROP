@@ -4,7 +4,7 @@
 {% block title %}Подготовка к отопительному сезону - Инженерно-сервисная компания{% endblock %}
 
 {% block content %}
-<div class="modern-service-page">
+<div class="modern-service-page modern-service-page--heating-prep">
     <!-- Modern Hero Section -->
     <section class="modern-hero-section heating-hero">
         <div class="hero-gradient"></div>
@@ -25,6 +25,14 @@
                 <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
                     Работаем с ситуациями любой сложности! Полный комплекс работ для готовности вашей системы отопления к зиме.
                 </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                    Подготовим для вас полный план работ за 1 день.
+                </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="340">
+                    Подготовим подробный расчет цены для вас после выезда на объект
+                </p>
                 
                 <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
                     <div class="stat-item">
@@ -42,25 +50,19 @@
                 </div>
 
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
-                    <a href="tel:{{ contact_info.phone_main }}" class="btn-modern btn-primary">
-                        <span class="btn-text">Позвонить</span>
-                        {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
-                    </a>
-                    <button class="btn-modern btn-secondary" onclick="openQuoteModal()">
+                    <button class="btn-modern btn-primary" onclick="openQuoteModal()">
                         <span class="btn-text">Запросить коммерческое предложение</span>
                         {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
                     </button>
+                    <a href="tel:89530187799" class="btn-modern btn-secondary">
+                        <span class="btn-text">Позвонить</span>
+                        {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
+                    </a>
                 </div>
+
             </div>
         </div>
         
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Прокрутите вниз</span>
-        </div>
     </section>
 
     <!-- Navigation Pills -->
@@ -94,79 +96,79 @@
     <section class="services-grid-section" id="services">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Комплекс технических мероприятий</h2>
-                <p class="section-subtitle">Полный спектр работ для подготовки к отопительному сезону</p>
+                <h2 class="section-title">Услуги</h2>
+                <p class="section-subtitle">Опрессовка и промывка — с выездом и документами под ключ</p>
             </div>
             <div class="heating-services-grid">
-                <!-- Гидравлические испытания -->
+                <!-- 1. Опрессовка систем отопления -->
                 <div class="heating-service-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="service-header">
                         <div class="service-icon-wrapper">
                             <span class="service-icon animated-pressure">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
                         </div>
-                        <h3>Гидравлические испытания (опрессовка)</h3>
+                        <h3>Опрессовка системы отопления в Москве — выезд в течение 2 дней</h3>
                     </div>
+                    <p class="service-description">
+                        Проводим гидравлические испытания и составляем акт опрессовки. Все документы для МОЭК и управляющей компании — под ключ.
+                    </p>
                     <div class="service-features">
-                        <div class="feature-point">
-                            <span>Испытание на прочность и плотность повышенным давлением</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Визуальный контроль сварных соединений, арматуры, компенсаторов и опор</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Выявление дефектов и негерметичности соединений</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Составление актов испытаний по форме</span>
-                        </div>
+                        <div class="feature-point"><span>Выезд специалиста — от 2 дней</span></div>
+                        <div class="feature-point"><span>Акт опрессовки — в день проведения работ</span></div>
+                        <div class="feature-point"><span>Работаем с МКД, ИТП, коммерческими объектами</span></div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn-modern btn-primary" type="button" onclick="openQuoteModal()">
+                            <span class="btn-text">Получить расчёт стоимости</span>
+                            {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
+                        </button>
                     </div>
                 </div>
 
-                <!-- Гидропневматическая промывка -->
+                <!-- 2. Промывка системы отопления -->
                 <div class="heating-service-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="service-header">
                         <div class="service-icon-wrapper">
                             <span class="service-icon animated-wind">{% include 'website/partials/ui_icon.html' with name='wind' w=24 h=24 %}</span>
                         </div>
-                        <h3>Гидропневматическая промывка систем отопления</h3>
+                        <h3>Промывка системы отопления в Москве — восстанавливаем теплоотдачу за 1 день</h3>
                     </div>
+                    <p class="service-description">
+                        Гидропневматическая и химическая промывка. Работаем с жилыми домами, ИТП и коммерческими объектами. Документы после работ — в комплекте.
+                    </p>
                     <div class="service-features">
-                        <div class="feature-point">
-                            <span>Очистка внутренних поверхностей теплообменного оборудования от механических отложений</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Восстановление расчетных гидравлических характеристик системы</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Применение компрессорного оборудования</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Контроль качества промывки по визуальным и химическим показателям</span>
-                        </div>
+                        <div class="feature-point"><span>Выезд бригады — в течение 2 рабочих дней</span></div>
+                        <div class="feature-point"><span>Акт промывки — сразу после завершения работ</span></div>
+                        <div class="feature-point"><span>Стоимость зависит от объёма системы — рассчитаем бесплатно</span></div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn-modern btn-primary" type="button" onclick="openQuoteModal()">
+                            <span class="btn-text">Получить расчёт стоимости</span>
+                            {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
+                        </button>
                     </div>
                 </div>
 
-                <!-- Химическая промывка -->
+                <!-- 3. Подготовка к отопительному сезону -->
                 <div class="heating-service-card" data-aos="zoom-in" data-aos-delay="300">
                     <div class="service-header">
                         <div class="service-icon-wrapper">
-                            <span class="service-icon animated-chemistry">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</span>
+                            <span class="service-icon animated-heating">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
                         </div>
-                        <h3>Химическая промывка теплообменного оборудования</h3>
+                        <h3>Подготовка к отопительному сезону в Москве — акт готовности и допуск МОЭК под ключ</h3>
                     </div>
+                    <p class="service-description">
+                        Опрессовка, промывка, наладка, полный комплект документов. Работаем с МКД, ИТП, административными и коммерческими объектами.
+                    </p>
                     <div class="service-features">
-                        <div class="feature-point">
-                            <span>Циркуляционная промывка ингибированными растворами на основе соляной кислоты или щелочных композиций</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Растворение и удаление накипи, коррозионных отложений и продуктов деградации теплоносителя</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Контроль концентрации рабочего раствора и нейтрализация отходов промывки</span>
-                        </div>
-                        <div class="feature-point">
-                            <span>Восстановление паспортной теплоотдачи теплообменных поверхностей</span>
-                        </div>
+                        <div class="feature-point"><span>5 этапов подготовки — от диагностики до сдачи в эксплуатацию</span></div>
+                        <div class="feature-point"><span>Акт готовности + допуск МОЭК — без вашего участия</span></div>
+                        <div class="feature-point"><span>Сроки и стоимость — после осмотра объекта, бесплатно</span></div>
+                    </div>
+                    <div class="service-actions">
+                        <button class="btn-modern btn-primary" type="button" onclick="openQuoteModal()">
+                            <span class="btn-text">Запросить коммерческое предложение</span>
+                            {% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -267,7 +269,7 @@
 
                 <div class="object-card" data-aos="flip-left" data-aos-delay="200">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-office">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
+                        <span class="object-icon animated-office">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</span>
                     </div>
                     <h3>Административные здания</h3>
                     <p>Офисные центры и государственные учреждения, комплексное обслуживание систем отопления</p>
@@ -283,7 +285,7 @@
 
                 <div class="object-card" data-aos="flip-left" data-aos-delay="400">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-hospital">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
+                        <span class="object-icon animated-hospital">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
                     </div>
                     <h3>Социальные объекты</h3>
                     <p>Школы, больницы, детские сады со специальными требованиями к температурному режиму</p>
@@ -291,10 +293,63 @@
 
                 <div class="object-card" data-aos="flip-left" data-aos-delay="500">
                     <div class="object-icon-wrapper">
-                        <span class="object-icon animated-commercial">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</span>
+                        <span class="object-icon animated-commercial">{% include 'website/partials/ui_icon.html' with name='banknote' w=24 h=24 %}</span>
                     </div>
                     <h3>Коммерческая недвижимость</h3>
                     <p>Торговые центры и коммерческие объекты, энергоэффективные решения для снижения затрат</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documents Section -->
+    <section class="documents-modern-section" id="documents">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">Получаемая документация</h2>
+                <p class="section-subtitle">Полный комплект документов для готовности к отопительному сезону</p>
+            </div>
+            <div class="documents-interactive-grid">
+                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="doc-icon-modern animated-document-ready">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</div>
+                    <h3>Акт готовности к отопительному периоду</h3>
+                    <p>Официальный документ о готовности системы</p>
+                    <div class="doc-badge official">ГОТОВНОСТЬ</div>
+                </div>
+
+                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="doc-icon-modern animated-hydraulic">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</div>
+                    <h3>Акт гидравлических испытаний</h3>
+                    <p>Результаты опрессовки системы отопления</p>
+                    <div class="doc-badge testing">ИСПЫТАНИЯ</div>
+                </div>
+
+                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="doc-icon-modern animated-cleaning">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</div>
+                    <h3>Акт промывки системы отопления</h3>
+                    <p>Документация о проведенной промывке</p>
+                    <div class="doc-badge cleaning">ПРОМЫВКА</div>
+                </div>
+
+                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="doc-icon-modern animated-temperature">{% include 'website/partials/ui_icon.html' with name='thermometer' w=24 h=24 %}</div>
+                    <h3>Протоколы проверки параметров</h3>
+                    <p>Контроль качества теплоносителя</p>
+                    <div class="doc-badge protocol">ПРОТОКОЛЫ</div>
+                </div>
+
+                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="doc-icon-modern animated-scheme">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</div>
+                    <h3>Исполнительные схемы</h3>
+                    <p>Промывки и опрессовки системы</p>
+                    <div class="doc-badge schemes">СХЕМЫ</div>
+                </div>
+
+                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="doc-icon-modern animated-moek">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</div>
+                    <h3>Акт допуска в эксплуатацию МОЭК</h3>
+                    <p>Разрешение на эксплуатацию от МОЭК</p>
+                    <div class="doc-badge moek">МОЭК</div>
                 </div>
             </div>
         </div>
@@ -463,59 +518,6 @@
         </div>
     </section>
 
-    <!-- Documents Section -->
-    <section class="documents-modern-section" id="documents">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2 class="section-title">Получаемая документация</h2>
-                <p class="section-subtitle">Полный комплект документов для готовности к отопительному сезону</p>
-            </div>
-            <div class="documents-interactive-grid">
-                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="doc-icon-modern animated-document-ready">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</div>
-                    <h3>Акт готовности к отопительному периоду</h3>
-                    <p>Официальный документ о готовности системы</p>
-                    <div class="doc-badge official">ГОТОВНОСТЬ</div>
-                </div>
-
-                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="doc-icon-modern animated-hydraulic">{% include 'website/partials/ui_icon.html' with name='droplets' w=24 h=24 %}</div>
-                    <h3>Акт гидравлических испытаний</h3>
-                    <p>Результаты опрессовки системы отопления</p>
-                    <div class="doc-badge testing">ИСПЫТАНИЯ</div>
-                </div>
-
-                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="doc-icon-modern animated-cleaning">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</div>
-                    <h3>Акт промывки системы отопления</h3>
-                    <p>Документация о проведенной промывке</p>
-                    <div class="doc-badge cleaning">ПРОМЫВКА</div>
-                </div>
-
-                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="doc-icon-modern animated-temperature">{% include 'website/partials/ui_icon.html' with name='thermometer' w=24 h=24 %}</div>
-                    <h3>Протоколы проверки параметров</h3>
-                    <p>Контроль качества теплоносителя</p>
-                    <div class="doc-badge protocol">ПРОТОКОЛЫ</div>
-                </div>
-
-                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="doc-icon-modern animated-scheme">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</div>
-                    <h3>Исполнительные схемы</h3>
-                    <p>Промывки и опрессовки системы</p>
-                    <div class="doc-badge schemes">СХЕМЫ</div>
-                </div>
-
-                <div class="document-modern-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="doc-icon-modern animated-moek">{% include 'website/partials/ui_icon.html' with name='building-2' w=24 h=24 %}</div>
-                    <h3>Акт допуска в эксплуатацию МОЭК</h3>
-                    <p>Разрешение на эксплуатацию от МОЭК</p>
-                    <div class="doc-badge moek">МОЭК</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
 </div>
 
 <!-- Modal для запроса КП -->
@@ -559,7 +561,7 @@
     </div>
     <div class="cta-contact-info">
         <p>Отдел технического надзора:</p>
-        <a href="tel:{{ contact_info.phone_main }}" class="animated-phone-call">
+        <a href="tel:89530187799" class="animated-phone-call">
             {% include 'website/partials/ui_icon.html' with name='phone' svg_class='phone-icon' w=20 h=20 %}
             <span>Позвонить</span>
         </a>

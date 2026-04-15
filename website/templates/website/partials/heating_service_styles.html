@@ -300,12 +300,22 @@
 
 /* Navigation Pills */
 .nav-pills-section {
-    background: #f8f9fa;
-    padding: 40px 0 0 0;
-    border-bottom: none;
-    position: sticky;
-    top: var(--header-offset, 100px);
-    z-index: 10;
+    /* Общий стиль nav-плашек в hero-pages.css, тут только тема страницы */
+    --nav-pills-bg: #f8f9ff;
+    --nav-pill-bg: rgba(255, 255, 255, 0.95);
+    --nav-pill-text: #1e1a6b;
+    --nav-pill-border: rgba(15, 10, 74, 0.18);
+    --nav-accent: #1e1a6b;
+    --nav-accent-2: #0f0a4a;
+    --nav-accent-shadow: rgba(30, 26, 107, 0.22);
+    --nav-progress-track: rgba(30, 26, 107, 0.14);
+    /* Без градиентов: однотонная подсветка как “акцент страницы” */
+    --nav-pill-active-bg: var(--nav-accent);
+    --nav-progress: var(--nav-accent);
+
+    position: relative !important;
+    top: auto !important;
+    z-index: auto !important;
 }
 
 /* Якоря секций: учёт фиксированной шапки и липкой полосы с пилюлями */
@@ -314,60 +324,14 @@
     scroll-margin-top: calc(var(--header-offset, 100px) + 6.75rem);
 }
 
-.nav-pills {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    padding: 20px 0;
-}
+/* остальное (кнопки/прогресс) — в hero-pages.css */
 
-.pill-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 28px;
-    background: #1e1a6b;
-    border: 2px solid transparent;
-    border-radius: 50px;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    min-height: 56px;
-}
-
-.pill-btn:hover,
-.pill-btn.active {
-    background: #0f0a4a;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(30, 26, 107, 0.3);
-}
-
-.pill-icon {
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.progress-bar {
-    height: 4px;
-    background: #e9ecef;
-    border-radius: 2px;
-    overflow: hidden;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, #1e1a6b, #0f766e);
-    border-radius: 2px;
-    width: 33.333%;
-    transition: width 0.3s ease;
+/* CTA-кнопки: hover как у активной навигации */
+.modern-heating-page .btn-modern.btn-primary:hover {
+    background: var(--nav-accent, #1e1a6b);
+    border-color: var(--nav-accent, #1e1a6b);
+    color: #ffffff;
+    box-shadow: 0 15px 35px rgba(30, 26, 107, 0.35);
 }
 
 /* Section Styles */

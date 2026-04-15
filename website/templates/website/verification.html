@@ -17,13 +17,16 @@
                 </div>
                 
                 <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
-                    <span class="title-main white-title">Поверка, ремонт и восстановление</span>
-                    <span class="title-accent white-title">приборов учета</span>
+                    <span class="title-main white-title">Поверка, ремонт и восстановление<br>приборов учета</span>
                 </h1>
                 
                 <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
-                    Аккредитованная метрологическая лаборатория. Полный цикл услуг от поверки до восстановления.
-                    Официальные документы для РСО.
+                    Аккредитованная метрологическая лаборатория. Полный цикл услуг от поверки до восстановления. Официальные документы для РСО.
+                </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                    Аттестат аккредитации <strong>RA.RU.320280</strong> ·
+                    <a href="https://pub.fsa.gov.ru/ral/view/38356/applicant" target="_blank" rel="noopener noreferrer">реестр Росаккредитации</a>
                 </p>
                 
                 <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
@@ -34,10 +37,10 @@
                 </div>
 
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
-        <button class="btn-modern btn-primary" onclick="openApplicationModal()">
-            <span class="btn-text">Оставить заявку</span>
-            <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
-        </button>
+                    <button class="btn-modern btn-primary" onclick="openApplicationModal()">
+                        <span class="btn-text">Оставить заявку</span>
+                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
+                    </button>
                     <button class="btn-modern btn-secondary" onclick="openCallbackModal()">
                         <span class="btn-text">Заказать звонок специалиста</span>
                         <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
@@ -46,19 +49,16 @@
             </div>
         </div>
         
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Прокрутите вниз</span>
-        </div>
     </section>
 
     <!-- Navigation Pills -->
     <section class="nav-pills-section">
         <div class="container">
             <div class="nav-pills" data-aos="fade-up">
+                <button class="pill-btn" data-target="advantages-section">
+                    {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
+                    <span>Почему выбирают нас</span>
+                </button>
                 <button class="pill-btn" data-target="about-services">
                     {% include 'website/partials/ui_icon.html' with name='scale' w=20 h=20 %}
                     <span>Уникальные возможности</span>
@@ -71,13 +71,82 @@
                     <span class="pill-icon">{% include 'website/partials/ui_icon.html' with name='car' w=20 h=20 %}</span>
                     <span>Как мы работаем</span>
                 </button>
-                <button class="pill-btn" data-target="advantages-section">
-                    {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
-                    <span>Почему выбирают нас</span>
-                </button>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="advantages-section" id="advantages-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-title-wrapper">
+                    <h2 class="section-title">Почему выбирают нас?</h2>
+                </div>
+            </div>
+
+            <div class="advantages-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="advantage-header">
+                        <div class="advantage-tag">ВСЁ В ОДНОМ</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h4 class="advantage-title">«Все в одном»</h4>
+                        <p class="advantage-description">Поверка и ремонт у одного подрядчика</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="advantage-header">
+                        <div class="advantage-tag">ЭКОНОМИЯ</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h4 class="advantage-title">Восстановление</h4>
+                        <p class="advantage-description">Вместо замены — экономия до 70% бюджета</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="advantage-header">
+                        <div class="advantage-tag">СРОКИ</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h4 class="advantage-title">Сжатые сроки</h4>
+                        <p class="advantage-description">В среднем в 1,5–2 раза быстрее за счёт собственной лаборатории и выстроенной логистики</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="advantage-header">
+                        <div class="advantage-tag">ПРОЗРАЧНОСТЬ</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h4 class="advantage-title">Контроль на каждом этапе</h4>
+                        <p class="advantage-description">Статус заказа, сроки и документы — без скрытых этапов и «чёрного ящика»</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="advantage-header">
+                        <div class="advantage-tag">АККРЕДИТАЦИЯ</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h4 class="advantage-title">Легальность</h4>
+                        <p class="advantage-description">Официальные документы для РСО и проверяющих органов</p>
+                    </div>
+                </div>
+
+                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="advantage-header">
+                        <div class="advantage-tag">ПОДДЕРЖКА</div>
+                    </div>
+                    <div class="advantage-content">
+                        <h4 class="advantage-title">Поддержка</h4>
+                        <p class="advantage-description">В случае если прибор невозможно восстановить поможем с приобретением</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -98,71 +167,6 @@
                 </div>
             </div>
 
-            <!-- Geography Section -->
-            <div class="geography-section" data-aos="fade-up" data-aos-delay="300">
-                <div class="section-title-wrapper">
-                    <div class="section-icon animate-spin">{% include 'website/partials/ui_icon.html' with name='car' w=48 h=48 %}</div>
-                    <h3 class="section-title">География работы</h3>
-                </div>
-
-                <div class="geography-content">
-                    <div class="coverage-zone">
-                        <div class="zone-header">
-                            <div class="zone-icon">{% include 'website/partials/ui_icon.html' with name='map-pin' w=24 h=24 %}</div>
-                            <h4>Основная зона покрытия с регулярными курьерскими рейсами:</h4>
-                        </div>
-                        <div class="cities-grid cities-grid--2x3">
-                            <div class="city-item">
-                                <span class="city-marker" aria-hidden="true"></span>
-                                <span>Москва</span>
-                            </div>
-                            <div class="city-item">
-                                <span class="city-marker" aria-hidden="true"></span>
-                                <span>Московская область</span>
-                            </div>
-                            <div class="city-item">
-                                <span class="city-marker" aria-hidden="true"></span>
-                                <span>Владимир</span>
-                            </div>
-                            <div class="city-item">
-                                <span class="city-marker" aria-hidden="true"></span>
-                                <span>Нижний Новгород</span>
-                            </div>
-                            <div class="city-item">
-                                <span class="city-marker" aria-hidden="true"></span>
-                                <span>Чебоксары</span>
-                            </div>
-                            <div class="city-item">
-                                <span class="city-marker" aria-hidden="true"></span>
-                                <span>Казань</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">{% include 'website/partials/ui_icon.html' with name='wrench' w=28 h=28 %}</div>
-                            <h4>Сертифицированный сервисный центр</h4>
-                            <p>Для ремонта и восстановления приборов</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">{% include 'website/partials/ui_icon.html' with name='zap' w=28 h=28 %}</div>
-                            <h4>Оперативность</h4>
-                            <p>За счет отсутствия посредников</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=28 h=28 %}</div>
-                            <h4>Официальная гарантия</h4>
-                            <p>На все виды работ</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">{% include 'website/partials/ui_icon.html' with name='car' w=28 h=28 %}</div>
-                            <h4>Выездные работы</h4>
-                            <p>С помощью передвижной лаборатории</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -333,79 +337,6 @@
         </div>
     </section>
 
-    <!-- Advantages Section -->
-    <section class="advantages-section" id="advantages-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="section-title-wrapper">
-                    <h2 class="section-title">Почему выбирают нас?</h2>
-                </div>
-            </div>
-
-            <div class="advantages-grid" data-aos="fade-up" data-aos-delay="200">
-                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="advantage-header">
-                        <div class="advantage-tag">ВСЁ В ОДНОМ</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h4 class="advantage-title">«Все в одном»</h4>
-                        <p class="advantage-description">Поверка и ремонт у одного подрядчика</p>
-                    </div>
-                </div>
-
-                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="advantage-header">
-                        <div class="advantage-tag">ЭКОНОМИЯ</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h4 class="advantage-title">Восстановление</h4>
-                        <p class="advantage-description">Вместо замены — экономия до 70% бюджета</p>
-                    </div>
-                </div>
-
-                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="advantage-header">
-                        <div class="advantage-tag">СРОКИ</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h4 class="advantage-title">Сжатые сроки</h4>
-                        <p class="advantage-description">В среднем в 1,5–2 раза быстрее за счёт собственной лаборатории и выстроенной логистики</p>
-                    </div>
-                </div>
-
-                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="advantage-header">
-                        <div class="advantage-tag">ПРОЗРАЧНОСТЬ</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h4 class="advantage-title">Контроль на каждом этапе</h4>
-                        <p class="advantage-description">Статус заказа, сроки и документы — без скрытых этапов и «чёрного ящика»</p>
-                    </div>
-                </div>
-
-                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="500">
-                    <div class="advantage-header">
-                        <div class="advantage-tag">АККРЕДИТАЦИЯ</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h4 class="advantage-title">Легальность</h4>
-                        <p class="advantage-description">Официальные документы для РСО и проверяющих органов</p>
-                    </div>
-                </div>
-
-                <div class="advantage-card" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="advantage-header">
-                        <div class="advantage-tag">ПОДДЕРЖКА</div>
-                    </div>
-                    <div class="advantage-content">
-                        <h4 class="advantage-title">Поддержка</h4>
-                        <p class="advantage-description">В случае если прибор невозможно восстановить поможем с приобретением</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Works Gallery Section -->
     <section class="works-gallery-modern" data-aos="fade-up" data-aos-delay="200">
         <div class="gallery-header">
@@ -551,7 +482,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <div class="callback-modal-header-text">
-                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время, уточним задачу и подскажем по услугам, срокам и стоимости.</p>
+                <p class="callback-modal-tagline">Оставьте контакты — перезвоним в рабочее время (Пн–Пт 8:00–18:00), уточним задачу и подскажем по услугам, срокам и стоимости.</p>
                 <h3>Заказать обратный звонок</h3>
             </div>
             <span class="close" onclick="closeCallbackModal()">&times;</span>
@@ -559,6 +490,7 @@
         <form id="callbackForm" class="modal-form" method="post" action="javascript:void(0)">
             {% csrf_token %}
             <p class="callback-modal-intro">Укажите телефон — перезвоним и уточним детали. Номер не передаётся третьим лицам.</p>
+            <p class="callback-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
                 <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">

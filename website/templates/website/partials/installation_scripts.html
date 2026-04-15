@@ -73,6 +73,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const pills = document.querySelectorAll('.pill-btn');
     const progressFill = document.querySelector('.progress-fill');
     let userClicked = false;
+
+    function headerScrollOffsetPx() {
+        const header = document.getElementById('header');
+        const headerH = header ? header.getBoundingClientRect().height : 72;
+        return headerH + 8;
+    }
+
+    function scrollToSectionTop(sectionEl) {
+        const offset = headerScrollOffsetPx();
+        const top = sectionEl.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+    }
     
     function updateProgress(activeIndex) {
         const progress = ((activeIndex + 1) / pills.length) * 100;
@@ -99,14 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetElement = document.getElementById(target);
             
             if (targetElement) {
-                const offset = 100;
-                const elementPosition = targetElement.offsetTop;
-                const offsetPosition = elementPosition - offset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
+                scrollToSectionTop(targetElement);
             }
         });
     });
@@ -120,12 +125,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         let current = '';
-        
+
+        const scrollY = window.scrollY || document.documentElement.scrollTop;
+        const trigger = headerScrollOffsetPx() + 12;
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            
-            if (pageYOffset >= sectionTop - 200) {
+            const top = section.getBoundingClientRect().top + scrollY;
+            if (scrollY + trigger >= top) {
                 current = section.getAttribute('id');
             }
         });

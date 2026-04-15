@@ -224,19 +224,20 @@ document.addEventListener('DOMContentLoaded', function() {
         progressFill.style.width = `${progress}%`;
     }
 
-    function headerScrollOffset() {
+    function headerScrollOffsetPx() {
         const header = document.getElementById('header');
-        return (header ? header.getBoundingClientRect().height : 72) + 16;
+        const headerH = header ? header.getBoundingClientRect().height : 72;
+        /* Чуть меньше запас, чтобы “не перелистывать” */
+        return headerH + 8;
     }
 
-    /** Прокрутка: подзаголовок секции оказывается сразу под фиксированной шапкой сайта */
+    /** Прокрутка: начало секции сразу под фиксированной шапкой */
     function scrollToPillTarget(href) {
         const targetEl = document.querySelector(href);
         if (!targetEl) return;
         const section = targetEl.closest('section') || targetEl;
-        const alignEl = section.querySelector('.section-subtitle') || section.querySelector('.section-header') || section;
-        const offset = headerScrollOffset();
-        const top = alignEl.getBoundingClientRect().top + window.scrollY - offset;
+        const offset = headerScrollOffsetPx();
+        const top = section.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
     }
     
@@ -255,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateActiveSection() {
         let current = '';
         const scrollY = window.scrollY || document.documentElement.scrollTop;
-        const trigger = headerScrollOffset() + 40;
+        const trigger = headerScrollOffsetPx() + 12;
 
         sections.forEach((section) => {
             const id = section.getAttribute('id');

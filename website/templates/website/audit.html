@@ -43,6 +43,10 @@
                 <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
                     Бесплатное обследование объектов и подготовка документов для закупок по 44-ФЗ и 223-ФЗ
                 </p>
+
+                <p class="hero-offer" data-aos="fade-up" data-aos-delay="320">
+                    Подготовим подробный расчет цены для вас после выезда на объект
+                </p>
                 
                 <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
                     <div class="stat-item">
@@ -66,7 +70,7 @@
                 </div>
 
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
-                    <a href="tel:{{ contact_info.phone_main }}" class="btn-modern btn-primary">
+                    <a href="tel:89530187799" class="btn-modern btn-primary">
                         <span class="btn-text">Позвонить</span>
                         {% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}
                     </a>
@@ -78,38 +82,250 @@
             </div>
         </div>
         
-        <!-- Scroll indicator -->
-        <div class="scroll-indicator">
-            <div class="scroll-mouse">
-                <div class="scroll-wheel"></div>
-            </div>
-            <span>Прокрутите вниз</span>
-        </div>
     </section>
 
     <!-- Navigation Pills -->
     <section class="nav-pills-section">
     <div class="container">
             <div class="nav-pills" data-aos="fade-up">
-                <button class="pill-btn" data-target="services-section">
-                    {% include 'website/partials/ui_icon.html' with name='search' w=20 h=20 %}
-                    <span>Услуги</span>
-                </button>
                 <button class="pill-btn" data-target="why-us-section">
                     {% include 'website/partials/ui_icon.html' with name='wrench' w=20 h=20 %}
                     <span>Почему выбирают нас</span>
-                </button>
-                <button class="pill-btn" data-target="documents-section">
-                    {% include 'website/partials/ui_icon.html' with name='file-text' w=20 h=20 %}
-                    <span>Перечень документов</span>
                 </button>
                 <button class="pill-btn" data-target="advantages-section">
                     {% include 'website/partials/ui_icon.html' with name='circle-check' w=20 h=20 %}
                     <span>Преимущества</span>
                 </button>
+                <button class="pill-btn" data-target="services-section">
+                    {% include 'website/partials/ui_icon.html' with name='search' w=20 h=20 %}
+                    <span>Услуги</span>
+                </button>
+                <button class="pill-btn" data-target="documents-section">
+                    {% include 'website/partials/ui_icon.html' with name='file-text' w=20 h=20 %}
+                    <span>Перечень документов</span>
+                </button>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section class="why-us-section" id="why-us-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-icon">
+                    <div class="icon-wrapper">
+                        <span class="icon animate-tools">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
+                    </div>
+                </div>
+                <h2 class="section-title">Почему выбирают нас?</h2>
+                <p class="section-subtitle">Профессиональный подход к каждому проекту</p>
+            </div>
+            
+            <div class="why-us-interactive-grid">
+                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="100">
+                    <div class="why-card-front">
+                        <div class="why-icon-container">
+                            <div class="why-icon-bg">
+                                <span class="why-icon animate-wrench">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
+                            </div>
+                            <div class="why-glow-effect"></div>
+                        </div>
+                        <h4>Комплексный подход</h4>
+                        <div class="why-hover-indicator">
+                            <span>Подробнее</span>
+                            <div class="hover-arrow">→</div>
+                        </div>
+                    </div>
+                    <div class="why-card-back">
+                        <div class="why-detail-content">
+                            <h5>Что это означает?</h5>
+                            <p>обслуживаем все инженерные системы</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="200">
+                    <div class="why-card-front">
+                        <div class="why-icon-container">
+                            <div class="why-icon-bg">
+                                <span class="why-icon animate-specialist">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
+                            </div>
+                            <div class="why-glow-effect"></div>
+                        </div>
+                                <h4>Квалифицированные специалисты</h4>
+                        <div class="why-hover-indicator">
+                            <span>Подробнее</span>
+                            <div class="hover-arrow">→</div>
+                        </div>
+                    </div>
+                    <div class="why-card-back">
+                        <div class="why-detail-content">
+                            <h5>Наш опыт</h5>
+                                <p>с опытом работы более 5 лет</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="300">
+                    <div class="why-card-front">
+                        <div class="why-icon-container">
+                            <div class="why-icon-bg">
+                                <span class="why-icon animate-clock" aria-hidden="true">
+                                    {% include 'website/partials/ui_icon.html' with name='smartphone' w=24 h=24 %}
+                                </span>
+                            </div>
+                            <div class="why-glow-effect"></div>
+                        </div>
+                                <h4>Круглосуточная поддержка</h4>
+                        <div class="why-hover-indicator">
+                            <span>Подробнее</span>
+                            <div class="hover-arrow">→</div>
+                        </div>
+                    </div>
+                    <div class="why-card-back">
+                        <div class="why-detail-content">
+                            <h5>24/7 работаем</h5>
+                                <p>оперативное решение аварийных ситуаций</p>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="400">
+                    <div class="why-card-front">
+                        <div class="why-icon-container">
+                            <div class="why-icon-bg">
+                                <span class="why-icon animate-documents">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
+                            </div>
+                            <div class="why-glow-effect"></div>
+                        </div>
+                        <h4>Полный документооборот</h4>
+                        <div class="why-hover-indicator">
+                            <span>Подробнее</span>
+                            <div class="hover-arrow">→</div>
+                        </div>
+                    </div>
+                    <div class="why-card-back">
+                        <div class="why-detail-content">
+                            <h5>Все документы</h5>
+                            <p>вся необходимая отчетность</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="advantages-section" id="advantages-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <div class="section-icon">
+                    <div class="icon-wrapper">
+                        <span class="icon animate-star">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
+                    </div>
+                </div>
+                <h2 class="section-title">Преимущества</h2>
+                <p class="section-subtitle">Почему госзаказчики выбирают нас</p>
+            </div>
+            
+            <div class="advantages-masonry-grid">
+                <div class="masonry-advantage-card large-card" data-aos="zoom-in-up" data-aos-delay="100">
+                    <div class="advantage-background-effect"></div>
+                    <div class="advantage-floating-elements">
+                        <div class="floating-dot dot-1"></div>
+                        <div class="floating-dot dot-2"></div>
+                        <div class="floating-dot dot-3"></div>
+                    </div>
+                    <div class="advantage-icon-mega">
+                        <div class="icon-orbit">
+                            <span class="mega-emoji animate-speed">
+                                {% include 'website/partials/ui_icon.html' with name='clock' w=24 h=24 %}
+                            </span>
+                        </div>
+                        <div class="icon-shadow"></div>
+                    </div>
+                    <div class="advantage-content-mega">
+                        <div class="advantage-metric">40%</div>
+                        <h4>Сокращение сроков подготовки</h4>
+                        <p>Быстрая подготовка документации для закупок</p>
+                        <div class="advantage-indicator">
+                            <div class="indicator-bar"></div>
+                            <span>ЭФФЕКТИВНОСТЬ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="masonry-advantage-card" data-aos="zoom-in-up" data-aos-delay="200">
+                    <div class="advantage-background-effect"></div>
+                    <div class="advantage-floating-elements">
+                        <div class="floating-dot dot-1"></div>
+                        <div class="floating-dot dot-2"></div>
+                    </div>
+                    <div class="advantage-icon-mega">
+                        <div class="icon-orbit">
+                            <span class="mega-emoji animate-savings">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</span>
+                        </div>
+                        <div class="icon-shadow"></div>
+                            </div>
+                    <div class="advantage-content-mega">
+                                <h4>Экономия бюджетных средств</h4>
+                                <p>Оптимизация расходов за счет точных расчетов</p>
+                        <div class="advantage-indicator">
+                            <div class="indicator-bar"></div>
+                            <span>ЭКОНОМИЯ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="masonry-advantage-card compliance-highlight" data-aos="zoom-in-up" data-aos-delay="300">
+                    <div class="advantage-background-effect"></div>
+                    <div class="compliance-badge">44-ФЗ</div>
+                    <div class="advantage-floating-elements">
+                        <div class="floating-dot dot-1"></div>
+                        <div class="floating-dot dot-2"></div>
+                        <div class="floating-dot dot-3"></div>
+                    </div>
+                    <div class="advantage-icon-mega">
+                        <div class="icon-orbit">
+                            <span class="mega-emoji animate-compliance">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
+                        </div>
+                        <div class="icon-shadow"></div>
+                            </div>
+                    <div class="advantage-content-mega">
+                                <h4>Полное соответствие требованиям 44-ФЗ</h4>
+                                <p>Все документы соответствуют законодательству</p>
+                        <div class="advantage-indicator compliance">
+                            <div class="indicator-bar"></div>
+                            <span>СООТВЕТСТВИЕ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="masonry-advantage-card premium-card" data-aos="zoom-in-up" data-aos-delay="400">
+                    <div class="advantage-background-effect"></div>
+                    <div class="premium-badge">СРО</div>
+                    <div class="advantage-floating-elements">
+                        <div class="floating-dot dot-1"></div>
+                        <div class="floating-dot dot-2"></div>
+                    </div>
+                    <div class="advantage-icon-mega">
+                        <div class="icon-orbit">
+                            <span class="mega-emoji animate-medal">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
+                        </div>
+                        <div class="icon-shadow"></div>
+                            </div>
+                    <div class="advantage-content-mega">
+                                <h4>Команда специалистов с допусками СРО</h4>
+                                <p>Высококвалифицированные эксперты</p>
+                        <div class="advantage-indicator premium">
+                            <div class="indicator-bar"></div>
+                            <span>КАЧЕСТВО</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -204,111 +420,6 @@
                         <h3>Консультации</h3>
                                 <p>По 44-ФЗ и 223-ФЗ</p>
                         <div class="card-badge law-badge">ЗАКОН</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Us Section -->
-    <section class="why-us-section" id="why-us-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="section-icon">
-                    <div class="icon-wrapper">
-                        <span class="icon animate-tools">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
-                    </div>
-                </div>
-                <h2 class="section-title">Почему выбирают нас?</h2>
-                <p class="section-subtitle">Профессиональный подход к каждому проекту</p>
-            </div>
-            
-            <div class="why-us-interactive-grid">
-                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="100">
-                    <div class="why-card-front">
-                        <div class="why-icon-container">
-                            <div class="why-icon-bg">
-                                <span class="why-icon animate-wrench">{% include 'website/partials/ui_icon.html' with name='wrench' w=24 h=24 %}</span>
-                            </div>
-                            <div class="why-glow-effect"></div>
-                        </div>
-                        <h4>Комплексный подход</h4>
-                        <div class="why-hover-indicator">
-                            <span>Подробнее</span>
-                            <div class="hover-arrow">→</div>
-                        </div>
-                    </div>
-                    <div class="why-card-back">
-                        <div class="why-detail-content">
-                            <h5>Что это означает?</h5>
-                            <p>обслуживаем все инженерные системы</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="200">
-                    <div class="why-card-front">
-                        <div class="why-icon-container">
-                            <div class="why-icon-bg">
-                                <span class="why-icon animate-specialist">{% include 'website/partials/ui_icon.html' with name='users' w=24 h=24 %}</span>
-                            </div>
-                            <div class="why-glow-effect"></div>
-                        </div>
-                                <h4>Квалифицированные специалисты</h4>
-                        <div class="why-hover-indicator">
-                            <span>Подробнее</span>
-                            <div class="hover-arrow">→</div>
-                        </div>
-                    </div>
-                    <div class="why-card-back">
-                        <div class="why-detail-content">
-                            <h5>Наш опыт</h5>
-                                <p>с опытом работы более 5 лет</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="300">
-                    <div class="why-card-front">
-                        <div class="why-icon-container">
-                            <div class="why-icon-bg">
-                                <span class="why-icon animate-clock">⏰</span>
-                            </div>
-                            <div class="why-glow-effect"></div>
-                        </div>
-                                <h4>Круглосуточная поддержка</h4>
-                        <div class="why-hover-indicator">
-                            <span>Подробнее</span>
-                            <div class="hover-arrow">→</div>
-                        </div>
-                    </div>
-                    <div class="why-card-back">
-                        <div class="why-detail-content">
-                            <h5>24/7 работаем</h5>
-                                <p>оперативное решение аварийных ситуаций</p>
-                            </div>
-                    </div>
-                </div>
-
-                <div class="interactive-why-card" data-aos="flip-left" data-aos-delay="400">
-                    <div class="why-card-front">
-                        <div class="why-icon-container">
-                            <div class="why-icon-bg">
-                                <span class="why-icon animate-documents">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
-                            </div>
-                            <div class="why-glow-effect"></div>
-                        </div>
-                        <h4>Полный документооборот</h4>
-                        <div class="why-hover-indicator">
-                            <span>Подробнее</span>
-                            <div class="hover-arrow">→</div>
-                        </div>
-                    </div>
-                    <div class="why-card-back">
-                        <div class="why-detail-content">
-                            <h5>Все документы</h5>
-                            <p>вся необходимая отчетность</p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -454,116 +565,6 @@
                         <button class="nav-dot" data-target="3"></button>
                         <button class="nav-dot" data-target="4"></button>
                         <button class="nav-dot" data-target="5"></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Advantages Section -->
-    <section class="advantages-section" id="advantages-section">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <div class="section-icon">
-                    <div class="icon-wrapper">
-                        <span class="icon animate-star">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
-                    </div>
-                </div>
-                <h2 class="section-title">Преимущества</h2>
-                <p class="section-subtitle">Почему госзаказчики выбирают нас</p>
-            </div>
-            
-            <div class="advantages-masonry-grid">
-                <div class="masonry-advantage-card large-card" data-aos="zoom-in-up" data-aos-delay="100">
-                    <div class="advantage-background-effect"></div>
-                    <div class="advantage-floating-elements">
-                        <div class="floating-dot dot-1"></div>
-                        <div class="floating-dot dot-2"></div>
-                        <div class="floating-dot dot-3"></div>
-                    </div>
-                    <div class="advantage-icon-mega">
-                        <div class="icon-orbit">
-                            <span class="mega-emoji animate-speed">⏱</span>
-                        </div>
-                        <div class="icon-shadow"></div>
-                    </div>
-                    <div class="advantage-content-mega">
-                        <div class="advantage-metric">40%</div>
-                        <h4>Сокращение сроков подготовки</h4>
-                        <p>Быстрая подготовка документации для закупок</p>
-                        <div class="advantage-indicator">
-                            <div class="indicator-bar"></div>
-                            <span>ЭФФЕКТИВНОСТЬ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="masonry-advantage-card" data-aos="zoom-in-up" data-aos-delay="200">
-                    <div class="advantage-background-effect"></div>
-                    <div class="advantage-floating-elements">
-                        <div class="floating-dot dot-1"></div>
-                        <div class="floating-dot dot-2"></div>
-                    </div>
-                    <div class="advantage-icon-mega">
-                        <div class="icon-orbit">
-                            <span class="mega-emoji animate-savings">{% include 'website/partials/ui_icon.html' with name='bar-chart-2' w=24 h=24 %}</span>
-                        </div>
-                        <div class="icon-shadow"></div>
-                            </div>
-                    <div class="advantage-content-mega">
-                                <h4>Экономия бюджетных средств</h4>
-                                <p>Оптимизация расходов за счет точных расчетов</p>
-                        <div class="advantage-indicator">
-                            <div class="indicator-bar"></div>
-                            <span>ЭКОНОМИЯ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="masonry-advantage-card compliance-highlight" data-aos="zoom-in-up" data-aos-delay="300">
-                    <div class="advantage-background-effect"></div>
-                    <div class="compliance-badge">44-ФЗ</div>
-                    <div class="advantage-floating-elements">
-                        <div class="floating-dot dot-1"></div>
-                        <div class="floating-dot dot-2"></div>
-                        <div class="floating-dot dot-3"></div>
-                    </div>
-                    <div class="advantage-icon-mega">
-                        <div class="icon-orbit">
-                            <span class="mega-emoji animate-compliance">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=24 h=24 %}</span>
-                        </div>
-                        <div class="icon-shadow"></div>
-                            </div>
-                    <div class="advantage-content-mega">
-                                <h4>Полное соответствие требованиям 44-ФЗ</h4>
-                                <p>Все документы соответствуют законодательству</p>
-                        <div class="advantage-indicator compliance">
-                            <div class="indicator-bar"></div>
-                            <span>СООТВЕТСТВИЕ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="masonry-advantage-card premium-card" data-aos="zoom-in-up" data-aos-delay="400">
-                    <div class="advantage-background-effect"></div>
-                    <div class="premium-badge">СРО</div>
-                    <div class="advantage-floating-elements">
-                        <div class="floating-dot dot-1"></div>
-                        <div class="floating-dot dot-2"></div>
-                    </div>
-                    <div class="advantage-icon-mega">
-                        <div class="icon-orbit">
-                            <span class="mega-emoji animate-medal">{% include 'website/partials/ui_icon.html' with name='circle-check' w=24 h=24 %}</span>
-                        </div>
-                        <div class="icon-shadow"></div>
-                            </div>
-                    <div class="advantage-content-mega">
-                                <h4>Команда специалистов с допусками СРО</h4>
-                                <p>Высококвалифицированные эксперты</p>
-                        <div class="advantage-indicator premium">
-                            <div class="indicator-bar"></div>
-                            <span>КАЧЕСТВО</span>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -770,7 +771,7 @@
     </div>
     <div class="government-contact" data-aos="fade-up" data-aos-delay="300">
         <p class="contact-label">Отдел по работе с госзаказчиками:</p>
-        <a href="tel:{{ contact_info.phone_main }}" class="government-phone">
+        <a href="tel:89530187799" class="government-phone">
             {% include 'website/partials/ui_icon.html' with name='phone' svg_class='phone-icon' w=20 h=20 %}
             <span>Позвонить</span>
         </a>
