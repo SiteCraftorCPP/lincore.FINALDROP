@@ -11,7 +11,7 @@
     
     <!-- CSS -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202604021800">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}?v=202604192000">
     <link rel="stylesheet" href="{% static 'css/ui-icons.css' %}?v=202604021700">
     
     <!-- Meta теги -->
@@ -24,9 +24,10 @@
     <meta property="og:type" content="website">
     
     {% block extra_css %}{% endblock %}
-    <link rel="stylesheet" href="{% static 'css/hero-pages.css' %}?v=202604152115">
+    <link rel="stylesheet" href="{% static 'css/hero-pages.css' %}?v=202604191900">
 </head>
 <body class="{% block body_class %}{% endblock %}">
+    {% block site_preloader %}
     <!-- Прелоадер -->
     <div id="preloader">
         <div class="preloader-spinner">
@@ -34,7 +35,9 @@
             <p>Загрузка...</p>
         </div>
     </div>
+    {% endblock %}
 
+    {% block site_header %}
     <!-- Новая расширенная шапка -->
     <header class="header" id="header">
         <div class="container">
@@ -208,6 +211,7 @@
             </div>
         </div>
     </header>
+    {% endblock %}
 
 
     <!-- Основное содержимое -->
@@ -244,10 +248,23 @@
     </footer>
     {% endblock %}
 
+    {% block site_callback_fab %}
     <button type="button" class="callback-fab" data-service="call" title="Обратный звонок" aria-label="Обратный звонок">
         <span class="callback-fab__icon" aria-hidden="true">{% include 'website/partials/ui_icon.html' with name='phone' w=24 h=24 %}</span>
     </button>
+    {% endblock %}
 
+    {% block site_scroll_top %}
+    <button type="button" class="scroll-top-fab" id="scrollTopFab" aria-label="Наверх страницы" title="Наверх страницы">
+        <span class="scroll-top-fab__icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                <path d="m18 15-6-6-6 6" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </span>
+    </button>
+    {% endblock %}
+
+    {% block site_modals %}
     <!-- Модальное окно приглашения в тендер -->
     <div class="modal" id="tenderModal">
         <div class="modal-content tender-modal-content">
@@ -309,7 +326,7 @@
                     </div>
                     
                     <input type="hidden" id="serviceType" name="service_type" value="">
-                    
+                    {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_service_modal' %}
                     <button type="submit" class="btn-submit">Отправить заявку</button>
                 </form>
             </div>
@@ -334,7 +351,7 @@
                         <label for="callPhone">Телефон *</label>
                         <input type="tel" id="callPhone" name="phone" class="form-input" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
                     </div>
-                    
+                    {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_call_modal' %}
                     <p class="call-modal-footnote">В выходные и праздники ответ может занять дольше. Срочные ситуации — позвоните по номеру в шапке сайта.</p>
                     
                     <div class="form-actions">
@@ -344,12 +361,13 @@
             </div>
         </div>
     </div>
+    {% endblock %}
 
     <!-- Уведомления -->
     <div id="notifications"></div>
 
     <!-- JavaScript -->
-    <script src="{% static 'js/main.js' %}?v=202604021800"></script>
+    <script src="{% static 'js/main.js' %}?v=202604191900"></script>
     {% block extra_js %}{% endblock %}
     
     <!-- Intersection Observer Polyfill для старых браузеров -->

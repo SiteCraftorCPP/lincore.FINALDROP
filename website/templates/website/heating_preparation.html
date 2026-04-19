@@ -542,6 +542,7 @@
             </div>
             <input type="hidden" name="service_type" value="heating_preparation_service">
             <input type="hidden" name="request_type" value="quote_request">
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_preparation_quote' %}
             <button type="submit" class="submit-btn">Отправить заявку</button>
         </form>
     </div>

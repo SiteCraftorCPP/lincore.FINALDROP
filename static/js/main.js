@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initAnimatedBorders();
     initModernInteractions();
     initPerformanceOptimizations();
+    initScrollTopFab();
 
     // Обработка якорей при загрузке страницы
     handlePageAnchor();
@@ -76,6 +77,40 @@ function handlePageAnchor() {
             }
         }, 500); // Небольшая задержка для загрузки контента
     }
+}
+
+function initScrollTopFab() {
+    const btn = document.getElementById('scrollTopFab');
+    if (!btn) return;
+
+    const threshold = 200;
+    let ticking = false;
+
+    function updateVisibility() {
+        if (window.scrollY > threshold) {
+            btn.classList.add('scroll-top-fab--visible');
+        } else {
+            btn.classList.remove('scroll-top-fab--visible');
+        }
+        ticking = false;
+    }
+
+    function onScroll() {
+        if (!ticking) {
+            ticking = true;
+            window.requestAnimationFrame(updateVisibility);
+        }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('load', updateVisibility);
+    updateVisibility();
+
+    btn.addEventListener('click', () => {
+        const instant = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: instant ? 'auto' : 'smooth' });
+    });
 }
 
 // Прелоадер
@@ -564,7 +599,8 @@ async function handleServiceSubmit(e) {
         const data = {
             full_name: (formData.get('full_name') || '').trim(),
             phone: (formData.get('phone') || '').trim(),
-            service_type: formData.get('service_type')
+            service_type: formData.get('service_type'),
+            agreed_to_processing: form.querySelector('input[name="agreed_to_processing"]')?.checked === true,
         };
 
         const response = await fetch('/ajax/service-application/', {
@@ -912,13 +948,15 @@ function initModernFeatures() {
                 full_name: (formData.get('full_name') || '').trim(),
                 phone: (formData.get('phone') || '').trim(),
                 service_type: 'main_page',
-                request_type: 'callback'
+                request_type: 'callback',
+                agreed_to_processing: this.querySelector('input[name="agreed_to_processing"]')?.checked === true,
             };
 
             fetch('/ajax/service-application/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRFToken': getCSRFToken(),
                 },
                 body: JSON.stringify(data)
             })

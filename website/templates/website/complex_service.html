@@ -511,6 +511,7 @@
                 <input type="tel" id="applicationPhone" name="phone" required>
             </div>
             <input type="hidden" name="service_type" value="complex_service">
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_complex_application' %}
             <button type="submit" class="submit-btn">Отправить заявку</button>
         </form>
     </div>
@@ -536,6 +537,7 @@
             </div>
             <input type="hidden" name="service_type" value="complex_service">
             <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_complex_callback' %}
             <button type="submit" class="submit-btn">Заказать звонок</button>
         </form>
     </div>
@@ -550,8 +552,8 @@
         <p>Обеспечим бесперебойную работу ваших инженерных систем 24/7</p>
     </div>
     <div class="cta-bottom-offer">
-        <button type="button" class="cta-offer-link" onclick="openApplicationModal()">
-            Оставьте заявку и получите бесплатную консультацию нашего специалиста!
+        <button type="button" class="btn-cta btn-cta-primary cta-footer-consult-btn" onclick="openApplicationModal()">
+            Бесплатная консультация нашего специалиста
         </button>
     </div>
 </div>
@@ -1833,48 +1835,40 @@ details.system-accordion[open] .system-accordion-chevron::after {
 
 .cta-bottom-offer {
     margin: 36px auto 52px;
-    max-width: 760px;
+    max-width: min(560px, 100%);
     text-align: center;
+    display: flex;
+    justify-content: center;
 }
 
-.cta-offer-link {
-    display: inline;
-    background: none;
-    border: none;
-    padding: 12px 10px;
-    margin: 0;
+.cta-footer-consult-btn {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 16px 28px !important;
+    min-height: 52px;
+    font-size: clamp(0.95rem, 2.4vw, 1.05rem) !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    white-space: normal !important;
+    text-align: center !important;
     cursor: pointer;
-    font-family: inherit;
-    font-size: clamp(1.1rem, 2.8vw, 1.45rem);
-    font-weight: 800;
-    color: #fff;
-    line-height: 1.45;
-    text-align: center;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.45);
-    text-underline-offset: 0.18em;
-    -webkit-tap-highlight-color: transparent;
+    border-style: solid;
     opacity: 0;
-    animation: ctaOfferAppear 0.75s ease 0.15s forwards;
+    animation: ctaFooterConsultAppear 0.65s ease 0.12s forwards;
 }
 
-.cta-offer-link:hover,
-.cta-offer-link:focus-visible {
-    color: #fff;
-    text-decoration-color: rgba(255, 255, 255, 0.95);
-}
-
-.cta-offer-link:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.85);
+.cta-footer-consult-btn:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.55);
     outline-offset: 4px;
-    border-radius: 4px;
 }
 
-@keyframes ctaOfferAppear {
+@keyframes ctaFooterConsultAppear {
     from {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(8px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -2118,8 +2112,9 @@ details.system-accordion[open] .system-accordion-chevron::after {
         padding: 0 8px;
     }
 
-    .cta-offer-link {
-        font-size: 1.15rem;
+    .cta-footer-consult-btn {
+        font-size: 1rem !important;
+        padding: 14px 22px !important;
     }
     
     /* Исправления для блоков с анимацией печатания */
@@ -2224,8 +2219,9 @@ details.system-accordion[open] .system-accordion-chevron::after {
         font-size: 16px;
     }
     
-    .cta-offer-link {
-        font-size: 1.05rem;
+    .cta-footer-consult-btn {
+        font-size: 0.95rem !important;
+        padding: 14px 18px !important;
     }
     
 }

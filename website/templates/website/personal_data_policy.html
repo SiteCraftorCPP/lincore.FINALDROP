@@ -2,6 +2,25 @@
 
 {% block title %}Политика в отношении обработки персональных данных{% endblock %}
 
+{% block body_class %}page-legal-policy{% endblock %}
+
+{% block site_preloader %}{% endblock %}
+
+{% block site_header %}
+<header class="legal-site-header" id="header">
+    <div class="container legal-site-header__inner">
+        <a href="{% url 'website:index' %}" class="legal-site-header__back">
+            <span class="legal-site-header__back-icon" aria-hidden="true">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                    <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </span>
+            <span class="legal-site-header__back-text">На главную</span>
+        </a>
+    </div>
+</header>
+{% endblock %}
+
 {% block content %}
 <section class="legal-page" aria-label="Политика обработки персональных данных">
     <div class="container legal-page__inner">
@@ -9,3 +28,11 @@
     </div>
 </section>
 {% endblock %}
+
+{% block site_reviews %}{% endblock %}
+
+{% block site_footer %}{% endblock %}
+
+{% block site_callback_fab %}{% endblock %}
+
+{% block site_modals %}{% endblock %}

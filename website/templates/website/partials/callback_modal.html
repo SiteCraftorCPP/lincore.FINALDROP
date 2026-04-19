@@ -18,6 +18,7 @@
             </div>
             <input type="hidden" name="service_type" value="">
             <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_vent_callback' %}
             <button type="submit" class="submit-btn">Заказать звонок</button>
         </form>
     </div>

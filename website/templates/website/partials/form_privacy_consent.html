@@ -1,0 +1,10 @@
+{# consent_id — уникальный id чекбокса в пределах страницы #}
+<div class="form-group tender-consent-group">
+    <label class="tender-consent-label" for="{{ consent_id }}">
+        <input type="checkbox" id="{{ consent_id }}" class="tender-consent-input" name="agreed_to_processing" required>
+        <span class="tender-consent-text">
+            Согласен на
+            <a href="{% url 'website:personal_data_policy' %}" target="_blank" rel="noopener noreferrer">обработку персональных данных</a>
+        </span>
+    </label>
+</div>

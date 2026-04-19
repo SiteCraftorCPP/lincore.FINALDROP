@@ -343,6 +343,7 @@
                     <input type="tel" name="phone" placeholder="Телефон" required>
                 </div>
                 <input type="hidden" name="service_type" value="emergency_service">
+                {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_emergency_application' %}
                 <button type="submit" class="btn-submit">Отправить заявку</button>
             </form>
         </div>
@@ -369,6 +370,7 @@
             </div>
             <input type="hidden" name="service_type" value="emergency_service">
             <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_emergency_callback' %}
             <button type="submit" class="submit-btn">Заказать звонок</button>
         </form>
     </div>

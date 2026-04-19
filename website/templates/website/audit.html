@@ -754,6 +754,7 @@
                 <input type="text" id="quoteOrganization" name="organization" required>
             </div>
             <input type="hidden" name="service_type" value="Аудит инженерных систем">
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_audit_quote' %}
             <button type="submit" class="submit-btn">Отправить заявку</button>
         </form>
     </div>

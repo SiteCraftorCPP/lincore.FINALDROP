@@ -2,17 +2,30 @@
    Префикс html body повышает специфичность над inline-стилями из partials/extra_css
    (цепочки только из классов не перебивают html body + тип section). */
 
+/* Единый минимум высоты первого блока (симметрия между страницами).
+   Только min-height; height/max-height не задаём — секция растёт вниз по контенту.
+   ВАЖНО: не смешивать overflow-x:hidden с overflow-y:visible — по спецификации вторая ось становится auto и даёт скролл ВНУТРИ блока.
+   Здесь overflow:hidden на секции: при height:auto блок растёт, полосы прокрутки внутри героя нет. */
+:root {
+    --hero-first-screen-height: calc(88vh - var(--header-offset, 72px));
+}
+
+@supports (height: 88svh) {
+    :root {
+        --hero-first-screen-height: calc(88svh - var(--header-offset, 72px));
+    }
+}
+
 html body .modern-service-page section.modern-hero-section,
 html body .modern-service-page section.modern-hero-section.heating-hero,
 html body .modern-heating-page section.modern-hero-section,
 html body .modern-verification-page section.modern-hero-section,
 html body section.modern-hero-section-home {
     display: flex !important;
-    /* center по вертикали ломал страницы с коротким контентом (Аварийная и др.):
-       блок уезжал вниз — огромный зазор над плашкой; эталон — контент от верха героя */
     align-items: flex-start !important;
     justify-content: center !important;
     position: relative !important;
+    box-sizing: border-box !important;
     overflow: hidden !important;
     margin-top: 0 !important;
     /* слот под панель «Услуги» внутри героя — заливается фоном этой секции (градиент страницы) */
@@ -20,8 +33,30 @@ html body section.modern-hero-section-home {
     padding-left: 0 !important;
     padding-right: 0 !important;
     padding-bottom: 100px !important;
-    min-height: calc(100vh - var(--header-offset, 72px)) !important;
-    min-height: calc(100svh - var(--header-offset, 72px)) !important;
+    min-height: var(--hero-first-screen-height) !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+/* Обёртки без фиксированной высоты и без overflow:auto (иначе внутренний скролл) */
+html body .modern-service-page section.modern-hero-section .container,
+html body .modern-heating-page section.modern-hero-section .container,
+html body .modern-verification-page section.modern-hero-section .container,
+html body section.modern-hero-section-home .container {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
+}
+
+html body .modern-service-page section.modern-hero-section .hero-content-wrapper,
+html body .modern-service-page section.modern-hero-section.heating-hero .hero-content-wrapper,
+html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-content-wrapper,
+html body .modern-heating-page section.modern-hero-section .hero-content-wrapper,
+html body .modern-verification-page section.modern-hero-section .hero-content-wrapper,
+html body section.modern-hero-section-home .hero-content-wrapper {
+    overflow: visible !important;
+    max-height: none !important;
+    height: auto !important;
 }
 
 /* ============================================================
@@ -31,7 +66,7 @@ html body section.modern-hero-section-home {
 
 html body :is(.modern-service-page, .modern-heating-page, .modern-verification-page, .page-home) .nav-pills-section {
     background: var(--nav-pills-bg, #f8f9fa);
-    padding: 24px 0 0 0;
+    padding: 24px 0 20px 0;
     border-bottom: none;
 }
 
@@ -96,21 +131,8 @@ html body :is(.modern-service-page, .modern-heating-page, .modern-verification-p
     transition: width 0.5s ease;
 }
 
-/* Десктоп: первый экран ниже 100vh, чтобы читался следующий блок */
+/* Десктоп: плотность типографики первого экрана */
 @media (min-width: 769px) {
-    html body .modern-service-page section.modern-hero-section,
-    html body .modern-service-page section.modern-hero-section.heating-hero,
-    html body .modern-heating-page section.modern-hero-section,
-    html body .modern-verification-page section.modern-hero-section,
-    html body section.modern-hero-section-home {
-        min-height: calc(75vh - var(--header-offset, 72px)) !important;
-        min-height: calc(75svh - var(--header-offset, 72px)) !important;
-        height: calc(75vh - var(--header-offset, 72px)) !important;
-        height: calc(75svh - var(--header-offset, 72px)) !important;
-        max-height: calc(75vh - var(--header-offset, 72px)) !important;
-        max-height: calc(75svh - var(--header-offset, 72px)) !important;
-    }
-
     /* Десктоп: единая «высотка» и плотность первого экрана как на странице
        «Подготовка к отопительному сезону в Москве». */
     html body .modern-service-page section.modern-hero-section,
@@ -613,7 +635,7 @@ html body .modern-verification-page section.modern-hero-section .hero-title .tit
 
 @media (max-width: 768px) {
 
-    /* Мобилка: hero НЕ ограничиваем по высоте (как есть), только адаптируем типографику/отступы */
+    /* Та же высота --hero-first-screen-height, что и на десктопе; ниже — только типографика и отступы */
     html body .modern-service-page section.modern-hero-section,
     html body .modern-service-page section.modern-hero-section.heating-hero,
     html body .modern-heating-page section.modern-hero-section,
@@ -725,10 +747,6 @@ html body .modern-verification-page section.modern-hero-section .hero-title .tit
 
     html body .modern-service-page section.modern-hero-section.ventilation-hero .hero-badge .badge-icon {
         flex-shrink: 0 !important;
-    }
-
-    html body main.main-content {
-        min-height: 0 !important;
     }
 }
 

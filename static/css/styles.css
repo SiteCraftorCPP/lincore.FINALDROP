@@ -433,16 +433,19 @@ body.loaded {
     box-sizing: border-box;
     padding: 0 12px;
     font-size: 13px;
-    max-width: min(200px, 28vw);
+    max-width: none;
+    flex: 0 0 auto;
     height: 40px;
     min-height: 40px;
     max-height: 40px;
     line-height: 1;
+    white-space: nowrap;
 }
 
 .header-actions .phone-link-text {
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: nowrap;
 }
 
 .header-actions .header-worktime {
@@ -899,8 +902,8 @@ body.loaded {
 }
 
 .header-actions .phone-link {
-    flex-shrink: 1 !important;
-    min-width: 0 !important;
+    flex-shrink: 0 !important;
+    min-width: min-content !important;
 }
 
 /* АДАПТИВНОСТЬ ДЛЯ ШАПКИ: на узких экранах — логотип, звонок 48px, бургер; остальное в drawer */
@@ -1007,11 +1010,10 @@ body.loaded {
     padding: 0 20px;
 }
 
-/* Внутренние отступы секций не дублируем с body — верхний отступ страницы задаётся padding-top у body */
+/* Внутренние отступы: не трогаем section целиком — иначе сбивается padding у .advantages-modern, .nav-pills-section и др. */
 .main-content,
 .service-page,
 main,
-section:not(.site-reviews),
 .hero-simple,
 .service-hero,
 .page-header,
@@ -3728,14 +3730,14 @@ section:not(.site-reviews),
     margin-bottom: 20px;
 }
 
-#callbackModal .form-group label {
+#callbackModal .form-group label:not(.tender-consent-label) {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
     color: #374151;
 }
 
-#callbackModal .form-group input,
+#callbackModal .form-group input:not(.tender-consent-input),
 #callbackModal .form-group select {
     width: 100%;
     padding: 12px 16px;
@@ -3747,7 +3749,7 @@ section:not(.site-reviews),
     font-family: inherit;
 }
 
-#callbackModal .form-group input:focus,
+#callbackModal .form-group input:not(.tender-consent-input):focus,
 #callbackModal .form-group select:focus {
     outline: none;
     border-color: var(--color-blue);
@@ -3837,14 +3839,14 @@ section:not(.site-reviews),
     margin-bottom: 20px;
 }
 
-#applicationModal .form-group label {
+#applicationModal .form-group label:not(.tender-consent-label) {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
     color: #374151;
 }
 
-#applicationModal .form-group input,
+#applicationModal .form-group input:not(.tender-consent-input),
 #applicationModal .form-group textarea {
     width: 100%;
     padding: 12px 16px;
@@ -3856,7 +3858,7 @@ section:not(.site-reviews),
     font-family: inherit;
 }
 
-#applicationModal .form-group input:focus,
+#applicationModal .form-group input:not(.tender-consent-input):focus,
 #applicationModal .form-group textarea:focus {
     outline: none;
     border-color: var(--color-blue);
@@ -3952,6 +3954,21 @@ section:not(.site-reviews),
     }
 }
 
+/* Модалка «Запросить КП»: поля, согласие и кнопка не слипаются */
+#quoteModal .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#quoteModal .modal-form > .form-group {
+    margin-bottom: 0;
+}
+
+#quoteModal .modal-form > .form-group.tender-consent-group {
+    margin-top: 0;
+}
+
 /* Кнопка «Отправить» в модалках заявки на страницах услуг (без отдельного id) */
 .modal .modal-content .submit-btn,
 .modal .modal-content .btn-submit {
@@ -4032,6 +4049,103 @@ section:not(.site-reviews),
     }
 }
 
+/* Кнопка «наверх»: тот же диаметр и стиль, что у .callback-fab */
+.scroll-top-fab {
+    position: fixed;
+    right: max(18px, env(safe-area-inset-right, 0px));
+    /* 18 (отступ снизу у звонка) + 56 (высота) + 12 (зазор) */
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 86px);
+    z-index: 1490;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    line-height: 1;
+    background: linear-gradient(135deg, #1e1a6b 0%, #3d5ba5 100%);
+    box-shadow:
+        0 10px 32px rgba(30, 26, 107, 0.45),
+        inset 0 1px 0 rgba(255, 255, 255, 0.22);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px);
+    pointer-events: none;
+    transition:
+        opacity 0.28s ease,
+        visibility 0.28s ease,
+        transform 0.28s ease,
+        box-shadow 0.25s ease,
+        filter 0.2s ease;
+}
+
+.scroll-top-fab.scroll-top-fab--visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.scroll-top-fab.scroll-top-fab--visible:hover {
+    box-shadow:
+        0 14px 40px rgba(30, 26, 107, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    filter: brightness(1.06);
+    transform: translateY(0) scale(1.05);
+}
+
+.scroll-top-fab.scroll-top-fab--visible:active {
+    transform: translateY(0) scale(0.96);
+    filter: brightness(0.98);
+}
+
+.scroll-top-fab:focus-visible {
+    outline: 3px solid rgba(61, 91, 165, 0.55);
+    outline-offset: 3px;
+}
+
+.scroll-top-fab__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-top-fab__icon svg {
+    display: block;
+}
+
+.page-legal-policy .scroll-top-fab {
+    bottom: max(18px, env(safe-area-inset-bottom, 0px));
+}
+
+@media (max-width: 480px) {
+    .scroll-top-fab {
+        width: 52px;
+        height: 52px;
+        bottom: calc(env(safe-area-inset-bottom, 0px) + 82px);
+    }
+
+    .page-legal-policy .scroll-top-fab {
+        bottom: max(18px, env(safe-area-inset-bottom, 0px));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-top-fab {
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .scroll-top-fab.scroll-top-fab--visible:hover,
+    .scroll-top-fab.scroll-top-fab--visible:active {
+        transform: none;
+        filter: none;
+    }
+}
+
 /* Согласие на ПДн — форма «Пригласить в тендер» (модалка) */
 .form-group.tender-consent-group {
     gap: 0;
@@ -4041,11 +4155,11 @@ section:not(.site-reviews),
 .tender-consent-label {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.45;
     color: var(--color-text-dark);
     max-width: 100%;
 }
@@ -4059,9 +4173,15 @@ section:not(.site-reviews),
     width: 18px;
     height: 18px;
     min-width: 18px;
-    margin: 3px 0 0 0;
+    max-width: 18px;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
     accent-color: #1e1a6b;
     cursor: pointer;
+    vertical-align: middle;
 }
 
 .tender-consent-text {
@@ -4241,6 +4361,90 @@ section:not(.site-reviews),
     color: var(--color-text-dark);
 }
 
+.page-legal-policy .legal-site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: #fff;
+    border-bottom: 1px solid rgba(61, 91, 165, 0.15);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.page-legal-policy .legal-site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding: 12px 0;
+}
+
+.page-legal-policy .legal-site-header__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px 10px 18px;
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    color: var(--color-blue);
+    text-decoration: none;
+    background: linear-gradient(180deg, rgba(61, 91, 165, 0.1) 0%, rgba(61, 91, 165, 0.06) 100%);
+    border: 1px solid rgba(61, 91, 165, 0.22);
+    border-radius: 999px;
+    box-shadow: 0 1px 2px rgba(30, 26, 107, 0.06);
+    transition:
+        transform 0.22s ease,
+        box-shadow 0.22s ease,
+        background 0.22s ease,
+        border-color 0.22s ease;
+}
+
+.page-legal-policy .legal-site-header__back-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.22s ease;
+}
+
+.page-legal-policy .legal-site-header__back:hover {
+    background: linear-gradient(180deg, rgba(61, 91, 165, 0.16) 0%, rgba(61, 91, 165, 0.09) 100%);
+    border-color: rgba(61, 91, 165, 0.38);
+    box-shadow: 0 6px 20px rgba(61, 91, 165, 0.2);
+    transform: translateY(-1px);
+}
+
+.page-legal-policy .legal-site-header__back:hover .legal-site-header__back-icon {
+    transform: translateX(-3px);
+}
+
+.page-legal-policy .legal-site-header__back:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(61, 91, 165, 0.12);
+}
+
+.page-legal-policy .legal-site-header__back:focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-legal-policy .legal-site-header__back,
+    .page-legal-policy .legal-site-header__back-icon {
+        transition: none;
+    }
+
+    .page-legal-policy .legal-site-header__back:hover,
+    .page-legal-policy .legal-site-header__back:active {
+        transform: none;
+    }
+
+    .page-legal-policy .legal-site-header__back:hover .legal-site-header__back-icon {
+        transform: none;
+    }
+}
+
 /* ФОРМЫ */
 .form {
     display: flex;
@@ -4259,7 +4463,7 @@ section:not(.site-reviews),
     color: var(--color-text-dark);
 }
 
-.form-group input,
+.form-group input:not(.tender-consent-input),
 .form-group textarea {
     padding: 12px 16px;
     border: 2px solid rgba(61, 91, 165, 0.2);
@@ -4269,7 +4473,7 @@ section:not(.site-reviews),
     transition: border-color var(--transition-normal);
 }
 
-.form-group input:focus,
+.form-group input:not(.tender-consent-input):focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--color-blue);
@@ -5305,6 +5509,10 @@ div[style*="height: 60px"][style*="background: #ffffff"] {
     background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(99,102,241,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
     opacity: 0.6;
     pointer-events: none;
+}
+
+.advantages-modern > .container > .section-header:first-child {
+    margin-top: 0;
 }
 
 .section-header {

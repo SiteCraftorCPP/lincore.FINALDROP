@@ -65,6 +65,7 @@ class ServiceApplication(models.Model):
     request_type = models.CharField("Тип заявки", max_length=20, choices=REQUEST_TYPE_CHOICES, default='application')
     created_at = models.DateTimeField("Дата создания", default=timezone.now)
     processed = models.BooleanField("Обработана", default=False)
+    agreed_to_processing = models.BooleanField("Согласие на обработку ПДн", default=False)
     
     class Meta:
         verbose_name = "Заявка на услугу"

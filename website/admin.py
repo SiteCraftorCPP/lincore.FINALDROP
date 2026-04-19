@@ -52,7 +52,7 @@ class ServiceApplicationAdmin(admin.ModelAdmin):
     
     fieldsets = (
         ('Данные заявителя', {
-            'fields': ('full_name', 'phone', 'organization')
+            'fields': ('full_name', 'phone', 'organization', 'agreed_to_processing')
         }),
         ('Информация о заявке', {
             'fields': ('service_type', 'request_type', 'message', 'preferred_time', 'created_at', 'processed')

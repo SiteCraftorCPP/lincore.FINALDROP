@@ -9,6 +9,22 @@ import json
 from .models import ContactInfo, ServiceApplication, TenderInvitation, CommercialProposal
 
 
+CONSENT_REQUIRED_MESSAGE = "Необходимо согласие на обработку персональных данных."
+
+
+def _consent_from_post(post):
+    return post.get("agreed_to_processing") == "on"
+
+
+def _consent_from_json(data):
+    v = data.get("agreed_to_processing")
+    if v is True:
+        return True
+    if isinstance(v, str) and v.lower() in ("1", "true", "yes", "on"):
+        return True
+    return False
+
+
 def get_contact_info():
     """Получить контактную информацию (всегда объект с полями по умолчанию)."""
     try:
@@ -227,6 +243,12 @@ def service_application(request):
                 'message': 'Укажите телефон для связи.'
             }, status=400)
 
+        if not _consent_from_json(data):
+            return JsonResponse({
+                'success': False,
+                'message': CONSENT_REQUIRED_MESSAGE,
+            }, status=400)
+
         application = ServiceApplication.objects.create(
             full_name=(data.get('full_name') or '').strip(),
             phone=phone,
@@ -234,7 +256,8 @@ def service_application(request):
             request_type=request_type,
             organization=data.get('organization', ''),
             message=data.get('message', ''),
-            preferred_time=data.get('preferred_time', '')
+            preferred_time=data.get('preferred_time', ''),
+            agreed_to_processing=True,
         )
         
         return JsonResponse({
@@ -268,6 +291,12 @@ def submit_request(request):
                     'success': False,
                     'message': 'Укажите телефон для связи.'
                 }, status=400)
+
+            if not _consent_from_post(request.POST):
+                return JsonResponse({
+                    'success': False,
+                    'message': CONSENT_REQUIRED_MESSAGE,
+                }, status=400)
             
             application = ServiceApplication.objects.create(
                 full_name=full_name,
@@ -276,7 +305,8 @@ def submit_request(request):
                 request_type=request_type,
                 organization=organization,
                 message=message,
-                preferred_time=preferred_time
+                preferred_time=preferred_time,
+                agreed_to_processing=True,
             )
             
             return JsonResponse({
@@ -351,6 +381,12 @@ def submit_quote(request):
                 'success': False,
                 'message': 'Укажите телефон для связи.'
             })
+
+        if not _consent_from_post(request.POST):
+            return JsonResponse({
+                'success': False,
+                'message': CONSENT_REQUIRED_MESSAGE,
+            }, status=400)
         
         # Создаем запись в ServiceApplication
         application = ServiceApplication.objects.create(
@@ -359,7 +395,8 @@ def submit_quote(request):
             service_type=service_type,
             request_type='quote_request',
             organization=organization,
-            message='Запрос коммерческого предложения'
+            message='Запрос коммерческого предложения',
+            agreed_to_processing=True,
         )
         
         return JsonResponse({

@@ -472,6 +472,7 @@
                 <input type="tel" id="applicationPhone" name="phone" required>
             </div>
             <input type="hidden" name="service_type" value="verification_service">
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_verification_application' %}
             <button type="submit" class="submit-btn">Отправить заявку</button>
         </form>
     </div>
@@ -497,6 +498,7 @@
             </div>
             <input type="hidden" name="service_type" value="verification_service">
             <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_verification_callback' %}
             <button type="submit" class="submit-btn">Заказать звонок</button>
         </form>
     </div>

@@ -12,6 +12,7 @@
                 <input type="tel" id="applicationPhone" name="phone" required>
             </div>
             <input type="hidden" name="service_type" value="">
+            {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_vent_application' %}
             <button type="submit" class="submit-btn">Отправить заявку</button>
         </form>
     </div>
