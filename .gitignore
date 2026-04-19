@@ -150,3 +150,5 @@ Thumbs.db
 *.txt
 !requirements.txt
 !env_example.txt
+# Текст политики ПДн читается из файла (website.views.personal_data_policy)
+!static/legal/personal_data_policy.txt
