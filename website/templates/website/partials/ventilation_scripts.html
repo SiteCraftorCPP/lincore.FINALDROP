@@ -812,6 +812,9 @@ function initForms() {
         console.error(' callbackForm not found!');
     }
     
+    if (typeof window.refreshPhoneFieldMeta === 'function') {
+        window.refreshPhoneFieldMeta();
+    }
     console.log(' === FORMS INITIALIZATION COMPLETE ===');
 }
 

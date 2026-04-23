@@ -130,6 +130,17 @@ document.addEventListener('DOMContentLoaded', function () {
     initIntersectionObserver();
 
     console.log('🎨 Современный дизайн загружен успешно!');
+
+    setTimeout(function () {
+        if (typeof refreshPhoneFieldMeta === 'function') {
+            refreshPhoneFieldMeta();
+        }
+    }, 400);
+    setTimeout(function () {
+        if (typeof refreshPhoneFieldMeta === 'function') {
+            refreshPhoneFieldMeta();
+        }
+    }, 2000);
 });
 
 // Обработка якорей при загрузке страницы
@@ -731,12 +742,15 @@ function getCSRFToken() {
     return metaTag ? metaTag.getAttribute('content') : '';
 }
 
-// Единые тосты (как на /services/ventilation/: зелёный/красный, справа сверху; на мобилке — по центру сверху)
+// Тосты 1-в-1 в духе /services/ventilation/ (зелёный success справа сверху, z-index выше модалок)
 function showNotification(message, type = 'info') {
     const el = document.createElement('div');
     el.setAttribute('role', 'status');
     el.setAttribute('aria-live', 'polite');
-    const esc = (String(message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+    const esc = String(message)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
     el.innerHTML = `<span class="site-toast__text">${esc}</span>`;
     const bg = {
         success: 'linear-gradient(135deg, #10b981, #059669)',
@@ -745,16 +759,19 @@ function showNotification(message, type = 'info') {
         warning: 'linear-gradient(135deg, #f59e0b, #d97706)',
     }[type] || 'linear-gradient(135deg, #1e88e5, #0d47a1)';
     const narrow = window.matchMedia('(max-width: 768px)').matches;
+    const z = 2147482000;
     if (narrow) {
         el.className = 'site-toast site-toast--mob';
         el.style.cssText = [
             'position:fixed',
             'top:max(88px,calc(env(safe-area-inset-top,0px)+72px))',
             'left:50%',
+            'right:auto',
             'transform:translateX(-50%)',
             'width:min(420px,calc(100vw - 24px))',
+            'max-width:calc(100vw - 24px)',
             'box-sizing:border-box',
-            'z-index:10050',
+            'z-index:' + z,
             'padding:14px 18px',
             'border-radius:12px',
             'box-shadow:0 10px 30px rgba(0,0,0,.2)',
@@ -764,7 +781,7 @@ function showNotification(message, type = 'info') {
             'font-size:15px',
             'line-height:1.35',
             'background:' + bg,
-            'animation:fadeInUp 0.35s ease-out',
+            'animation:fadeInUp 0.3s ease-out',
         ].join(';');
     } else {
         el.className = 'site-toast';
@@ -772,7 +789,7 @@ function showNotification(message, type = 'info') {
             'position:fixed',
             'top:20px',
             'right:20px',
-            'z-index:10050',
+            'z-index:' + z,
             'min-width:250px',
             'max-width:min(400px,92vw)',
             'padding:16px 24px',
@@ -782,25 +799,25 @@ function showNotification(message, type = 'info') {
             'font-weight:600',
             'text-align:center',
             'background:' + bg,
-            'animation:slideInRight 0.35s ease-out',
+            'animation:slideInRight 0.3s ease-out',
         ].join(';');
     }
     document.body.appendChild(el);
-    const ms = 4000;
+    const ms = type === 'error' ? 5000 : 4000;
     setTimeout(function () {
         if (!el.parentNode) {
             return;
         }
-        el.style.transition = 'opacity 0.25s, transform 0.25s';
+        el.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
         el.style.opacity = '0';
         if (narrow) {
-            el.style.transform = 'translateX(-50%) translateY(-10px)';
+            el.style.transform = 'translateX(-50%) translateY(-12px)';
         } else {
-            el.style.transform = 'translateX(20px)';
+            el.style.transform = 'translateX(32px)';
         }
         setTimeout(function () {
             el.remove();
-        }, 250);
+        }, 280);
     }, ms);
 }
 window.showNotification = showNotification;
@@ -870,6 +887,19 @@ function initSmoothScroll() {
     });
 }
 
+function isPhoneMaskTarget(el) {
+    if (!el || el.nodeName !== 'INPUT') {
+        return false;
+    }
+    if (el.getAttribute('data-phone-skip') === '1') {
+        return false;
+    }
+    if (el.type === 'tel') {
+        return true;
+    }
+    return el.getAttribute('name') === 'phone' && (el.type === 'text' || el.type === '');
+}
+
 // Маска +7 (___) ___-__-__, не более 11 цифр
 function formatPhoneInputValue(raw) {
     let d = String(raw).replace(/\D/g, '');
@@ -905,42 +935,73 @@ function formatPhoneInputValue(raw) {
     return formatted;
 }
 
+let _phoneMaskDelegationInit = false;
+
+function ensurePhoneInputMeta(t) {
+    if (!isPhoneMaskTarget(t)) {
+        return;
+    }
+    if (!t.placeholder) {
+        t.placeholder = '+7 (999) 123-45-67';
+    }
+    t.setAttribute('inputmode', 'tel');
+    t.setAttribute('autocomplete', 'tel');
+    if (t.type !== 'tel' && t.getAttribute('name') === 'phone') {
+        t.setAttribute('type', 'tel');
+    }
+}
+
+/**
+ * Делегирование на document — маска не слетает после cloneNode() (вентиляция и др.).
+ */
 function initPhoneFormatting() {
-    const phoneInputs = document.querySelectorAll('input[type="tel"]');
+    document.querySelectorAll('input[type="tel"], input[name="phone"]').forEach(ensurePhoneInputMeta);
 
-    phoneInputs.forEach((input) => {
-        if (input.getAttribute('data-phone-skip') === '1') {
-            return;
-        }
-        if (!input.placeholder) {
-            input.placeholder = '+7 (999) 123-45-67';
-        }
-        input.setAttribute('inputmode', 'tel');
-        input.setAttribute('autocomplete', 'tel');
+    if (_phoneMaskDelegationInit) {
+        return;
+    }
+    _phoneMaskDelegationInit = true;
 
-        const apply = (e) => {
+    document.addEventListener(
+        'input',
+        (e) => {
             const t = e.target;
-            const pos = t.selectionStart;
-            const before = t.value;
-            t.value = formatPhoneInputValue(t.value);
-            if (typeof pos === 'number' && document.activeElement === t) {
-                try {
-                    t.setSelectionRange(t.value.length, t.value.length);
-                } catch (err) {
-                    /* ignore */
-                }
+            if (!isPhoneMaskTarget(t)) {
+                return;
             }
-        };
+            ensurePhoneInputMeta(t);
+            t.value = formatPhoneInputValue(t.value);
+            try {
+                t.setSelectionRange(t.value.length, t.value.length);
+            } catch (err) {
+                /* ignore */
+            }
+        },
+        true
+    );
 
-        input.addEventListener('input', apply);
-        input.addEventListener('paste', (e) => {
+    document.addEventListener(
+        'paste',
+        (e) => {
+            const t = e.target;
+            if (!isPhoneMaskTarget(t)) {
+                return;
+            }
             e.preventDefault();
             const paste = (e.clipboardData || window.clipboardData).getData('text');
-            input.value = formatPhoneInputValue(paste);
-            input.dispatchEvent(new Event('input', { bubbles: true }));
-        });
+            ensurePhoneInputMeta(t);
+            t.value = formatPhoneInputValue(paste);
+        },
+        true
+    );
 
-        input.addEventListener('keydown', (e) => {
+    document.addEventListener(
+        'keydown',
+        (e) => {
+            const t = e.target;
+            if (!isPhoneMaskTarget(t)) {
+                return;
+            }
             if (
                 [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
                 (e.keyCode === 65 && e.ctrlKey) ||
@@ -954,9 +1015,16 @@ function initPhoneFormatting() {
             if ((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
-        });
-    });
+        },
+        true
+    );
 }
+
+/** После динамической подмены форм (clone) — проставить meta на новых input */
+function refreshPhoneFieldMeta() {
+    document.querySelectorAll('input[type="tel"], input[name="phone"]').forEach(ensurePhoneInputMeta);
+}
+window.refreshPhoneFieldMeta = refreshPhoneFieldMeta;
 
 // Параллакс эффекты
 function initParallax() {
