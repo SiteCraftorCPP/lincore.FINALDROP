@@ -175,15 +175,8 @@ function closeCallbackModal() {
 // Form submissions
 document.getElementById('applicationForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(this)) {
-        return;
-    }
     
     const formData = new FormData(this);
-    const p0 = this.querySelector('input[name="phone"]');
-    if (p0 && typeof window.formatRuPhoneForStorage === 'function') {
-        formData.set('phone', window.formatRuPhoneForStorage(p0.value));
-    }
     
     // Добавляем тип заявки
     formData.append('request_type', 'application');
@@ -201,36 +194,23 @@ document.getElementById('applicationForm').addEventListener('submit', function(e
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal('verification_application');
             }
-            if (typeof window.showNotification === 'function') {
-                window.showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-            }
+            alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
             closeApplicationModal();
             this.reset();
         } else {
-            if (typeof window.showNotification === 'function') {
-                window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
-            }
+            alert('Ошибка при отправке заявки. Попробуйте еще раз.');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        if (typeof window.showNotification === 'function') {
-            window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
-        }
+        alert('Ошибка при отправке заявки. Попробуйте еще раз.');
     });
 });
 
 document.getElementById('callbackForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(this)) {
-        return;
-    }
     
     const formData = new FormData(this);
-    const p1 = this.querySelector('input[name="phone"]');
-    if (p1 && typeof window.formatRuPhoneForStorage === 'function') {
-        formData.set('phone', window.formatRuPhoneForStorage(p1.value));
-    }
     
     // Добавляем тип заявки
     formData.append('request_type', 'callback');
@@ -248,22 +228,16 @@ document.getElementById('callbackForm').addEventListener('submit', function(e) {
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal('verification_callback');
             }
-            if (typeof window.showNotification === 'function') {
-                window.showNotification('Заявка на звонок отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-            }
+            alert('Заявка на звонок успешно отправлена! Наш специалист свяжется с вами в ближайшее время.');
             closeCallbackModal();
             this.reset();
         } else {
-            if (typeof window.showNotification === 'function') {
-                window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
-            }
+            alert('Ошибка при отправке заявки. Попробуйте еще раз.');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        if (typeof window.showNotification === 'function') {
-            window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
-        }
+        alert('Ошибка при отправке заявки. Попробуйте еще раз.');
     });
 });
 

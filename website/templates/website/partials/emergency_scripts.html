@@ -242,15 +242,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (applicationForm) {
         applicationForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(this)) {
-                return;
-            }
             
             const formData = new FormData(this);
-            const pf = this.querySelector('input[name="phone"]');
-            if (pf && typeof window.formatRuPhoneForStorage === 'function') {
-                formData.set('phone', window.formatRuPhoneForStorage(pf.value));
-            }
             
             // Добавляем тип заявки
             formData.append('request_type', 'application');
@@ -268,22 +261,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (typeof window.ymReachGoal === 'function') {
                         window.ymReachGoal('emergency_application');
                     }
-                    if (typeof window.showNotification === 'function') {
-                        window.showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-                    }
+                    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
                     closeApplicationModal();
                     this.reset();
                 } else {
-                    if (typeof window.showNotification === 'function') {
-                        window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
-                    }
+                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                if (typeof window.showNotification === 'function') {
-                    window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
-                }
+                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
             });
         });
     }
@@ -291,15 +278,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (callbackForm) {
         callbackForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(this)) {
-                return;
-            }
             
             const formData = new FormData(this);
-            const pfc = this.querySelector('input[name="phone"]');
-            if (pfc && typeof window.formatRuPhoneForStorage === 'function') {
-                formData.set('phone', window.formatRuPhoneForStorage(pfc.value));
-            }
             
             // Добавляем тип заявки
             formData.append('request_type', 'callback');
@@ -317,22 +297,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (typeof window.ymReachGoal === 'function') {
                         window.ymReachGoal('emergency_callback');
                     }
-                    if (typeof window.showNotification === 'function') {
-                        window.showNotification('Запрос на звонок отправлен! Мы перезвоним в ближайшее время.', 'success');
-                    }
+                    alert('Запрос на звонок отправлен! Мы перезвоним в течение 15 минут.');
                     closeCallbackModal();
                     this.reset();
                 } else {
-                    if (typeof window.showNotification === 'function') {
-                        window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
-                    }
+                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                if (typeof window.showNotification === 'function') {
-                    window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
-                }
+                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
             });
         });
     }

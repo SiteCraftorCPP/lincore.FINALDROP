@@ -1,6 +1,4 @@
 from pathlib import Path
-import re
-from typing import Optional
 
 from django.conf import settings
 from django.shortcuts import render
@@ -12,35 +10,6 @@ from .models import ContactInfo, ServiceApplication, TenderInvitation, Commercia
 
 
 CONSENT_REQUIRED_MESSAGE = "Необходимо согласие на обработку персональных данных."
-PHONE_INVALID_MESSAGE = "Укажите полный корректный номер: +7 (___) ___-__-__."
-
-
-def _normalize_ru_phone_11(phone: str) -> Optional[str]:
-    """11 цифр, с ведущей 7, или None."""
-    if not phone or not str(phone).strip():
-        return None
-    d = re.sub(r"\D", "", str(phone))
-    if d.startswith("8") and len(d) >= 1:
-        d = "7" + d[1:]
-    if len(d) == 10 and d.startswith("9"):
-        d = "7" + d
-    if len(d) > 11:
-        d = d[:11]
-    if len(d) == 11 and d.startswith("7"):
-        return d
-    return None
-
-
-def _format_phone_pretty(phone_11: str) -> str:
-    d = phone_11
-    return f"+7 ({d[1:4]}) {d[4:7]}-{d[7:9]}-{d[9:11]}"
-
-
-def _json_phone_error():
-    return JsonResponse(
-        {"success": False, "message": PHONE_INVALID_MESSAGE},
-        status=400,
-    )
 
 
 def _consent_from_post(post):
@@ -273,10 +242,6 @@ def service_application(request):
                 'success': False,
                 'message': 'Укажите телефон для связи.'
             }, status=400)
-        phone_11 = _normalize_ru_phone_11(phone)
-        if phone_11 is None:
-            return _json_phone_error()
-        phone = _format_phone_pretty(phone_11)
 
         if not _consent_from_json(data):
             return JsonResponse({
@@ -327,10 +292,6 @@ def submit_request(request):
                     'message': 'Укажите телефон для связи.'
                 }, status=400)
 
-            phone_11 = _normalize_ru_phone_11(phone)
-            if phone_11 is None:
-                return _json_phone_error()
-
             if not _consent_from_post(request.POST):
                 return JsonResponse({
                     'success': False,
@@ -339,7 +300,7 @@ def submit_request(request):
             
             application = ServiceApplication.objects.create(
                 full_name=full_name,
-                phone=_format_phone_pretty(phone_11),
+                phone=phone,
                 service_type=service_type,
                 request_type=request_type,
                 organization=organization,
@@ -384,11 +345,6 @@ def tender_invitation(request):
                 'success': False,
                 'message': 'Укажите телефон для связи.'
             }, status=400)
-
-        phone_11 = _normalize_ru_phone_11(phone)
-        if phone_11 is None:
-            return _json_phone_error()
-        phone = _format_phone_pretty(phone_11)
         
         invitation = TenderInvitation.objects.create(
             full_name=full_name,
@@ -426,10 +382,6 @@ def submit_quote(request):
                 'message': 'Укажите телефон для связи.'
             })
 
-        phone_11 = _normalize_ru_phone_11(phone)
-        if phone_11 is None:
-            return _json_phone_error()
-
         if not _consent_from_post(request.POST):
             return JsonResponse({
                 'success': False,
@@ -439,7 +391,7 @@ def submit_quote(request):
         # Создаем запись в ServiceApplication
         application = ServiceApplication.objects.create(
             full_name=name,
-            phone=_format_phone_pretty(phone_11),
+            phone=phone,
             service_type=service_type,
             request_type='quote_request',
             organization=organization,

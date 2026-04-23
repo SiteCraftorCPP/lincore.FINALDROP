@@ -516,7 +516,72 @@ function createExplosionEffect(element) {
     }
 }
 
-// Уведомления: window.showNotification из static/js/main.js
+// Enhanced notification system (на мобилке — по центру экрана, не от right + slideInRight)
+function showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+
+    const bgColors = {
+        'success': 'linear-gradient(135deg, #10b981, #059669)',
+        'error': 'linear-gradient(135deg, #ef4444, #dc2626)',
+        'info': 'linear-gradient(135deg, #1e88e5, #0d47a1)',
+        'warning': 'linear-gradient(135deg, #f59e0b, #d97706)'
+    };
+    const bg = bgColors[type] || bgColors.info;
+    const narrow = window.matchMedia('(max-width: 768px)').matches;
+
+    if (narrow) {
+        notification.style.cssText = `
+            position: fixed;
+            top: max(88px, calc(env(safe-area-inset-top, 0px) + 72px));
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            width: min(420px, calc(100vw - 24px));
+            max-width: calc(100vw - 24px);
+            box-sizing: border-box;
+            background: ${bg};
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            font-weight: 600;
+            text-align: center;
+            font-size: 15px;
+            line-height: 1.35;
+            animation: pageToastMobIn 0.35s ease-out forwards;
+        `;
+    } else {
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${bg};
+            color: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            font-weight: 600;
+            min-width: 250px;
+            text-align: center;
+            animation: slideInRight 0.3s ease-out;
+        `;
+    }
+
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+        const out = narrow
+            ? 'pageToastMobOut 0.3s ease-in forwards'
+            : 'slideOutRight 0.3s ease-in forwards';
+        notification.style.animation = out;
+        setTimeout(() => {
+            notification.remove();
+        }, 300);
+    }, 3000);
+}
 
 // Scroll effects for background elements
 function initScrollEffects() {
@@ -573,14 +638,7 @@ function initPageLoadAnimation() {
 
 function handleFormSubmit(form, successMessage, errorMessage, metrikaGoal) {
     console.log(' handleFormSubmit called for form:', form);
-    if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(form)) {
-        return;
-    }
     const formData = new FormData(form);
-    const tel = form.querySelector('input[name="phone"]');
-    if (tel && typeof window.formatRuPhoneForStorage === 'function') {
-        formData.set('phone', window.formatRuPhoneForStorage(tel.value));
-    }
     
     // Log form data for debugging
     console.log(' Form data:');
@@ -588,9 +646,7 @@ function handleFormSubmit(form, successMessage, errorMessage, metrikaGoal) {
         console.log(`  ${key}: ${value}`);
     }
 
-    if (typeof window.showNotification === 'function') {
-        window.showNotification('Отправка...', 'info');
-    }
+    showNotification('Отправка...', 'info');
     
     console.log(' Starting fetch request to /submit-request/');
     console.log(' Using CSRF token:', csrftoken);
@@ -614,9 +670,7 @@ function handleFormSubmit(form, successMessage, errorMessage, metrikaGoal) {
             if (metrikaGoal && typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal(metrikaGoal);
             }
-            if (typeof window.showNotification === 'function') {
-                window.showNotification(successMessage, 'success');
-            }
+            showNotification(successMessage, 'success');
             form.reset();
             if (form.closest('.modal').id === 'applicationModal') {
                 closeApplicationModal();
@@ -624,16 +678,12 @@ function handleFormSubmit(form, successMessage, errorMessage, metrikaGoal) {
                 closeCallbackModal();
             }
         } else {
-            if (typeof window.showNotification === 'function') {
-                window.showNotification(errorMessage + (data.error || 'Неизвестная ошибка'), 'error');
-            }
+            showNotification(errorMessage + (data.error || 'Неизвестная ошибка'), 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        if (typeof window.showNotification === 'function') {
-            window.showNotification(errorMessage + 'Попробуйте еще раз.', 'error');
-        }
+        showNotification(errorMessage + 'Попробуйте еще раз.', 'error');
     });
 }
 
@@ -812,9 +862,6 @@ function initForms() {
         console.error(' callbackForm not found!');
     }
     
-    if (typeof window.refreshPhoneFieldMeta === 'function') {
-        window.refreshPhoneFieldMeta();
-    }
     console.log(' === FORMS INITIALIZATION COMPLETE ===');
 }
 

@@ -508,7 +508,7 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="applicationPhone">Телефон *</label>
-                {% include 'website/partials/phone_mask_fields.html' with base_id='applicationPhone' %}
+                <input type="tel" id="applicationPhone" name="phone" required>
             </div>
             <input type="hidden" name="service_type" value="complex_service">
             {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_complex_application' %}
@@ -533,7 +533,7 @@
             <p class="callback-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
-                {% include 'website/partials/phone_mask_fields.html' with base_id='callbackPhone' %}
+                <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
             </div>
             <input type="hidden" name="service_type" value="complex_service">
             <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>
@@ -2849,9 +2849,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Redirect to contacts section on main page
                 window.location.href = '/#contacts';
             } else if (buttonText.includes('стоимость')) {
-                if (typeof window.showNotification === 'function') {
-                    window.showNotification('Функция расчёта стоимости будет доступна в ближайшее время. Свяжитесь с нами для получения расчёта.', 'info');
-                }
+                // You can add a modal or redirect to a price calculator
+                alert('Функция расчета стоимости будет доступна в ближайшее время. Пожалуйста, свяжитесь с нами для получения расчета.');
             } else {
                 // Default action - go to contacts
                 window.location.href = '/#contacts';
@@ -2965,14 +2964,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function submitForm(formId, type) {
         const form = document.getElementById(formId);
-        if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(form)) {
-            return;
-        }
         const formData = new FormData(form);
-        const phoneField = form.querySelector('input[name="phone"]');
-        if (phoneField && typeof window.formatRuPhoneForStorage === 'function') {
-            formData.set('phone', window.formatRuPhoneForStorage(phoneField.value));
-        }
         
         // Добавляем тип заявки
         formData.append('request_type', type);
@@ -2990,9 +2982,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (typeof window.ymReachGoal === 'function') {
                     window.ymReachGoal(type === 'application' ? 'complex_service_application' : 'complex_service_callback');
                 }
-                if (typeof window.showNotification === 'function') {
-                    window.showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
-                }
+                alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
                 form.reset();
                 if (type === 'application') {
                     closeApplicationModal();
@@ -3000,16 +2990,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     closeCallbackModal();
                 }
             } else {
-                if (typeof window.showNotification === 'function') {
-                    window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
-                }
+                alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            if (typeof window.showNotification === 'function') {
-                window.showNotification('Произошла ошибка при отправке. Попробуйте ещё раз.', 'error');
-            }
+            alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
         });
     }
 
