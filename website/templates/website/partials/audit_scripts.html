@@ -821,8 +821,15 @@ function closeQuoteModal() {
 // Обработка отправки формы
 document.getElementById('quoteForm').addEventListener('submit', function(e) {
     e.preventDefault();
+    if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(this)) {
+        return;
+    }
     
     const formData = new FormData(this);
+    const pq = this.querySelector('input[name="phone"]');
+    if (pq && typeof window.formatRuPhoneForStorage === 'function') {
+        formData.set('phone', window.formatRuPhoneForStorage(pq.value));
+    }
     
     fetch('/submit-quote/', {
         method: 'POST',
@@ -837,16 +844,22 @@ document.getElementById('quoteForm').addEventListener('submit', function(e) {
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal('audit_quote');
             }
-            alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+            if (typeof window.showNotification === 'function') {
+                window.showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+            }
             closeQuoteModal();
             this.reset();
         } else {
-            alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+            if (typeof window.showNotification === 'function') {
+                window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
+            }
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+        if (typeof window.showNotification === 'function') {
+            window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
+        }
     });
 });
 

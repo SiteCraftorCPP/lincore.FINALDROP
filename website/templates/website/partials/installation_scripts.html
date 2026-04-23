@@ -287,8 +287,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (applicationForm) {
         applicationForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(this)) {
+                return;
+            }
             
             const formData = new FormData(this);
+            const pfa = this.querySelector('input[name="phone"]');
+            if (pfa && typeof window.formatRuPhoneForStorage === 'function') {
+                formData.set('phone', window.formatRuPhoneForStorage(pfa.value));
+            }
             
             // Добавляем тип заявки
             formData.append('request_type', 'application');
@@ -306,16 +313,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (typeof window.ymReachGoal === 'function') {
                         window.ymReachGoal('installation_application');
                     }
-                    showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                    if (typeof window.showNotification === 'function') {
+                        window.showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                    }
                     closeApplicationModal();
                     this.reset();
                 } else {
-                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                    if (typeof window.showNotification === 'function') {
+                        window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
+                    }
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                if (typeof window.showNotification === 'function') {
+                    window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
+                }
             });
         });
     }
@@ -323,8 +336,15 @@ document.addEventListener('DOMContentLoaded', function() {
     if (callbackForm) {
         callbackForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(this)) {
+                return;
+            }
             
             const formData = new FormData(this);
+            const pfb = this.querySelector('input[name="phone"]');
+            if (pfb && typeof window.formatRuPhoneForStorage === 'function') {
+                formData.set('phone', window.formatRuPhoneForStorage(pfb.value));
+            }
             
             // Добавляем тип заявки
             formData.append('request_type', 'callback');
@@ -342,16 +362,22 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (typeof window.ymReachGoal === 'function') {
                         window.ymReachGoal('installation_callback');
                     }
-                    showNotification('Запрос на звонок отправлен! Мы перезвоним в течение 15 минут.', 'success');
+                    if (typeof window.showNotification === 'function') {
+                        window.showNotification('Запрос на звонок отправлен! Мы перезвоним в ближайшее время.', 'success');
+                    }
                     closeCallbackModal();
                     this.reset();
                 } else {
-                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                    if (typeof window.showNotification === 'function') {
+                        window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
+                    }
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                if (typeof window.showNotification === 'function') {
+                    window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
+                }
             });
         });
     }
@@ -464,153 +490,6 @@ document.addEventListener('DOMContentLoaded', function() {
         cooperationObserver.observe(step);
     });
 });
-
-function installationToastOutAnim() {
-    return window.matchMedia('(max-width: 768px)').matches
-        ? 'pageToastMobOut 0.45s ease-out forwards'
-        : 'slideOutRight 0.5s ease-out';
-}
-
-// Notification system
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-icon" aria-hidden="true">${type === 'success' ? 'OK' : '!'}</span>
-            <span class="notification-text">${message}</span>
-            <span class="notification-close">&times;</span>
-        </div>
-    `;
-
-    const bg = type === 'success'
-        ? 'linear-gradient(135deg, #10b981, #059669)'
-        : 'linear-gradient(135deg, #8b5cf6, #5b21b6)';
-    const narrow = window.matchMedia('(max-width: 768px)').matches;
-
-    if (narrow) {
-        notification.style.cssText = `
-            position: fixed;
-            top: max(88px, calc(env(safe-area-inset-top, 0px) + 72px));
-            left: 50%;
-            right: auto;
-            transform: translateX(-50%);
-            width: min(420px, calc(100vw - 24px));
-            max-width: calc(100vw - 24px);
-            box-sizing: border-box;
-            background: ${bg};
-            color: white;
-            padding: 14px 18px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            animation: pageToastMobIn 0.45s ease-out forwards;
-            cursor: pointer;
-        `;
-    } else {
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${bg};
-            color: white;
-            padding: 15px 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            animation: slideInRight 0.5s ease-out;
-            cursor: pointer;
-            max-width: 350px;
-        `;
-    }
-
-    document.body.appendChild(notification);
-
-    // Auto-remove after 5 seconds
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.style.animation = installationToastOutAnim();
-            setTimeout(() => notification.remove(), 500);
-        }
-    }, 5000);
-
-    // Remove on click
-    notification.addEventListener('click', () => {
-        notification.style.animation = installationToastOutAnim();
-        setTimeout(() => notification.remove(), 500);
-    });
-}
-
-// Add CSS for notification animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes slideInRight {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideOutRight {
-        from {
-            transform: translateX(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-    }
-
-    @keyframes pageToastMobIn {
-        from {
-            opacity: 0;
-            transform: translate(-50%, -18px);
-        }
-        to {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-    }
-
-    @keyframes pageToastMobOut {
-        from {
-            opacity: 1;
-            transform: translate(-50%, 0);
-        }
-        to {
-            opacity: 0;
-            transform: translate(-50%, -18px);
-        }
-    }
-    
-    .notification .notification-content {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    
-    .notification .notification-icon {
-        font-size: 20px;
-    }
-    
-    .notification .notification-close {
-        margin-left: auto;
-        font-size: 18px;
-        cursor: pointer;
-        opacity: 0.7;
-        transition: opacity 0.3s ease;
-    }
-    
-    .notification .notification-close:hover {
-        opacity: 1;
-    }
-`;
-document.head.appendChild(style);
 
 // Installation-specific interactive features
 function addInstallationFeatures() {

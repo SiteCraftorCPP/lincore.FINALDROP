@@ -11,6 +11,67 @@ function ymReachGoal(goalName) {
 }
 window.ymReachGoal = ymReachGoal;
 
+const PHONE_INCOMPLETE_TEXT =
+    'Введите полный номер: +7 (___) ___-__-__ (только цифры, 10 цифр после 7)';
+
+/**
+ * 11 цифр, начиная с 7 (РФ), или null.
+ */
+function getRuPhone11Digits(value) {
+    let d = String(value || '').replace(/\D/g, '');
+    if (d.length === 0) {
+        return null;
+    }
+    if (d[0] === '8') {
+        d = '7' + d.slice(1);
+    }
+    if (d.length === 10 && d[0] === '9') {
+        d = '7' + d;
+    }
+    if (d.length > 11) {
+        d = d.slice(0, 11);
+    }
+    if (d.length === 11 && d[0] === '7') {
+        return d;
+    }
+    return null;
+}
+
+function isValidRuMobilePhone(value) {
+    return getRuPhone11Digits(value) !== null;
+}
+
+function formatRuPhoneForStorage(value) {
+    const d = getRuPhone11Digits(value);
+    if (!d) {
+        return '';
+    }
+    return `+7 (${d.slice(1, 4)}) ${d.slice(4, 7)}-${d.slice(7, 9)}-${d.slice(9, 11)}`;
+}
+window.formatRuPhoneForStorage = formatRuPhoneForStorage;
+
+/**
+ * @returns {boolean} false, если в форме есть phone и он неполный/некорректный
+ */
+function validateFormPhone(form) {
+    const el = form.querySelector('input[name="phone"]');
+    if (!el) {
+        return true;
+    }
+    if (!isValidRuMobilePhone(el.value)) {
+        if (typeof window.showNotification === 'function') {
+            window.showNotification(PHONE_INCOMPLETE_TEXT, 'error');
+        }
+        el.focus();
+        return false;
+    }
+    return true;
+}
+
+window.isValidRuMobilePhone = isValidRuMobilePhone;
+window.getRuPhone11Digits = getRuPhone11Digits;
+window.validateFormPhone = validateFormPhone;
+
 document.addEventListener('DOMContentLoaded', function () {
     // ПРИНУДИТЕЛЬНО УСТАНАВЛИВАЕМ БЕЛЫЙ ЦВЕТ ДЛЯ СТАТИСТИКИ
     setTimeout(() => {
@@ -557,6 +618,10 @@ async function handleTenderSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
+    if (!validateFormPhone(form)) {
+        return;
+    }
+
     const submitBtn = form.querySelector('.btn-submit');
     const originalText = submitBtn.textContent;
 
@@ -567,6 +632,10 @@ async function handleTenderSubmit(e) {
 
     try {
         const formData = new FormData(form);
+        const phoneField = form.querySelector('input[name="phone"]');
+        if (phoneField) {
+            formData.set('phone', formatRuPhoneForStorage(phoneField.value));
+        }
 
         const response = await fetch('/ajax/tender-invitation/', {
             method: 'POST',
@@ -599,6 +668,10 @@ async function handleServiceSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
+    if (!validateFormPhone(form)) {
+        return;
+    }
+
     const submitBtn = form.querySelector('.btn-submit');
     const originalText = submitBtn.textContent;
 
@@ -608,9 +681,10 @@ async function handleServiceSubmit(e) {
 
     try {
         const formData = new FormData(form);
+        const phoneEl = form.querySelector('input[name="phone"]');
         const data = {
             full_name: (formData.get('full_name') || '').trim(),
-            phone: (formData.get('phone') || '').trim(),
+            phone: formatRuPhoneForStorage(phoneEl ? phoneEl.value : ''),
             service_type: formData.get('service_type'),
             agreed_to_processing: form.querySelector('input[name="agreed_to_processing"]')?.checked === true,
         };
@@ -657,36 +731,79 @@ function getCSRFToken() {
     return metaTag ? metaTag.getAttribute('content') : '';
 }
 
-// Система уведомлений
+// Единые тосты (как на /services/ventilation/: зелёный/красный, справа сверху; на мобилке — по центру сверху)
 function showNotification(message, type = 'info') {
-    const container = document.getElementById('notifications');
-    if (!container) return;
-
-    const notification = document.createElement('div');
-    notification.className = `notification ${type}`;
-
-    const icon = type === 'success' ? '✓' : type === 'error' ? '✕' : 'ℹ';
-
-    notification.innerHTML = `
-        <div class="icon">${icon}</div>
-        <div class="message">${message}</div>
-        <button class="close" onclick="this.parentElement.remove()">×</button>
-    `;
-
-    container.appendChild(notification);
-
-    // Автоматическое удаление через 5 секунд
-    setTimeout(() => {
-        if (notification.parentElement) {
-            const out =
-                window.matchMedia('(max-width: 768px)').matches
-                    ? 'fadeInUp 0.3s ease reverse'
-                    : 'fadeInRight 0.3s ease reverse';
-            notification.style.animation = out;
-            setTimeout(() => notification.remove(), 300);
+    const el = document.createElement('div');
+    el.setAttribute('role', 'status');
+    el.setAttribute('aria-live', 'polite');
+    const esc = (String(message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'));
+    el.innerHTML = `<span class="site-toast__text">${esc}</span>`;
+    const bg = {
+        success: 'linear-gradient(135deg, #10b981, #059669)',
+        error: 'linear-gradient(135deg, #ef4444, #dc2626)',
+        info: 'linear-gradient(135deg, #1e88e5, #0d47a1)',
+        warning: 'linear-gradient(135deg, #f59e0b, #d97706)',
+    }[type] || 'linear-gradient(135deg, #1e88e5, #0d47a1)';
+    const narrow = window.matchMedia('(max-width: 768px)').matches;
+    if (narrow) {
+        el.className = 'site-toast site-toast--mob';
+        el.style.cssText = [
+            'position:fixed',
+            'top:max(88px,calc(env(safe-area-inset-top,0px)+72px))',
+            'left:50%',
+            'transform:translateX(-50%)',
+            'width:min(420px,calc(100vw - 24px))',
+            'box-sizing:border-box',
+            'z-index:10050',
+            'padding:14px 18px',
+            'border-radius:12px',
+            'box-shadow:0 10px 30px rgba(0,0,0,.2)',
+            'color:#fff',
+            'font-weight:600',
+            'text-align:center',
+            'font-size:15px',
+            'line-height:1.35',
+            'background:' + bg,
+            'animation:fadeInUp 0.35s ease-out',
+        ].join(';');
+    } else {
+        el.className = 'site-toast';
+        el.style.cssText = [
+            'position:fixed',
+            'top:20px',
+            'right:20px',
+            'z-index:10050',
+            'min-width:250px',
+            'max-width:min(400px,92vw)',
+            'padding:16px 24px',
+            'border-radius:12px',
+            'box-shadow:0 10px 30px rgba(0,0,0,.2)',
+            'color:#fff',
+            'font-weight:600',
+            'text-align:center',
+            'background:' + bg,
+            'animation:slideInRight 0.35s ease-out',
+        ].join(';');
+    }
+    document.body.appendChild(el);
+    const ms = 4000;
+    setTimeout(function () {
+        if (!el.parentNode) {
+            return;
         }
-    }, 5000);
+        el.style.transition = 'opacity 0.25s, transform 0.25s';
+        el.style.opacity = '0';
+        if (narrow) {
+            el.style.transform = 'translateX(-50%) translateY(-10px)';
+        } else {
+            el.style.transform = 'translateX(20px)';
+        }
+        setTimeout(function () {
+            el.remove();
+        }, 250);
+    }, ms);
 }
+window.showNotification = showNotification;
 
 // Update progress bar for heating preparation page
 function updateHeatingPreparationProgress(targetId) {
@@ -753,52 +870,88 @@ function initSmoothScroll() {
     });
 }
 
-// Форматирование телефонных номеров
+// Маска +7 (___) ___-__-__, не более 11 цифр
+function formatPhoneInputValue(raw) {
+    let d = String(raw).replace(/\D/g, '');
+    if (d.startsWith('8')) {
+        d = '7' + d.substring(1);
+    }
+    if (d.length && d[0] === '9' && d.length <= 10) {
+        d = '7' + d;
+    }
+    if (d.length > 11) {
+        d = d.substring(0, 11);
+    }
+    if (d.length === 0) {
+        return '';
+    }
+    if (d[0] !== '7') {
+        return d[0] === '9' ? formatPhoneInputValue('7' + d) : '+7';
+    }
+
+    let formatted = '+7';
+    if (d.length > 1) {
+        formatted += ' (' + d.substring(1, 4);
+    }
+    if (d.length > 4) {
+        formatted += ') ' + d.substring(4, 7);
+    }
+    if (d.length > 7) {
+        formatted += '-' + d.substring(7, 9);
+    }
+    if (d.length > 9) {
+        formatted += '-' + d.substring(9, 11);
+    }
+    return formatted;
+}
+
 function initPhoneFormatting() {
-    const phoneInputs = document.querySelectorAll('input[type="tel"]:not(#quotePhone)');
+    const phoneInputs = document.querySelectorAll('input[type="tel"]');
 
-    phoneInputs.forEach(input => {
-        input.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
+    phoneInputs.forEach((input) => {
+        if (input.getAttribute('data-phone-skip') === '1') {
+            return;
+        }
+        if (!input.placeholder) {
+            input.placeholder = '+7 (999) 123-45-67';
+        }
+        input.setAttribute('inputmode', 'tel');
+        input.setAttribute('autocomplete', 'tel');
 
-            if (value.startsWith('8')) {
-                value = '7' + value.substring(1);
+        const apply = (e) => {
+            const t = e.target;
+            const pos = t.selectionStart;
+            const before = t.value;
+            t.value = formatPhoneInputValue(t.value);
+            if (typeof pos === 'number' && document.activeElement === t) {
+                try {
+                    t.setSelectionRange(t.value.length, t.value.length);
+                } catch (err) {
+                    /* ignore */
+                }
             }
+        };
 
-            if (value.startsWith('7') && value.length <= 11) {
-                let formatted = '+7';
-                if (value.length > 1) {
-                    formatted += ' (' + value.substring(1, 4);
-                }
-                if (value.length > 4) {
-                    formatted += ') ' + value.substring(4, 7);
-                }
-                if (value.length > 7) {
-                    formatted += '-' + value.substring(7, 9);
-                }
-                if (value.length > 9) {
-                    formatted += '-' + value.substring(9, 11);
-                }
-
-                e.target.value = formatted;
-            }
+        input.addEventListener('input', apply);
+        input.addEventListener('paste', (e) => {
+            e.preventDefault();
+            const paste = (e.clipboardData || window.clipboardData).getData('text');
+            input.value = formatPhoneInputValue(paste);
+            input.dispatchEvent(new Event('input', { bubbles: true }));
         });
 
-        input.addEventListener('keydown', function (e) {
-            // Разрешаем: backspace, delete, tab, escape, enter
-            if ([8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                // Разрешаем: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+        input.addEventListener('keydown', (e) => {
+            if (
+                [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
                 (e.keyCode === 65 && e.ctrlKey) ||
                 (e.keyCode === 67 && e.ctrlKey) ||
                 (e.keyCode === 86 && e.ctrlKey) ||
                 (e.keyCode === 88 && e.ctrlKey) ||
-                // Разрешаем: стрелки
-                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                (e.keyCode >= 35 && e.keyCode <= 40)
+            ) {
                 return;
             }
-
-            // Запрещаем все, кроме цифр
-            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            if ((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
         });
@@ -956,10 +1109,15 @@ function initModernFeatures() {
         callForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
+            if (!validateFormPhone(this)) {
+                return;
+            }
+
             const formData = new FormData(this);
+            const phoneEl = this.querySelector('input[name="phone"]');
             const data = {
                 full_name: (formData.get('full_name') || '').trim(),
-                phone: (formData.get('phone') || '').trim(),
+                phone: formatRuPhoneForStorage(phoneEl ? phoneEl.value : ''),
                 service_type: 'main_page',
                 request_type: 'callback',
                 agreed_to_processing: this.querySelector('input[name="agreed_to_processing"]')?.checked === true,

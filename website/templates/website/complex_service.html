@@ -2849,8 +2849,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Redirect to contacts section on main page
                 window.location.href = '/#contacts';
             } else if (buttonText.includes('стоимость')) {
-                // You can add a modal or redirect to a price calculator
-                alert('Функция расчета стоимости будет доступна в ближайшее время. Пожалуйста, свяжитесь с нами для получения расчета.');
+                if (typeof window.showNotification === 'function') {
+                    window.showNotification('Функция расчёта стоимости будет доступна в ближайшее время. Свяжитесь с нами для получения расчёта.', 'info');
+                }
             } else {
                 // Default action - go to contacts
                 window.location.href = '/#contacts';
@@ -2964,7 +2965,14 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function submitForm(formId, type) {
         const form = document.getElementById(formId);
+        if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(form)) {
+            return;
+        }
         const formData = new FormData(form);
+        const phoneField = form.querySelector('input[name="phone"]');
+        if (phoneField && typeof window.formatRuPhoneForStorage === 'function') {
+            formData.set('phone', window.formatRuPhoneForStorage(phoneField.value));
+        }
         
         // Добавляем тип заявки
         formData.append('request_type', type);
@@ -2982,7 +2990,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (typeof window.ymReachGoal === 'function') {
                     window.ymReachGoal(type === 'application' ? 'complex_service_application' : 'complex_service_callback');
                 }
-                alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                if (typeof window.showNotification === 'function') {
+                    window.showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
+                }
                 form.reset();
                 if (type === 'application') {
                     closeApplicationModal();
@@ -2990,12 +3000,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     closeCallbackModal();
                 }
             } else {
-                alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+                if (typeof window.showNotification === 'function') {
+                    window.showNotification(data.message || 'Ошибка при отправке. Попробуйте ещё раз.', 'error');
+                }
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+            if (typeof window.showNotification === 'function') {
+                window.showNotification('Произошла ошибка при отправке. Попробуйте ещё раз.', 'error');
+            }
         });
     }
 

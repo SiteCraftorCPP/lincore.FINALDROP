@@ -20,7 +20,14 @@ const csrftoken = getCookie('csrftoken');
 function submitQuoteForm(event) {
     event.preventDefault();
     const form = event.target;
+    if (typeof window.validateFormPhone === 'function' && !window.validateFormPhone(form)) {
+        return;
+    }
     const formData = new FormData(form);
+    const ph = form.querySelector('input[name="phone"]');
+    if (ph && typeof window.formatRuPhoneForStorage === 'function') {
+        formData.set('phone', window.formatRuPhoneForStorage(ph.value));
+    }
 
     // Ensure service_type is set correctly
     if (!formData.has('service_type')) {
@@ -29,7 +36,9 @@ function submitQuoteForm(event) {
         formData.set('service_type', 'heating_preparation_service');
     }
             
-    showNotification('Отправка запроса на коммерческое предложение...', 'info');
+    if (typeof window.showNotification === 'function') {
+        window.showNotification('Отправка запроса...', 'info');
+    }
             
     fetch('/submit-request/', {
         method: 'POST',
@@ -50,16 +59,22 @@ function submitQuoteForm(event) {
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal('heating_preparation_quote');
             }
-            showNotification('Запрос на коммерческое предложение отправлен!', 'success');
+            if (typeof window.showNotification === 'function') {
+                window.showNotification('Запрос на коммерческое предложение отправлен!', 'success');
+            }
             closeQuoteModal();
             form.reset();
         } else {
-            showNotification('Ошибка при отправке запроса: ' + (data.error || 'Неизвестная ошибка'), 'error');
+            if (typeof window.showNotification === 'function') {
+                window.showNotification('Ошибка: ' + (data.error || data.message || 'неизвестная'), 'error');
+            }
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        showNotification('Ошибка при отправке запроса. Попробуйте еще раз.', 'error');
+        if (typeof window.showNotification === 'function') {
+            window.showNotification('Ошибка при отправке. Попробуйте ещё раз.', 'error');
+        }
     });
 }
 
@@ -81,72 +96,7 @@ function closeQuoteModal() {
     }
 }
 
-// Enhanced notification system (на мобилке — по центру, см. pageToastMob* в additionalCSS)
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.textContent = message;
-
-    const bgColors = {
-        'success': 'linear-gradient(135deg, #10b981, #059669)',
-        'error': 'linear-gradient(135deg, #ef4444, #dc2626)',
-        'info': 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
-        'warning': 'linear-gradient(135deg, #f59e0b, #d97706)'
-    };
-    const bg = bgColors[type] || bgColors.info;
-    const narrow = window.matchMedia('(max-width: 768px)').matches;
-
-    if (narrow) {
-        notification.style.cssText = `
-            position: fixed;
-            top: max(88px, calc(env(safe-area-inset-top, 0px) + 72px));
-            left: 50%;
-            right: auto;
-            transform: translateX(-50%);
-            width: min(420px, calc(100vw - 24px));
-            max-width: calc(100vw - 24px);
-            box-sizing: border-box;
-            background: ${bg};
-            color: white;
-            padding: 14px 18px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 10000;
-            font-weight: 600;
-            text-align: center;
-            font-size: 15px;
-            line-height: 1.35;
-            animation: pageToastMobIn 0.35s ease-out forwards;
-        `;
-    } else {
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${bg};
-            color: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            z-index: 10000;
-            font-weight: 600;
-            min-width: 250px;
-            text-align: center;
-            animation: slideInRight 0.3s ease-out;
-        `;
-    }
-
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-        const out = narrow
-            ? 'pageToastMobOut 0.3s ease-in forwards'
-            : 'slideOutRight 0.3s ease-in forwards';
-        notification.style.animation = out;
-        setTimeout(() => {
-            notification.remove();
-        }, 300);
-    }, 3000);
-}
+// Уведомления: window.showNotification из static/js/main.js
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
