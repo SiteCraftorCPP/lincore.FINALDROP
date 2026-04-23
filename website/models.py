@@ -299,3 +299,10 @@ class HeatingPhotoGroup(Photo):
         proxy = True
         verbose_name = "Фото Комплексное обслуживание ИТП и ЦТП «под ключ»"
         verbose_name_plural = "Фото Комплексное обслуживание ИТП и ЦТП «под ключ»"
+
+class ComplexPhotoGroup(Photo):
+    """Группа Фото команды Комплексное обслуживание инженерных систем"""
+    class Meta:
+        proxy = True
+        verbose_name = "Фото команды Комплексное обслуживание инженерных систем"
+        verbose_name_plural = "Фото команды Комплексное обслуживание инженерных систем"
