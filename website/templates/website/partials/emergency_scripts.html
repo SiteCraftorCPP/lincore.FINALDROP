@@ -261,16 +261,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (typeof window.ymReachGoal === 'function') {
                         window.ymReachGoal('emergency_application');
                     }
-                    alert('Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+                    showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
                     closeApplicationModal();
                     this.reset();
                 } else {
-                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                    showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
             });
         });
     }
@@ -297,16 +297,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (typeof window.ymReachGoal === 'function') {
                         window.ymReachGoal('emergency_callback');
                     }
-                    alert('Запрос на звонок отправлен! Мы перезвоним в течение 15 минут.');
+                    showNotification('Запрос на звонок отправлен! Мы перезвоним в течение 15 минут.', 'success');
                     closeCallbackModal();
                     this.reset();
                 } else {
-                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                    showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
             });
         });
     }

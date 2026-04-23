@@ -837,16 +837,16 @@ document.getElementById('quoteForm').addEventListener('submit', function(e) {
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal('audit_quote');
             }
-            alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+            showNotification('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
             closeQuoteModal();
             this.reset();
         } else {
-            alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+            showNotification('Произошла ошибка при отправке заявки. Попробуйте еще раз.', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+        showNotification('Произошла ошибка при отправке заявки. Попробуйте еще раз.', 'error');
     });
 });
 

@@ -194,16 +194,16 @@ document.getElementById('applicationForm').addEventListener('submit', function(e
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal('verification_application');
             }
-            alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+            showNotification('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
             closeApplicationModal();
             this.reset();
         } else {
-            alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+            showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+        showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
     });
 });
 
@@ -228,16 +228,16 @@ document.getElementById('callbackForm').addEventListener('submit', function(e) {
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal('verification_callback');
             }
-            alert('Заявка на звонок успешно отправлена! Наш специалист свяжется с вами в ближайшее время.');
+            showNotification('Заявка на звонок успешно отправлена! Наш специалист свяжется с вами в ближайшее время.', 'success');
             closeCallbackModal();
             this.reset();
         } else {
-            alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+            showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+        showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
     });
 });
 

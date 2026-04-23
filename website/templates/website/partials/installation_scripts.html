@@ -310,12 +310,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     closeApplicationModal();
                     this.reset();
                 } else {
-                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                    showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
             });
         });
     }
@@ -346,12 +346,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     closeCallbackModal();
                     this.reset();
                 } else {
-                    alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                    showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+                showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
             });
         });
     }

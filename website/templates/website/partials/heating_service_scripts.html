@@ -243,7 +243,7 @@ function submitForm(formId, type) {
             if (typeof window.ymReachGoal === 'function') {
                 window.ymReachGoal(type === 'application' ? 'heating_service_application' : 'heating_service_callback');
             }
-            alert('Заявка успешно отправлена!');
+            showNotification('Заявка успешно отправлена!', 'success');
             if (type === 'application') {
                 closeApplicationModal();
             } else {
@@ -251,12 +251,12 @@ function submitForm(formId, type) {
             }
             form.reset();
         } else {
-            alert('Ошибка при отправке заявки: ' + (data.error || 'Неизвестная ошибка'));
+            showNotification('Ошибка при отправке заявки: ' + (data.error || 'Неизвестная ошибка'), 'error');
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Ошибка при отправке заявки. Попробуйте еще раз.');
+        showNotification('Ошибка при отправке заявки. Попробуйте еще раз.', 'error');
     });
 }
 </script>

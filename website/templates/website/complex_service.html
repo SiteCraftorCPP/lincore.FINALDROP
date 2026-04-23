@@ -2982,7 +2982,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (typeof window.ymReachGoal === 'function') {
                     window.ymReachGoal(type === 'application' ? 'complex_service_application' : 'complex_service_callback');
                 }
-                alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
+                showNotification('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
                 form.reset();
                 if (type === 'application') {
                     closeApplicationModal();
@@ -2990,12 +2990,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     closeCallbackModal();
                 }
             } else {
-                alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+                showNotification('Произошла ошибка при отправке заявки. Попробуйте еще раз.', 'error');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Произошла ошибка при отправке заявки. Попробуйте еще раз.');
+            showNotification('Произошла ошибка при отправке заявки. Попробуйте еще раз.', 'error');
         });
     }
 
