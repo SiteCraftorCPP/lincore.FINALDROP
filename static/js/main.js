@@ -11,9 +11,6 @@ function ymReachGoal(goalName) {
 }
 window.ymReachGoal = ymReachGoal;
 
-const PHONE_INCOMPLETE_TEXT =
-    'Введите полный номер: +7 (___) ___-__-__ (только цифры, 10 цифр после 7)';
-
 /**
  * 11 цифр, начиная с 7 (РФ), или null.
  */
@@ -54,7 +51,7 @@ function formatRuPhoneForStorage(value) {
 window.formatRuPhoneForStorage = formatRuPhoneForStorage;
 
 /**
- * @returns {boolean} false, если в форме есть phone и он неполный/некорректный
+ * @returns {boolean} false, если в форме есть phone и он неполный/некорректный (без тоста — только фокус в поле)
  */
 function validateFormPhone(form) {
     const el = form.querySelector('input[name="phone"]');
@@ -62,9 +59,6 @@ function validateFormPhone(form) {
         return true;
     }
     if (!isValidRuMobilePhone(el.value)) {
-        if (typeof window.showNotification === 'function') {
-            window.showNotification(PHONE_INCOMPLETE_TEXT, 'error');
-        }
         el.focus();
         return false;
     }
@@ -577,6 +571,10 @@ function openModal(modal) {
     modal.classList.add('show');
     document.body.style.overflow = 'hidden';
 
+    if (typeof refreshPhoneFieldMeta === 'function') {
+        refreshPhoneFieldMeta();
+    }
+
     // Фокус на первое поле ввода
     const firstInput = modal.querySelector('input:not([type="hidden"])');
     if (firstInput) {
@@ -903,52 +901,85 @@ function isPhoneMaskTarget(el) {
     return el.getAttribute('name') === 'phone' && (el.type === 'text' || el.type === '');
 }
 
-// «+7 (999) 123-45-67» = 18 символов; внутри ровно 11 цифр с ведущей 7
 const PHONE_MASK_MAX_LEN = 18;
+const PHONE_MASK_PLACEHOLDER = '+7 (999) 123-45-67';
 
-// Маска +7 (___) ___-__-__, не более 11 цифр (лишние 0–6 в начале выкидываем)
-function formatPhoneInputValue(raw) {
-    let d = String(raw).replace(/\D/g, '');
-    if (d.length > 11) {
-        d = d.substring(0, 11);
-    }
-    while (d.length > 0 && d[0] !== '7' && d[0] !== '8' && d[0] !== '9') {
-        d = d.substring(1);
-    }
-    if (d.startsWith('8')) {
-        d = '7' + d.substring(1);
-    }
-    if (d.length > 0 && d[0] === '9' && d.length <= 10) {
-        d = '7' + d;
-    }
-    if (d.length > 11) {
-        d = d.substring(0, 11);
-    }
-    if (d.length === 0) {
+function normalizeRuPhoneDigits(raw) {
+    let digits = String(raw || '').replace(/\D/g, '');
+    if (!digits) {
         return '';
     }
-    if (d[0] !== '7') {
+    if (digits[0] === '8') {
+        digits = '7' + digits.slice(1);
+    } else if (digits[0] !== '7') {
+        digits = '7' + digits;
+    }
+    return digits.slice(0, 11);
+}
+
+function formatPhoneInputValue(raw) {
+    const digits = normalizeRuPhoneDigits(raw);
+    if (!digits) {
         return '';
     }
 
     let formatted = '+7';
-    if (d.length > 1) {
-        formatted += ' (' + d.substring(1, 4);
+    if (digits.length > 1) {
+        formatted += ' (' + digits.substring(1, 4);
     }
-    if (d.length > 4) {
-        formatted += ') ' + d.substring(4, 7);
+    if (digits.length > 4) {
+        formatted += ') ' + digits.substring(4, 7);
     }
-    if (d.length > 7) {
-        formatted += '-' + d.substring(7, 9);
+    if (digits.length > 7) {
+        formatted += '-' + digits.substring(7, 9);
     }
-    if (d.length > 9) {
-        formatted += '-' + d.substring(9, 11);
-    }
-    if (formatted.length > PHONE_MASK_MAX_LEN) {
-        formatted = formatted.substring(0, PHONE_MASK_MAX_LEN);
+    if (digits.length > 9) {
+        formatted += '-' + digits.substring(9, 11);
     }
     return formatted;
 }
+
+function getRuPhone11Digits(value) {
+    const digits = normalizeRuPhoneDigits(value);
+    return digits.length === 11 && digits[0] === '7' ? digits : null;
+}
+
+function isValidRuMobilePhone(value) {
+    return getRuPhone11Digits(value) !== null;
+}
+
+function formatRuPhoneForStorage(value) {
+    const d = getRuPhone11Digits(value);
+    if (!d) {
+        return '';
+    }
+    return `+7 (${d.slice(1, 4)}) ${d.slice(4, 7)}-${d.slice(7, 9)}-${d.slice(9, 11)}`;
+}
+window.formatRuPhoneForStorage = formatRuPhoneForStorage;
+
+/**
+ * @returns {boolean} false, если в форме есть phone и он неполный/некорректный
+ */
+function validateFormPhone(form) {
+    const el = form.querySelector('input[name="phone"]');
+    if (!el) {
+        return true;
+    }
+    if (!isValidRuMobilePhone(el.value)) {
+        el.setCustomValidity('Введите полный номер: +7 (999) 123-45-67');
+        if (typeof el.reportValidity === 'function') {
+            el.reportValidity();
+        }
+        el.focus();
+        return false;
+    }
+    el.setCustomValidity('');
+    return true;
+}
+
+window.isValidRuMobilePhone = isValidRuMobilePhone;
+window.getRuPhone11Digits = getRuPhone11Digits;
+window.validateFormPhone = validateFormPhone;
 
 let _phoneMaskDelegationInit = false;
 
@@ -957,7 +988,7 @@ function ensurePhoneInputMeta(t) {
         return;
     }
     if (!t.placeholder) {
-        t.placeholder = '+7 (999) 123-45-67';
+        t.placeholder = PHONE_MASK_PLACEHOLDER;
     }
     t.setAttribute('inputmode', 'tel');
     t.setAttribute('autocomplete', 'tel');
@@ -968,16 +999,13 @@ function ensurePhoneInputMeta(t) {
     }
 }
 
-/**
- * Делегирование на document — маска не слетает после cloneNode() (вентиляция и др.).
- */
 function initPhoneFormatting() {
-    document.querySelectorAll('input[type="tel"], input[name="phone"]').forEach(ensurePhoneInputMeta);
-
     if (_phoneMaskDelegationInit) {
         return;
     }
     _phoneMaskDelegationInit = true;
+
+    document.querySelectorAll('input[type="tel"], input[name="phone"]').forEach(ensurePhoneInputMeta);
 
     const applyPhoneMask = (t) => {
         ensurePhoneInputMeta(t);
@@ -985,6 +1013,7 @@ function initPhoneFormatting() {
         if (t.value !== next) {
             t.value = next;
         }
+        t.setCustomValidity('');
         try {
             t.setSelectionRange(t.value.length, t.value.length);
         } catch (err) {
@@ -1029,6 +1058,7 @@ function initPhoneFormatting() {
             const paste = (e.clipboardData || window.clipboardData).getData('text');
             ensurePhoneInputMeta(t);
             t.value = formatPhoneInputValue(paste);
+            t.setCustomValidity('');
         },
         true
     );
