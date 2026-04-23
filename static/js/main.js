@@ -755,54 +755,110 @@ function initSmoothScroll() {
 
 // Форматирование телефонных номеров
 function initPhoneFormatting() {
-    const phoneInputs = document.querySelectorAll('input[type="tel"]:not(#quotePhone)');
+    function onPhoneInput(e) {
+        if (e.target.tagName === 'INPUT' && (e.target.type === 'tel' || e.target.name === 'phone')) {
+            let input = e.target;
+            let val = input.value.replace(/\D/g, '');
 
-    phoneInputs.forEach(input => {
-        input.addEventListener('input', function (e) {
-            let value = e.target.value.replace(/\D/g, '');
-
-            if (value.startsWith('8')) {
-                value = '7' + value.substring(1);
+            if (val.length > 0 && (val[0] === '7' || val[0] === '8')) {
+                val = val.substring(1);
             }
 
-            if (value.startsWith('7') && value.length <= 11) {
-                let formatted = '+7';
-                if (value.length > 1) {
-                    formatted += ' (' + value.substring(1, 4);
-                }
-                if (value.length > 4) {
-                    formatted += ') ' + value.substring(4, 7);
-                }
-                if (value.length > 7) {
-                    formatted += '-' + value.substring(7, 9);
-                }
-                if (value.length > 9) {
-                    formatted += '-' + value.substring(9, 11);
-                }
-
-                e.target.value = formatted;
+            if (val.length > 10) {
+                val = val.substring(0, 10);
             }
-        });
 
-        input.addEventListener('keydown', function (e) {
-            // Разрешаем: backspace, delete, tab, escape, enter
+            let formatted = '';
+            if (val.length > 0 || input.value.includes('7') || input.value.includes('8') || input.value === '+') {
+                formatted = '+7 (';
+                if (val.length > 0) {
+                    formatted += val.substring(0, 3);
+                }
+                if (val.length >= 4) {
+                    formatted += ') ' + val.substring(3, 6);
+                }
+                if (val.length >= 7) {
+                    formatted += '-' + val.substring(6, 8);
+                }
+                if (val.length >= 9) {
+                    formatted += '-' + val.substring(8, 10);
+                }
+            }
+
+            input.value = formatted;
+        }
+    }
+
+    function onPhoneKeyDown(e) {
+        if (e.target.tagName === 'INPUT' && (e.target.type === 'tel' || e.target.name === 'phone')) {
+            const input = e.target;
+            if (e.keyCode === 8 && input.value.length <= 4) {
+                input.value = '';
+                e.preventDefault();
+                return;
+            }
             if ([8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                // Разрешаем: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
                 (e.keyCode === 65 && e.ctrlKey) ||
                 (e.keyCode === 67 && e.ctrlKey) ||
                 (e.keyCode === 86 && e.ctrlKey) ||
                 (e.keyCode === 88 && e.ctrlKey) ||
-                // Разрешаем: стрелки
                 (e.keyCode >= 35 && e.keyCode <= 40)) {
                 return;
             }
-
-            // Запрещаем все, кроме цифр
             if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
                 e.preventDefault();
             }
+        }
+    }
+
+    function onPhoneFocus(e) {
+        if (e.target.tagName === 'INPUT' && (e.target.type === 'tel' || e.target.name === 'phone')) {
+            if (!e.target.value) {
+                e.target.value = '+7 (';
+            }
+            e.target.style.borderColor = '';
+        }
+    }
+
+    function onPhoneBlur(e) {
+        if (e.target.tagName === 'INPUT' && (e.target.type === 'tel' || e.target.name === 'phone')) {
+            if (e.target.value === '+7 (' || e.target.value.replace(/\D/g, '') === '7') {
+                e.target.value = '';
+            }
+        }
+    }
+
+    document.addEventListener('input', onPhoneInput);
+    document.addEventListener('keydown', onPhoneKeyDown);
+    document.addEventListener('focus', onPhoneFocus, true);
+    document.addEventListener('blur', onPhoneBlur, true);
+
+    document.addEventListener('submit', function(e) {
+        const form = e.target;
+        const phoneInputs = form.querySelectorAll('input[type="tel"], input[name="phone"]');
+        let hasInvalidPhone = false;
+
+        phoneInputs.forEach(input => {
+            if (!input.required && input.value === '') return;
+            const digits = input.value.replace(/\D/g, '');
+            if (digits.length !== 11 || digits[0] !== '7') {
+                hasInvalidPhone = true;
+                input.style.borderColor = '#ef4444';
+            } else {
+                input.style.borderColor = '';
+            }
         });
-    });
+
+        if (hasInvalidPhone) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            if (typeof showNotification === 'function') {
+                showNotification('Пожалуйста, введите номер телефона полностью (11 цифр)', 'error');
+            } else {
+                alert('Пожалуйста, введите номер телефона полностью (11 цифр)');
+            }
+        }
+    }, true);
 }
 
 // Параллакс эффекты
