@@ -636,7 +636,7 @@ function initPageLoadAnimation() {
     });
 }
 
-function handleFormSubmit(form, successMessage, errorMessage) {
+function handleFormSubmit(form, successMessage, errorMessage, metrikaGoal) {
     console.log(' handleFormSubmit called for form:', form);
     const formData = new FormData(form);
     
@@ -667,6 +667,9 @@ function handleFormSubmit(form, successMessage, errorMessage) {
     })
     .then(data => {
         if (data.success) {
+            if (metrikaGoal && typeof window.ymReachGoal === 'function') {
+                window.ymReachGoal(metrikaGoal);
+            }
             showNotification(successMessage, 'success');
             form.reset();
             if (form.closest('.modal').id === 'applicationModal') {
@@ -805,7 +808,7 @@ function initForms() {
             e.preventDefault();
             e.stopPropagation();
             console.log(' Default action prevented');
-            handleFormSubmit(this, 'Заявка успешно отправлена!', 'Ошибка при отправке заявки: ');
+            handleFormSubmit(this, 'Заявка успешно отправлена!', 'Ошибка при отправке заявки: ', 'ventilation_application');
             return false;
         });
         
@@ -850,7 +853,7 @@ function initForms() {
             e.preventDefault();
             e.stopPropagation();
             console.log(' Default action prevented');
-            handleFormSubmit(this, 'Запрос на обратный звонок отправлен!', 'Ошибка при отправке запроса: ');
+            handleFormSubmit(this, 'Запрос на обратный звонок отправлен!', 'Ошибка при отправке запроса: ', 'ventilation_callback');
             return false;
         });
         

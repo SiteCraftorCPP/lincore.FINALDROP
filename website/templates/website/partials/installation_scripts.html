@@ -303,6 +303,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    if (typeof window.ymReachGoal === 'function') {
+                        window.ymReachGoal('installation_application');
+                    }
                     showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
                     closeApplicationModal();
                     this.reset();
@@ -336,6 +339,9 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
+                    if (typeof window.ymReachGoal === 'function') {
+                        window.ymReachGoal('installation_callback');
+                    }
                     showNotification('Запрос на звонок отправлен! Мы перезвоним в течение 15 минут.', 'success');
                     closeCallbackModal();
                     this.reset();

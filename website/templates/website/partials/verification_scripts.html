@@ -191,6 +191,9 @@ document.getElementById('applicationForm').addEventListener('submit', function(e
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            if (typeof window.ymReachGoal === 'function') {
+                window.ymReachGoal('verification_application');
+            }
             alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
             closeApplicationModal();
             this.reset();
@@ -222,6 +225,9 @@ document.getElementById('callbackForm').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            if (typeof window.ymReachGoal === 'function') {
+                window.ymReachGoal('verification_callback');
+            }
             alert('Заявка на звонок успешно отправлена! Наш специалист свяжется с вами в ближайшее время.');
             closeCallbackModal();
             this.reset();

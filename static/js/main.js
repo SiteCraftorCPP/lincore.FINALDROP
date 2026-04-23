@@ -9,6 +9,7 @@ function ymReachGoal(goalName) {
         console.warn('ym reachGoal', err);
     }
 }
+window.ymReachGoal = ymReachGoal;
 
 document.addEventListener('DOMContentLoaded', function () {
     // ПРИНУДИТЕЛЬНО УСТАНАВЛИВАЕМ БЕЛЫЙ ЦВЕТ ДЛЯ СТАТИСТИКИ

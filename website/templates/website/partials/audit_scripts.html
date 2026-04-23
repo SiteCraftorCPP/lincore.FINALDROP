@@ -834,6 +834,9 @@ document.getElementById('quoteForm').addEventListener('submit', function(e) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            if (typeof window.ymReachGoal === 'function') {
+                window.ymReachGoal('audit_quote');
+            }
             alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
             closeQuoteModal();
             this.reset();

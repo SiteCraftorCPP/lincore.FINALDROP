@@ -2979,6 +2979,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
+                if (typeof window.ymReachGoal === 'function') {
+                    window.ymReachGoal(type === 'application' ? 'complex_service_application' : 'complex_service_callback');
+                }
                 alert('Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
                 form.reset();
                 if (type === 'application') {

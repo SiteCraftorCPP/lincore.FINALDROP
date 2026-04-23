@@ -47,6 +47,9 @@ function submitQuoteForm(event) {
     })
     .then(data => {
         if (data.success) {
+            if (typeof window.ymReachGoal === 'function') {
+                window.ymReachGoal('heating_preparation_quote');
+            }
             showNotification('Запрос на коммерческое предложение отправлен!', 'success');
             closeQuoteModal();
             form.reset();

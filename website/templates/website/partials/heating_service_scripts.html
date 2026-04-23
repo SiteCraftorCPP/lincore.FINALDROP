@@ -240,6 +240,9 @@ function submitForm(formId, type) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
+            if (typeof window.ymReachGoal === 'function') {
+                window.ymReachGoal(type === 'application' ? 'heating_service_application' : 'heating_service_callback');
+            }
             alert('Заявка успешно отправлена!');
             if (type === 'application') {
                 closeApplicationModal();
