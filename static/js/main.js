@@ -19,17 +19,20 @@ const PHONE_INCOMPLETE_TEXT =
  */
 function getRuPhone11Digits(value) {
     let d = String(value || '').replace(/\D/g, '');
-    if (d.length === 0) {
-        return null;
+    if (d.length > 11) {
+        d = d.slice(0, 11);
+    }
+    while (d.length > 0 && d[0] !== '7' && d[0] !== '8' && d[0] !== '9') {
+        d = d.substring(1);
     }
     if (d[0] === '8') {
-        d = '7' + d.slice(1);
+        d = '7' + d.substring(1);
     }
-    if (d.length === 10 && d[0] === '9') {
+    if (d.length > 0 && d[0] === '9' && d.length <= 10) {
         d = '7' + d;
     }
     if (d.length > 11) {
-        d = d.slice(0, 11);
+        d = d.substring(0, 11);
     }
     if (d.length === 11 && d[0] === '7') {
         return d;
@@ -900,13 +903,22 @@ function isPhoneMaskTarget(el) {
     return el.getAttribute('name') === 'phone' && (el.type === 'text' || el.type === '');
 }
 
-// Маска +7 (___) ___-__-__, не более 11 цифр
+// «+7 (999) 123-45-67» = 18 символов; внутри ровно 11 цифр с ведущей 7
+const PHONE_MASK_MAX_LEN = 18;
+
+// Маска +7 (___) ___-__-__, не более 11 цифр (лишние 0–6 в начале выкидываем)
 function formatPhoneInputValue(raw) {
     let d = String(raw).replace(/\D/g, '');
+    if (d.length > 11) {
+        d = d.substring(0, 11);
+    }
+    while (d.length > 0 && d[0] !== '7' && d[0] !== '8' && d[0] !== '9') {
+        d = d.substring(1);
+    }
     if (d.startsWith('8')) {
         d = '7' + d.substring(1);
     }
-    if (d.length && d[0] === '9' && d.length <= 10) {
+    if (d.length > 0 && d[0] === '9' && d.length <= 10) {
         d = '7' + d;
     }
     if (d.length > 11) {
@@ -916,7 +928,7 @@ function formatPhoneInputValue(raw) {
         return '';
     }
     if (d[0] !== '7') {
-        return d[0] === '9' ? formatPhoneInputValue('7' + d) : '+7';
+        return '';
     }
 
     let formatted = '+7';
@@ -932,6 +944,9 @@ function formatPhoneInputValue(raw) {
     if (d.length > 9) {
         formatted += '-' + d.substring(9, 11);
     }
+    if (formatted.length > PHONE_MASK_MAX_LEN) {
+        formatted = formatted.substring(0, PHONE_MASK_MAX_LEN);
+    }
     return formatted;
 }
 
@@ -946,6 +961,8 @@ function ensurePhoneInputMeta(t) {
     }
     t.setAttribute('inputmode', 'tel');
     t.setAttribute('autocomplete', 'tel');
+    t.setAttribute('maxlength', String(PHONE_MASK_MAX_LEN));
+    t.maxLength = PHONE_MASK_MAX_LEN;
     if (t.type !== 'tel' && t.getAttribute('name') === 'phone') {
         t.setAttribute('type', 'tel');
     }
@@ -962,6 +979,19 @@ function initPhoneFormatting() {
     }
     _phoneMaskDelegationInit = true;
 
+    const applyPhoneMask = (t) => {
+        ensurePhoneInputMeta(t);
+        const next = formatPhoneInputValue(t.value);
+        if (t.value !== next) {
+            t.value = next;
+        }
+        try {
+            t.setSelectionRange(t.value.length, t.value.length);
+        } catch (err) {
+            /* ignore */
+        }
+    };
+
     document.addEventListener(
         'input',
         (e) => {
@@ -969,12 +999,20 @@ function initPhoneFormatting() {
             if (!isPhoneMaskTarget(t)) {
                 return;
             }
-            ensurePhoneInputMeta(t);
-            t.value = formatPhoneInputValue(t.value);
-            try {
-                t.setSelectionRange(t.value.length, t.value.length);
-            } catch (err) {
-                /* ignore */
+            applyPhoneMask(t);
+        },
+        true
+    );
+
+    document.addEventListener(
+        'beforeinput',
+        (e) => {
+            const t = e.target;
+            if (!isPhoneMaskTarget(t) || e.defaultPrevented) {
+                return;
+            }
+            if (e.data != null && e.data.length && /\D/.test(e.data) && e.inputType && e.inputType.indexOf('insert') === 0) {
+                e.preventDefault();
             }
         },
         true
@@ -1013,6 +1051,15 @@ function initPhoneFormatting() {
                 return;
             }
             if ((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+                return;
+            }
+            if (
+                t.value.length >= PHONE_MASK_MAX_LEN &&
+                (e.key >= '0' && e.key <= '9') &&
+                t.selectionStart === t.selectionEnd &&
+                t.selectionStart === t.value.length
+            ) {
                 e.preventDefault();
             }
         },
