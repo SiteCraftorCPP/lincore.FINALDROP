@@ -1,5 +1,15 @@
 // 🚀 СОВРЕМЕННЫЙ JavaScript ДЛЯ УЛЬТРА-СТИЛЬНОГО САЙТА
 
+const YM_COUNTER_ID = 108701111;
+function ymReachGoal(goalName) {
+    if (typeof ym !== 'function') return;
+    try {
+        ym(YM_COUNTER_ID, 'reachGoal', goalName);
+    } catch (err) {
+        console.warn('ym reachGoal', err);
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     // ПРИНУДИТЕЛЬНО УСТАНАВЛИВАЕМ БЕЛЫЙ ЦВЕТ ДЛЯ СТАТИСТИКИ
     setTimeout(() => {
@@ -568,6 +578,7 @@ async function handleTenderSubmit(e) {
         const data = await response.json();
 
         if (data.success) {
+            ymReachGoal('tender_form');
             showNotification(data.message, 'success');
             closeModal(document.getElementById('tenderModal'));
         } else {
@@ -615,6 +626,7 @@ async function handleServiceSubmit(e) {
         const result = await response.json();
 
         if (result.success) {
+            ymReachGoal('service_form');
             showNotification(result.message, 'success');
             closeModal(document.getElementById('serviceModal'));
         } else {
@@ -963,6 +975,7 @@ function initModernFeatures() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
+                        ymReachGoal('call_form');
                         showNotification('Заявка отправлена! Мы свяжемся с вами в ближайшее время.', 'success');
                         closeModal(document.getElementById('callModal'));
                         callForm.reset();
