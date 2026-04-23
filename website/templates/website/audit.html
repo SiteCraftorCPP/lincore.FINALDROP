@@ -747,7 +747,7 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="quotePhone">Телефон *</label>
-                <input type="tel" id="quotePhone" name="phone" required>
+                {% include 'website/partials/phone_mask_fields.html' with base_id='quotePhone' %}
             </div>
             <div class="form-group">
                 <label for="quoteOrganization">Название организации *</label>

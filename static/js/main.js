@@ -50,14 +50,48 @@ function formatRuPhoneForStorage(value) {
 }
 window.formatRuPhoneForStorage = formatRuPhoneForStorage;
 
+function composeRuPhoneFromMask(root) {
+    if (!root) return '';
+    const area = (root.querySelector('[data-phone-part="area"]')?.value || '').trim();
+    const prefix = (root.querySelector('[data-phone-part="prefix"]')?.value || '').trim();
+    const line1 = (root.querySelector('[data-phone-part="line1"]')?.value || '').trim();
+    const line2 = (root.querySelector('[data-phone-part="line2"]')?.value || '').trim();
+    if (!area && !prefix && !line1 && !line2) return '';
+    return `+7 (${area}) ${prefix}-${line1}-${line2}`;
+}
+
+function syncRuPhoneHiddenField(form) {
+    if (!form) return;
+    const root = form.querySelector('[data-phone-mask="ru"]');
+    if (!root) return;
+    const hidden = root.querySelector('input[type="hidden"][name="phone"]');
+    if (!hidden) return;
+    hidden.value = composeRuPhoneFromMask(root);
+}
+
 /**
- * @returns {boolean} false, если в форме есть phone и он неполный/некорректный (без тоста — только фокус в поле)
+ * @returns {boolean} false, если форма не проходит HTML-валидацию телефона
  */
 function validateFormPhone(form) {
-    const el = form.querySelector('input[name="phone"]');
-    if (!el) {
-        return true;
+    if (!form) return true;
+
+    // Если используется “железная” маска из 4 полей — склеиваем в скрытое поле phone
+    syncRuPhoneHiddenField(form);
+
+    // Важно: почти все формы отправляются через JS (preventDefault), поэтому проверяем HTML5-валидность вручную
+    if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+        if (typeof form.reportValidity === 'function') {
+            form.reportValidity();
+        }
+        const firstInvalid = form.querySelector(':invalid');
+        if (firstInvalid && typeof firstInvalid.focus === 'function') {
+            firstInvalid.focus();
+        }
+        return false;
     }
+
+    const el = form.querySelector('input[name="phone"]');
+    if (!el) return true;
     if (!isValidRuMobilePhone(el.value)) {
         el.focus();
         return false;
@@ -901,205 +935,80 @@ function isPhoneMaskTarget(el) {
     return el.getAttribute('name') === 'phone' && (el.type === 'text' || el.type === '');
 }
 
-const PHONE_MASK_MAX_LEN = 18;
-const PHONE_MASK_PLACEHOLDER = '+7 (999) 123-45-67';
+let _ruPhonePartsInit = false;
 
-function normalizeRuPhoneDigits(raw) {
-    let digits = String(raw || '').replace(/\D/g, '');
-    if (!digits) {
-        return '';
-    }
-    if (digits[0] === '8') {
-        digits = '7' + digits.slice(1);
-    } else if (digits[0] !== '7') {
-        digits = '7' + digits;
-    }
-    return digits.slice(0, 11);
+function isRuPhonePart(el) {
+    return !!(el && el.nodeName === 'INPUT' && el.getAttribute('data-phone-part'));
 }
 
-function formatPhoneInputValue(raw) {
-    const digits = normalizeRuPhoneDigits(raw);
-    if (!digits) {
-        return '';
-    }
-
-    let formatted = '+7';
-    if (digits.length > 1) {
-        formatted += ' (' + digits.substring(1, 4);
-    }
-    if (digits.length > 4) {
-        formatted += ') ' + digits.substring(4, 7);
-    }
-    if (digits.length > 7) {
-        formatted += '-' + digits.substring(7, 9);
-    }
-    if (digits.length > 9) {
-        formatted += '-' + digits.substring(9, 11);
-    }
-    return formatted;
+function getNextPhonePart(partEl) {
+    const root = partEl?.closest?.('[data-phone-mask="ru"]');
+    if (!root) return null;
+    const order = ['area', 'prefix', 'line1', 'line2'];
+    const cur = partEl.getAttribute('data-phone-part');
+    const idx = order.indexOf(cur);
+    if (idx < 0) return null;
+    const nextKey = order[idx + 1];
+    if (!nextKey) return null;
+    return root.querySelector(`[data-phone-part="${nextKey}"]`);
 }
 
-function getRuPhone11Digits(value) {
-    const digits = normalizeRuPhoneDigits(value);
-    return digits.length === 11 && digits[0] === '7' ? digits : null;
-}
-
-function isValidRuMobilePhone(value) {
-    return getRuPhone11Digits(value) !== null;
-}
-
-function formatRuPhoneForStorage(value) {
-    const d = getRuPhone11Digits(value);
-    if (!d) {
-        return '';
-    }
-    return `+7 (${d.slice(1, 4)}) ${d.slice(4, 7)}-${d.slice(7, 9)}-${d.slice(9, 11)}`;
-}
-window.formatRuPhoneForStorage = formatRuPhoneForStorage;
-
-/**
- * @returns {boolean} false, если в форме есть phone и он неполный/некорректный
- */
-function validateFormPhone(form) {
-    const el = form.querySelector('input[name="phone"]');
-    if (!el) {
-        return true;
-    }
-    if (!isValidRuMobilePhone(el.value)) {
-        el.setCustomValidity('Введите полный номер: +7 (999) 123-45-67');
-        if (typeof el.reportValidity === 'function') {
-            el.reportValidity();
-        }
-        el.focus();
-        return false;
-    }
-    el.setCustomValidity('');
-    return true;
-}
-
-window.isValidRuMobilePhone = isValidRuMobilePhone;
-window.getRuPhone11Digits = getRuPhone11Digits;
-window.validateFormPhone = validateFormPhone;
-
-let _phoneMaskDelegationInit = false;
-
-function ensurePhoneInputMeta(t) {
-    if (!isPhoneMaskTarget(t)) {
-        return;
-    }
-    if (!t.placeholder) {
-        t.placeholder = PHONE_MASK_PLACEHOLDER;
-    }
-    t.setAttribute('inputmode', 'tel');
-    t.setAttribute('autocomplete', 'tel');
-    t.setAttribute('maxlength', String(PHONE_MASK_MAX_LEN));
-    t.maxLength = PHONE_MASK_MAX_LEN;
-    if (t.type !== 'tel' && t.getAttribute('name') === 'phone') {
-        t.setAttribute('type', 'tel');
-    }
+function syncRuPhoneHiddenFieldFromRoot(root) {
+    if (!root) return;
+    const hidden = root.querySelector('input[type="hidden"][name="phone"]');
+    if (!hidden) return;
+    hidden.value = composeRuPhoneFromMask(root);
 }
 
 function initPhoneFormatting() {
-    if (_phoneMaskDelegationInit) {
-        return;
-    }
-    _phoneMaskDelegationInit = true;
+    if (_ruPhonePartsInit) return;
+    _ruPhonePartsInit = true;
 
-    document.querySelectorAll('input[type="tel"], input[name="phone"]').forEach(ensurePhoneInputMeta);
+    // На старте — заполнить скрытые поля (на случай автозаполнения браузером)
+    document.querySelectorAll('[data-phone-mask="ru"]').forEach(syncRuPhoneHiddenFieldFromRoot);
 
-    const applyPhoneMask = (t) => {
-        ensurePhoneInputMeta(t);
-        const next = formatPhoneInputValue(t.value);
-        if (t.value !== next) {
-            t.value = next;
-        }
-        t.setCustomValidity('');
-        try {
-            t.setSelectionRange(t.value.length, t.value.length);
-        } catch (err) {
-            /* ignore */
-        }
-    };
-
+    // Жёстко: только цифры внутри частей + авто-переход
     document.addEventListener(
         'input',
         (e) => {
             const t = e.target;
-            if (!isPhoneMaskTarget(t)) {
-                return;
+            if (!isRuPhonePart(t)) return;
+
+            const max = parseInt(t.getAttribute('maxlength') || '0', 10);
+            const next = String(t.value || '').replace(/\D/g, '');
+            if (t.value !== next) {
+                t.value = next;
             }
-            applyPhoneMask(t);
+            if (max > 0 && t.value.length > max) {
+                t.value = t.value.slice(0, max);
+            }
+
+            const root = t.closest('[data-phone-mask="ru"]');
+            syncRuPhoneHiddenFieldFromRoot(root);
+
+            if (max > 0 && t.value.length === max) {
+                const nextPart = getNextPhonePart(t);
+                if (nextPart) nextPart.focus();
+            }
         },
         true
     );
 
     document.addEventListener(
-        'beforeinput',
+        'blur',
         (e) => {
             const t = e.target;
-            if (!isPhoneMaskTarget(t) || e.defaultPrevented) {
-                return;
-            }
-            if (e.data != null && e.data.length && /\D/.test(e.data) && e.inputType && e.inputType.indexOf('insert') === 0) {
-                e.preventDefault();
-            }
-        },
-        true
-    );
-
-    document.addEventListener(
-        'paste',
-        (e) => {
-            const t = e.target;
-            if (!isPhoneMaskTarget(t)) {
-                return;
-            }
-            e.preventDefault();
-            const paste = (e.clipboardData || window.clipboardData).getData('text');
-            ensurePhoneInputMeta(t);
-            t.value = formatPhoneInputValue(paste);
-            t.setCustomValidity('');
-        },
-        true
-    );
-
-    document.addEventListener(
-        'keydown',
-        (e) => {
-            const t = e.target;
-            if (!isPhoneMaskTarget(t)) {
-                return;
-            }
-            if (
-                [8, 9, 27, 13, 46].indexOf(e.keyCode) !== -1 ||
-                (e.keyCode === 65 && e.ctrlKey) ||
-                (e.keyCode === 67 && e.ctrlKey) ||
-                (e.keyCode === 86 && e.ctrlKey) ||
-                (e.keyCode === 88 && e.ctrlKey) ||
-                (e.keyCode >= 35 && e.keyCode <= 40)
-            ) {
-                return;
-            }
-            if ((e.keyCode < 48 || e.keyCode > 57) && (e.keyCode < 96 || e.keyCode > 105)) {
-                e.preventDefault();
-                return;
-            }
-            if (
-                t.value.length >= PHONE_MASK_MAX_LEN &&
-                (e.key >= '0' && e.key <= '9') &&
-                t.selectionStart === t.selectionEnd &&
-                t.selectionStart === t.value.length
-            ) {
-                e.preventDefault();
-            }
+            if (!isRuPhonePart(t)) return;
+            const root = t.closest('[data-phone-mask="ru"]');
+            syncRuPhoneHiddenFieldFromRoot(root);
         },
         true
     );
 }
 
-/** После динамической подмены форм (clone) — проставить meta на новых input */
 function refreshPhoneFieldMeta() {
-    document.querySelectorAll('input[type="tel"], input[name="phone"]').forEach(ensurePhoneInputMeta);
+    // Для новых динамических форм: просто синхронизируем скрытые phone
+    document.querySelectorAll('[data-phone-mask="ru"]').forEach(syncRuPhoneHiddenFieldFromRoot);
 }
 window.refreshPhoneFieldMeta = refreshPhoneFieldMeta;
 

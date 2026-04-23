@@ -340,7 +340,8 @@
             <form class="modal-form" id="applicationForm">
                 {% csrf_token %}
                 <div class="form-group">
-                    <input type="tel" name="phone" placeholder="Телефон" required>
+                    <label for="emergencyApplicationPhone">Телефон *</label>
+                    {% include 'website/partials/phone_mask_fields.html' with base_id='emergencyApplicationPhone' %}
                 </div>
                 <input type="hidden" name="service_type" value="emergency_service">
                 {% include 'website/partials/form_privacy_consent.html' with consent_id='consent_emergency_application' %}
@@ -366,7 +367,7 @@
             <p class="callback-modal-hours">Часы работы: Пн–Пт 8:00–18:00</p>
             <div class="form-group">
                 <label for="callbackPhone">Телефон *</label>
-                <input type="tel" id="callbackPhone" name="phone" required placeholder="+7 (999) 123-45-67" autocomplete="tel">
+                {% include 'website/partials/phone_mask_fields.html' with base_id='callbackPhone' %}
             </div>
             <input type="hidden" name="service_type" value="emergency_service">
             <p class="callback-modal-note">В будни обычно перезваниваем в течение 30 минут. В нерабочее время — на следующий рабочий день.</p>

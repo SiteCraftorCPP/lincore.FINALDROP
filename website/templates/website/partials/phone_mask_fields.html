@@ -1,0 +1,60 @@
+{# Reusable RU phone mask fields: +7 (___) ___-__-__ #}
+{# Usage: {% include 'website/partials/phone_mask_fields.html' with base_id='callPhone' %} #}
+<div class="phone-mask" data-phone-mask="ru">
+    <span class="phone-mask__prefix">+7 (</span>
+    <input
+        type="text"
+        inputmode="numeric"
+        pattern="\d{3}"
+        maxlength="3"
+        minlength="3"
+        class="phone-mask__part"
+        data-phone-part="area"
+        aria-label="Код (3 цифры)"
+        required
+        id="{{ base_id }}_area"
+    />
+    <span class="phone-mask__prefix">)</span>
+    <span class="phone-mask__space"> </span>
+    <input
+        type="text"
+        inputmode="numeric"
+        pattern="\d{3}"
+        maxlength="3"
+        minlength="3"
+        class="phone-mask__part"
+        data-phone-part="prefix"
+        aria-label="Первые 3 цифры"
+        required
+        id="{{ base_id }}_prefix"
+    />
+    <span class="phone-mask__prefix">-</span>
+    <input
+        type="text"
+        inputmode="numeric"
+        pattern="\d{2}"
+        maxlength="2"
+        minlength="2"
+        class="phone-mask__part"
+        data-phone-part="line1"
+        aria-label="Следующие 2 цифры"
+        required
+        id="{{ base_id }}_line1"
+    />
+    <span class="phone-mask__prefix">-</span>
+    <input
+        type="text"
+        inputmode="numeric"
+        pattern="\d{2}"
+        maxlength="2"
+        minlength="2"
+        class="phone-mask__part"
+        data-phone-part="line2"
+        aria-label="Последние 2 цифры"
+        required
+        id="{{ base_id }}_line2"
+    />
+    {# Hidden unified field for scripts/server; filled by JS before submit #}
+    <input type="hidden" name="phone" id="{{ base_id }}" />
+</div>
+
