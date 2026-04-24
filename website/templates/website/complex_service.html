@@ -46,11 +46,7 @@
                 </div>
 
                 <div class="hero-actions" data-aos="fade-up" data-aos-delay="500">
-                    <button class="btn-modern btn-primary" onclick="openApplicationModal()">
-                        <span class="btn-text">Оставить заявку</span>
-                        <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='clipboard-list' w=20 h=20 %}</span>
-                    </button>
-                    <button class="btn-modern btn-secondary" onclick="openCallbackModal()">
+                    <button class="btn-modern btn-primary" onclick="openCallbackModal()">
                         <span class="btn-text">Заказать звонок специалиста</span>
                         <span class="btn-icon">{% include 'website/partials/ui_icon.html' with name='phone' w=20 h=20 %}</span>
                     </button>
@@ -2850,7 +2846,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.location.href = '/#contacts';
             } else if (buttonText.includes('стоимость')) {
                 // You can add a modal or redirect to a price calculator
-                alert('Функция расчета стоимости будет доступна в ближайшее время. Пожалуйста, свяжитесь с нами для получения расчета.');
+                showNotification('Функция расчета стоимости будет доступна в ближайшее время. Пожалуйста, свяжитесь с нами для получения расчета.', 'info');
             } else {
                 // Default action - go to contacts
                 window.location.href = '/#contacts';
